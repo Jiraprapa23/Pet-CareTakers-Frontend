@@ -1,0 +1,152 @@
+.aj-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.aj-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #3d2b1f;
+}
+
+.aj-count {
+  font-size: 13px;
+  background: #f5f0ed;
+  color: #8D6E63;
+  padding: 3px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.aj-loading, .aj-empty {
+  text-align: center;
+  padding: 60px 20px;
+  background: #fff;
+  border: 1px solid #e0d6d0;
+  border-radius: 16px;
+  color: #5D3A2E;
+}
+
+.aj-empty p { font-size: 16px; font-weight: 600; }
+
+.aj-action-btn {
+  padding: 10px 20px;
+  background: #8D6E63;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Sarabun', sans-serif;
+}
+
+.aj-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.aj-card {
+  background: #fff;
+  border: 1px solid #e8ddd6;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(141,110,99,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.aj-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(141,110,99,0.15);
+}
+
+.aj-card-img {
+  width: 100%;
+  height: 160px;
+  background: #f5f0ed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60px;
+  overflow: hidden;
+}
+
+.aj-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.aj-card-body { padding: 12px 14px; }
+
+.aj-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.aj-pet-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #3d2b1f;
+}
+
+.aj-status {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.aj-info-row {
+  font-size: 12px;
+  color: #3d2b1f;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.aj-lbl { color: #8D6E63; font-weight: 600; }
+
+.aj-hint {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 8px;
+  margin: 8px 0;
+}
+
+.aj-hint.orange {
+  background: #fef9ee;
+  color: #b45309;
+  border: 0.5px solid #fde68a;
+}
+
+.aj-hint.green {
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 0.5px solid #bbf7d0;
+}
+
+.aj-detail-btn {
+  width: 100%;
+  padding: 9px;
+  background: #8D6E63;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Sarabun', sans-serif;
+  margin-top: 8px;
+  transition: background 0.15s;
+}
+
+.aj-detail-btn:hover { background: #7a5e55; }

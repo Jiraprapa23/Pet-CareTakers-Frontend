@@ -1,0 +1,307 @@
+.mypets-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.mypets-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #3d2b1f;
+}
+
+.mypets-btn-group {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-outline-brown {
+  padding: 9px 18px;
+  background: transparent;
+  border: 1px solid #8D6E63;
+  color: #8D6E63;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Sarabun', sans-serif;
+}
+
+.btn-outline-brown:hover { background: #f5f0ed; }
+
+.btn-add {
+  padding: 9px 18px;
+  background: #8D6E63;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Sarabun', sans-serif;
+}
+
+.btn-add:hover { background: #7a5e55; }
+
+/* =================== Section Labels =================== */
+.mypets-section-label {
+  font-size: 16px;
+  font-weight: 700;
+  color: #3d2b1f;
+  margin-bottom: 12px;
+}
+
+.mypets-section-label.memorial {
+  color: #8D6E63;
+}
+
+.mypets-divider {
+  border: none;
+  border-top: 1px dashed #e0d6d0;
+  margin: 4px 0 20px;
+}
+
+/* =================== Grid =================== */
+.mypets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 18px;
+}
+
+/* =================== Pet Card =================== */
+.pet-card {
+  background: #fff;
+  border: 1px solid #e8ddd6;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.pet-card:hover {
+  border-color: #b8a49a;
+  transform: translateY(-2px);
+}
+
+.pet-card.memorial {
+  opacity: 0.82;
+  background: #f9f6f4;
+}
+
+/* รูปภาพ */
+.pet-card-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+}
+
+.pet-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pet-card-img-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60px;
+}
+
+.pet-card-img-placeholder.cat { background: #EDF4FB; }
+.pet-card-img-placeholder.dog { background: #FEF3E8; }
+.pet-card-img-placeholder.default { background: #f5f0ed; }
+
+/* Overlay ชื่อ */
+.pet-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 12px;
+  background: linear-gradient(transparent, rgba(61,43,31,0.65));
+}
+
+.pet-card-name-overlay {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'Sarabun', sans-serif;
+}
+
+/* Badge ประเภท */
+.pet-type-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255,255,255,0.92);
+  color: #8D6E63;
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-family: 'Sarabun', sans-serif;
+}
+
+/* Badge อยู่ในความทรงจำ */
+.memorial-badge-card {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(141,110,99,0.85);
+  color: #fff;
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-family: 'Sarabun', sans-serif;
+}
+
+/* Body การ์ด */
+.pet-card-body {
+  padding: 12px 14px 14px;
+}
+
+.pet-card-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.pet-tag {
+  font-size: 11px;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-weight: 500;
+  font-family: 'Sarabun', sans-serif;
+}
+
+.pet-tag-breed {
+  background: #f5f0ed;
+  color: #7a5e55;
+  border: 0.5px solid #e0d6d0;
+}
+
+.pet-tag-male {
+  background: #EDF4FB;
+  color: #1d4ed8;
+  border: 0.5px solid #BFDBFE;
+}
+
+.pet-tag-female {
+  background: #FDF2F8;
+  color: #be185d;
+  border: 0.5px solid #FBCFE8;
+}
+
+.pet-card-age {
+  font-size: 12px;
+  color: #8D6E63;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.pet-card-age span {
+  color: #3d2b1f;
+  font-weight: 600;
+}
+
+.btn-detail {
+  width: 100%;
+  padding: 8px;
+  background: #8D6E63;
+  color: #fff;
+  border: none;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Sarabun', sans-serif;
+}
+
+.btn-detail:hover { background: #7a5e55; }
+
+.btn-detail.memorial {
+  background: #b8a49a;
+}
+
+.btn-detail.memorial:hover { background: #a8948a; }
+
+/* =================== Card เพิ่มสัตว์เลี้ยง =================== */
+.pet-card-add {
+  border: 2px dashed #d6c5b8;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+  cursor: pointer;
+  background: #faf7f6;
+  transition: all 0.2s;
+}
+
+.pet-card-add:hover {
+  background: #f5f0ed;
+  border-color: #b8a49a;
+}
+
+.pet-card-add-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #f0e8e2;
+  border: 1.5px solid #d6c5b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #8D6E63;
+  margin-bottom: 10px;
+  font-weight: 300;
+}
+
+.pet-card-add-text {
+  font-size: 13px;
+  color: #8D6E63;
+  font-weight: 600;
+}
+
+.pet-card-add-sub {
+  font-size: 11px;
+  color: #b8a49a;
+  margin-top: 4px;
+}
+
+/* =================== Empty State =================== */
+.mypets-empty {
+  text-align: center;
+  padding: 60px 20px;
+  background: #fff;
+  border: 1px solid #e0d6d0;
+  border-radius: 16px;
+}
+
+.mypets-empty-icon {
+  font-size: 52px;
+  margin-bottom: 12px;
+}
+
+.mypets-empty p {
+  font-size: 16px;
+  color: #5D3A2E;
+  font-weight: 600;
+}
+
+/* =================== Loading =================== */
+.mypets-loading {
+  text-align: center;
+  padding: 60px;
+  color: #8D6E63;
+  font-size: 16px;
+}

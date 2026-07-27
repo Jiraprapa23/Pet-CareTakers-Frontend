@@ -1,0 +1,208 @@
+/* Search Bar */
+.ea-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.ea-search-input-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #e0d6d0;
+  border-radius: 10px;
+  padding: 8px 12px;
+  gap: 8px;
+  min-width: 200px;
+}
+
+.ea-search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: #3d2b1f;
+  font-family: 'Sarabun', sans-serif;
+  background: transparent;
+}
+
+.ea-pin-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+.ea-near-btn {
+  padding: 10px 18px;
+  background: #8D6E63;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Sarabun', sans-serif;
+  white-space: nowrap;
+}
+
+.ea-near-btn:hover { background: #7a5e55; }
+
+.ea-type-select {
+  padding: 10px 14px;
+  background: #fff;
+  border: 1px solid #e0d6d0;
+  border-radius: 10px;
+  font-size: 13px;
+  color: #3d2b1f;
+  font-family: 'Sarabun', sans-serif;
+}
+
+/* Map */
+.ea-map-wrap {
+  background: #fff;
+  border: 1px solid #e0d6d0;
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 16px;
+}
+
+.ea-map-hint { font-size: 12px; color: #8D6E63; margin-bottom: 8px; }
+
+.ea-map-box {
+  width: 100%;
+  height: 280px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 0.5px solid #e0d6d0;
+}
+
+.ea-search-pin-btn {
+  margin-top: 10px;
+  padding: 9px 20px;
+  background: #8D6E63;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Sarabun', sans-serif;
+}
+
+/* Grid */
+.ea-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.ea-loading, .ea-empty {
+  text-align: center;
+  padding: 60px 20px;
+  background: #fff;
+  border: 1px solid #e0d6d0;
+  border-radius: 16px;
+  color: #8D6E63;
+  font-size: 15px;
+}
+
+/* Card */
+.ea-card {
+  background: #fff;
+  border: 1px solid #e8ddd6;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(141,110,99,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.ea-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(141,110,99,0.15);
+}
+
+.ea-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px 8px;
+  border-bottom: 0.5px solid #f0e8e2;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.ea-postdate { font-size: 11px; color: #aaa; }
+.ea-pet-name { font-size: 14px; font-weight: 700; color: #3d2b1f; flex: 1; text-align: center; }
+
+.ea-status-badge {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.ea-card-img-wrap {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  background: #f5f0ed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ea-card-img { width: 100%; height: 100%; object-fit: cover; }
+.ea-card-img-placeholder { font-size: 64px; }
+
+.ea-card-body {
+  padding: 12px 14px;
+  border-bottom: 0.5px solid #f0e8e2;
+}
+
+.ea-info-row {
+  font-size: 13px;
+  color: #3d2b1f;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  line-height: 1.5;
+}
+
+.ea-lbl { color: #8D6E63; font-weight: 600; }
+
+.ea-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+}
+
+.ea-location { font-size: 12px; color: #dc2626; font-weight: 500; }
+
+.ea-detail-btn {
+  padding: 8px 18px;
+  background: linear-gradient(135deg, #8D6E63, #7a5e55);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Sarabun', sans-serif;
+  box-shadow: 0 2px 6px rgba(141,110,99,0.25);
+  transition: all 0.2s;
+}
+
+.ea-detail-btn:hover {
+  box-shadow: 0 4px 10px rgba(141,110,99,0.35);
+  transform: translateY(-1px);
+}

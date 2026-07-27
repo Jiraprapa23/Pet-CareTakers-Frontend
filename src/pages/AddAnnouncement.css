@@ -1,0 +1,283 @@
+/* =================== Card หลัก =================== */
+.ann-card {
+  background: #fff;
+  border: 1px solid #e0d6d0;
+  border-radius: 16px;
+  padding: 22px;
+}
+
+.ann-page-title {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: #3d2b1f;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #e0d6d0;
+  margin-bottom: 18px;
+}
+
+/* =================== Grid 3 คอลัมน์ =================== */
+.ann-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.ann-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* =================== Section Title =================== */
+.ann-sec-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #8D6E63;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 0.5px solid #f0e8e2;
+}
+
+/* =================== Fields =================== */
+.ann-field {
+  margin-bottom: 10px;
+}
+
+.ann-field label {
+  display: block;
+  font-size: 12px;
+  color: #8D6E63;
+  font-weight: 600;
+  margin-bottom: 3px;
+  font-family: 'Sarabun', sans-serif;
+}
+
+.ann-field input,
+.ann-field select {
+  width: 100%;
+  padding: 7px 9px;
+  border: 0.5px solid #d6c5b8;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #3d2b1f;
+  background: #fff;
+  font-family: 'Sarabun', sans-serif;
+}
+
+.ann-field input:disabled {
+  background: #f5f5f5;
+  color: #999;
+}
+
+.ann-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 0;
+}
+
+.ann-hint {
+  font-size: 10px;
+  color: #aaa;
+  margin-top: 2px;
+}
+
+.ann-sublabel {
+  font-size: 10px;
+  color: #aaa;
+  font-weight: 400;
+}
+
+/* =================== Pet Preview =================== */
+.ann-pet-preview {
+  background: #faf7f6;
+  border: 1px solid #e8ddd6;
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.ann-pet-preview-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 0 auto 8px;
+  background: #f0e8e2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 42px;
+  border: 1.5px solid #e0d6d0;
+}
+
+.ann-pet-preview-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ann-pet-preview-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #8D6E63;
+  margin-bottom: 6px;
+}
+
+.ann-pet-preview-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.ann-pet-detail-btn {
+  padding: 6px 16px;
+  background: #8D6E63;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: 'Sarabun', sans-serif;
+}
+
+.ann-pet-detail-btn:hover { background: #7a5e55; }
+
+/* =================== วันที่สร้าง =================== */
+.ann-postdate {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #faf7f6;
+  border: 0.5px solid #e0d6d0;
+  border-radius: 8px;
+  margin-top: 4px;
+}
+
+.ann-postdate-label {
+  font-size: 12px;
+  color: #8D6E63;
+  font-weight: 600;
+}
+
+.ann-postdate-val {
+  font-size: 12px;
+  color: #3d2b1f;
+  font-weight: 600;
+}
+
+/* =================== Checkbox =================== */
+.ann-cb-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 4px;
+}
+
+.ann-cb-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  font-size: 13px;
+  color: #3d2b1f;
+  cursor: pointer;
+  line-height: 1.4;
+  font-family: 'Sarabun', sans-serif;
+}
+
+.ann-cb-item input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  accent-color: #8D6E63;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* =================== Sub Box =================== */
+.ann-sub-box {
+  margin-top: 6px;
+  padding: 10px 12px;
+  background: #faf7f6;
+  border: 0.5px solid #e0d6d0;
+  border-radius: 8px;
+}
+
+.ann-sub-box label {
+  display: block;
+  font-size: 12px;
+  color: #8D6E63;
+  font-weight: 600;
+  margin-bottom: 4px;
+  font-family: 'Sarabun', sans-serif;
+}
+
+.ann-sub-box input {
+  width: 100%;
+  padding: 6px 8px;
+  border: 0.5px solid #d6c5b8;
+  border-radius: 7px;
+  font-size: 13px;
+  color: #3d2b1f;
+  background: #fff;
+  font-family: 'Sarabun', sans-serif;
+}
+
+.ann-sub-box textarea {
+  width: 100%;
+  padding: 7px 8px;
+  border: 0.5px solid #d6c5b8;
+  border-radius: 7px;
+  font-size: 13px;
+  color: #3d2b1f;
+  background: #fff;
+  font-family: 'Sarabun', sans-serif;
+  height: 60px;
+  resize: vertical;
+}
+
+/* =================== แผนที่ =================== */
+.ann-map-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: #8D6E63;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.ann-map-box {
+  width: 100%;
+  height: 180px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 0.5px solid #e0d6d0;
+}
+
+.ann-map-hint {
+  font-size: 11px;
+  color: #8D6E63;
+  margin-top: 4px;
+}
+
+/* =================== Save Button =================== */
+.btn-save {
+  padding: 10px 28px;
+  background: #8D6E63;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Sarabun', sans-serif;
+}
+
+.btn-save:hover { background: #7a5e55; }

@@ -1,0 +1,277 @@
+/* =================== Card หลัก =================== */
+.ads-card {
+  background: #fff;
+  border: 0.5px solid #e0d6d0;
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 10px rgba(141,110,99,0.07);
+}
+
+.ads-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 0.5px solid #f0e8e2;
+}
+
+.ads-card-title { font-size: 16px; font-weight: 700; color: #3d2b1f; }
+.ads-postdate { font-size: 11px; color: #aaa; margin-top: 3px; }
+
+.ads-status-badge, .ads-my-status {
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.ads-status-รับสมัคร { background: #f0fdf4; color: #16a34a; border: 0.5px solid #bbf7d0; }
+.ads-status-รอพิจารณา { background: #EDF4FB; color: #1d4ed8; border: 0.5px solid #BFDBFE; }
+.ads-status-ได้รับเลือก { background: #f0fdf4; color: #16a34a; border: 0.5px solid #bbf7d0; }
+.ads-status-ถอนคำขอแล้ว { background: #f5f0ed; color: #8D6E63; border: 0.5px solid #e0d6d0; }
+.ads-status-ไม่ได้รับเลือก { background: #fef2f2; color: #dc2626; border: 0.5px solid #fecaca; }
+
+/* =================== Layout =================== */
+.ads-top-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.ads-bottom-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+.ads-sec-box {
+  background: #faf7f6;
+  border: 0.5px solid #e8ddd6;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.ads-sec-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #8D6E63;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  padding-bottom: 6px;
+  border-bottom: 0.5px solid #f0e8e2;
+}
+
+.ads-sub-title { font-size: 11px; font-weight: 600; color: #5D3A2E; margin-bottom: 4px; }
+
+.ads-owner-row { display: flex; gap: 10px; align-items: center; margin-bottom: 8px; }
+
+.ads-avatar {
+  width: 46px; height: 46px; border-radius: 50%;
+  overflow: hidden; background: #f0e8e2;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0; border: 1.5px solid #e0d6d0;
+}
+
+.ads-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.ads-pet-row { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 8px; }
+
+.ads-pet-img {
+  width: 70px; height: 70px; border-radius: 10px;
+  overflow: hidden; background: #f0e8e2;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; flex-shrink: 0; border: 1.5px solid #e0d6d0;
+}
+
+.ads-pet-img img { width: 100%; height: 100%; object-fit: cover; }
+
+.ads-pet-sub-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px; padding-top: 8px; border-top: 0.5px solid #f0e8e2; }
+
+.ads-info-row { font-size: 12px; color: #3d2b1f; margin-bottom: 4px; display: flex; gap: 4px; flex-wrap: wrap; line-height: 1.5; }
+.ads-lbl { color: #8D6E63; font-weight: 600; flex-shrink: 0; }
+
+.ads-dot-row { font-size: 12px; color: #3d2b1f; margin-bottom: 3px; display: flex; gap: 5px; line-height: 1.4; }
+.ads-dot { color: #8D6E63; flex-shrink: 0; margin-top: 1px; }
+
+.ads-days-badge { font-size: 11px; background: rgba(141,110,99,0.12); color: #8D6E63; padding: 2px 8px; border-radius: 20px; font-weight: 600; margin-left: 4px; }
+
+.ads-map-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12px; color: #1a73e8; background: #EDF4FB;
+  padding: 6px 12px; border-radius: 20px; text-decoration: none;
+  border: 0.5px solid #BFDBFE; margin-top: 8px; font-family: 'Sarabun', sans-serif;
+}
+
+/* =================== ปุ่ม Action =================== */
+.ads-action-row { display: flex; justify-content: flex-end; gap: 8px; margin-bottom: 10px; }
+
+.ads-apply-btn {
+  padding: 10px 22px; background: #16a34a; color: #fff;
+  border: none; border-radius: 10px; font-size: 14px; font-weight: 700;
+  cursor: pointer; font-family: 'Sarabun', sans-serif;
+  box-shadow: 0 2px 8px rgba(22,163,74,0.3);
+}
+
+.ads-apply-btn:hover { background: #15803d; }
+
+.ads-cancel-btn {
+  padding: 10px 22px; background: #dc2626; color: #fff;
+  border: none; border-radius: 10px; font-size: 14px; font-weight: 700;
+  cursor: pointer; font-family: 'Sarabun', sans-serif;
+}
+
+.ads-cancel-btn:hover { background: #b91c1c; }
+
+/* =================== Section =================== */
+.ads-section-wrap { background: #fff; border: 0.5px solid #e0d6d0; border-radius: 12px; margin-bottom: 10px; overflow: hidden; }
+
+.ads-section-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; cursor: pointer; transition: background 0.15s; }
+.ads-section-header:hover { background: #faf7f6; }
+.ads-section-title { font-size: 14px; font-weight: 700; color: #3d2b1f; }
+.ads-count-badge { font-size: 12px; color: #8D6E63; background: #f5f0ed; padding: 2px 10px; border-radius: 20px; font-weight: 600; }
+.ads-section-body { padding: 14px 16px; border-top: 0.5px solid #f0e8e2; }
+.ads-empty-text { text-align: center; color: #aaa; font-size: 13px; font-style: italic; padding: 20px 0; }
+
+/* =================== Applicant =================== */
+.ads-applicant-card {
+  background: #faf7f6; border: 0.5px solid #e8ddd6;
+  border-radius: 12px; padding: 12px;
+  display: flex; gap: 12px; align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.ads-applicant-card:last-child { margin-bottom: 0; }
+
+.ads-applicant-img {
+  width: 48px; height: 48px; border-radius: 50%;
+  overflow: hidden; background: #f0e8e2;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0; border: 1.5px solid #e0d6d0;
+}
+
+.ads-applicant-img img { width: 100%; height: 100%; object-fit: cover; }
+.ads-applicant-info { flex: 1; }
+.ads-applicant-name { font-size: 13px; font-weight: 700; color: #3d2b1f; margin-bottom: 3px; }
+.ads-applicant-detail { font-size: 12px; color: #666; margin-bottom: 2px; }
+.ads-applicant-dist { font-size: 12px; color: #dc2626; font-weight: 600; }
+.ads-you-badge { font-size: 11px; color: #8D6E63; font-weight: 400; }
+
+.ads-app-status { font-size: 11px; padding: 4px 10px; border-radius: 20px; font-weight: 600; white-space: nowrap; align-self: flex-start; }
+.ads-app-รอพิจารณา { background: #EDF4FB; color: #1d4ed8; border: 0.5px solid #BFDBFE; }
+.ads-app-ได้รับเลือก { background: #f0fdf4; color: #16a34a; border: 0.5px solid #bbf7d0; }
+.ads-app-ไม่ได้รับเลือก { background: #f5f5f5; color: #999; border: 0.5px solid #e0e0e0; }
+.ads-app-ถอนคำขอแล้ว { background: #f5f0ed; color: #8D6E63; border: 0.5px solid #e0d6d0; }
+
+/* =================== ส่งรายงาน =================== */
+.ads-report-box { background: #fff; border: 0.5px solid #e0d6d0; border-radius: 12px; padding: 16px; margin-bottom: 10px; }
+
+.ads-report-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+
+.ads-report-tag {
+  background: #8D6E63; color: #fff;
+  padding: 6px 14px; border-radius: 20px;
+  font-size: 13px; font-weight: 600;
+  white-space: nowrap;
+}
+
+.ads-report-select {
+  padding: 7px 12px; background: #faf7f6;
+  border: 0.5px solid #e0d6d0; border-radius: 8px;
+  font-size: 13px; font-family: 'Sarabun', sans-serif; color: #3d2b1f;
+}
+
+.ads-reported-notice {
+  text-align: center; padding: 20px;
+  color: #16a34a; font-weight: 600; font-size: 14px;
+  background: #f0fdf4; border-radius: 8px;
+  border: 0.5px solid #bbf7d0; margin-bottom: 10px;
+}
+
+.ads-upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+
+.ads-upload-box {
+  background: #faf7f6; border: 1px dashed #d6c5b8;
+  border-radius: 12px; padding: 16px; text-align: center; cursor: pointer;
+}
+
+.ads-upload-icon { font-size: 32px; margin-bottom: 5px; }
+.ads-upload-label { font-size: 13px; font-weight: 600; color: #3d2b1f; margin-bottom: 3px; }
+
+.ads-upload-btn {
+  font-size: 12px; padding: 5px 12px;
+  background: #fff; border: 0.5px solid #e0d6d0;
+  border-radius: 20px; cursor: pointer; color: #8D6E63;
+  margin-top: 6px; font-family: 'Sarabun', sans-serif;
+}
+
+.ads-file-name {
+  display: flex; align-items: center; gap: 5px;
+  background: #fff; padding: 4px 8px; border-radius: 6px;
+  font-size: 11px; color: #3d2b1f; margin-top: 5px;
+  border: 0.5px solid #e0d6d0; text-align: left;
+}
+
+.ads-send-report-btn {
+  padding: 10px 22px; background: #16a34a; color: #fff;
+  border: none; border-radius: 10px; font-size: 14px; font-weight: 700;
+  cursor: pointer; font-family: 'Sarabun', sans-serif;
+}
+
+.ads-send-report-btn:hover { background: #15803d; }
+
+/* =================== สถานะชำระเงิน =================== */
+.ads-payment-box { background: #fff; border: 0.5px solid #e0d6d0; border-radius: 12px; padding: 16px; margin-bottom: 10px; }
+
+.ads-payment-header { margin-bottom: 12px; }
+
+.ads-payment-tag {
+  background: #5D3A2E; color: #fff;
+  padding: 6px 14px; border-radius: 20px;
+  font-size: 13px; font-weight: 600;
+}
+
+.ads-payment-status { font-size: 13px; color: #3d2b1f; margin-bottom: 6px; }
+.ads-payment-amount { font-size: 16px; font-weight: 700; color: #16a34a; margin-bottom: 10px; }
+
+.ads-slip-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12px; color: #1a73e8; background: #EDF4FB;
+  padding: 6px 12px; border-radius: 20px;
+  text-decoration: none; border: 0.5px solid #BFDBFE;
+  font-family: 'Sarabun', sans-serif;
+}
+
+.ads-confirm-pay-btn {
+  padding: 9px 20px; background: #8D6E63; color: #fff;
+  border: none; border-radius: 8px; font-size: 13px; font-weight: 700;
+  cursor: pointer; font-family: 'Sarabun', sans-serif;
+}
+
+.ads-confirm-pay-btn:hover { background: #7a5e55; }
+
+/* =================== Modal =================== */
+.ads-modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.4);
+  display: flex; align-items: center; justify-content: center; z-index: 1000;
+}
+
+.ads-modal {
+  background: #fff; border-radius: 16px; padding: 24px;
+  width: 400px; max-width: 90vw;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+}
+
+.ads-modal-title { font-size: 16px; font-weight: 700; color: #3d2b1f; margin-bottom: 14px; text-align: center; }
+.ads-modal-body { font-size: 14px; color: #555; text-align: center; margin-bottom: 20px; line-height: 1.6; }
+.ads-modal-footer { display: flex; gap: 10px; justify-content: center; }
+
+.ads-modal-cancel {
+  padding: 9px 22px; background: #f5f5f5; color: #666;
+  border: 0.5px solid #e0e0e0; border-radius: 8px; font-size: 13px; cursor: pointer;
+  font-family: 'Sarabun', sans-serif;
+}
+
+.ads-modal-confirm {
+  padding: 9px 22px; color: #fff; border: none;
+  border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer;
+  font-family: 'Sarabun', sans-serif;
+}
+
+.ads-modal-confirm.green { background: #16a34a; }
+.ads-modal-confirm.green:hover { background: #15803d; }
+.ads-modal-confirm.red { background: #dc2626; }
+.ads-modal-confirm.red:hover { background: #b91c1c; }
