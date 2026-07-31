@@ -121,13 +121,13 @@ function PetDetail() {
               <span className="menu-icon">🐾</span><span>รายการสัตว์เลี้ยง</span>
             </a>
             <a className="menu-item" onClick={() => navigate('/explore-sitters')}>
-              <span className="menu-icon">🔍</span><span>สำรวจผู้ดูแล</span>
+              <span className="menu-icon">🔍</span><span>ค้นหาผู้ดูแล</span>
             </a>
             <a className="menu-item" onClick={() => navigate('/my-announcements')}>
               <span className="menu-icon">📢</span><span>รายการประกาศ</span>
             </a>
             <a className="menu-item" onClick={() => navigate('/active-jobs')}>
-              <span className="menu-icon">⚡</span><span>งานที่กำลังทำ</span>
+              <span className="menu-icon">⚡</span><span>งานที่มอบหมาย</span>
             </a>
           </div>
           <hr className="menu-divider" />

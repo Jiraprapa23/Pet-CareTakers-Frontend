@@ -15,7 +15,7 @@ function MyAnnouncements() {
   const [showHistory, setShowHistory] = useState(false);
 
   const imageUrl = user.profileImage && user.profileImage !== 'default.png'
-    ? `${API}/api/auth/images/${user.profileImage}` : null;
+    ? `/images/owners/${user.profileImage}` : null;
 
   const fetchAnnouncements = async () => {
     try {
@@ -98,9 +98,9 @@ function MyAnnouncements() {
           <div className="sidebar-menu">
             <a className="menu-item" onClick={() => navigate('/profile-owner')}><span className="menu-icon">👤</span><span>โปรไฟล์ของฉัน</span></a>
             <a className="menu-item" onClick={() => navigate('/my-pets')}><span className="menu-icon">🐾</span><span>รายการสัตว์เลี้ยง</span></a>
-            <a className="menu-item" onClick={() => navigate('/explore-sitters')}><span className="menu-icon">🔍</span><span>สำรวจผู้ดูแล</span></a>
+            <a className="menu-item" onClick={() => navigate('/explore-sitters')}><span className="menu-icon">🔍</span><span>ค้นหาผู้ดูแล</span></a>
             <a className="menu-item active" onClick={() => navigate('/my-announcements')}><span className="menu-icon">📢</span><span>รายการประกาศ</span></a>
-            <a className="menu-item" onClick={() => navigate('/active-jobs')}><span className="menu-icon">⚡</span><span>งานที่กำลังทำ</span></a>
+            <a className="menu-item" onClick={() => navigate('/active-jobs')}><span className="menu-icon">⚡</span><span>งานที่มอบหมาย</span></a>
           </div>
           <hr className="menu-divider" />
           <a className="menu-item menu-logout" onClick={handleLogout}><span className="menu-icon">🚪</span><span>ออกจากระบบ</span></a>
@@ -109,9 +109,7 @@ function MyAnnouncements() {
         <div className="main-content">
           <div className="myann-header">
             <div className="myann-title">รายการประกาศของฉัน</div>
-            <button className="myann-create-btn" onClick={() => navigate('/add-announcement')}>
-              + สร้างประกาศ
-            </button>
+
           </div>
 
           {loading ? (
@@ -121,9 +119,7 @@ function MyAnnouncements() {
               <div style={{fontSize:52, marginBottom:12}}>📢</div>
               <p>ยังไม่มีประกาศ</p>
               <p style={{fontSize:13, color:'#999', marginTop:6}}>กดปุ่ม "สร้างประกาศ" เพื่อหาผู้ดูแลสัตว์เลี้ยงได้เลยครับ</p>
-              <button className="myann-create-btn" style={{marginTop:16}} onClick={() => navigate('/add-announcement')}>
-                + สร้างประกาศ
-              </button>
+
             </div>
           ) : (
             <>
@@ -132,9 +128,6 @@ function MyAnnouncements() {
                   <div style={{fontSize:52, marginBottom:12}}>📢</div>
                   <p>ไม่มีประกาศที่กำลังดำเนินการอยู่</p>
                   <p style={{fontSize:13, color:'#999', marginTop:6}}>กดปุ่ม "สร้างประกาศ" เพื่อหาผู้ดูแลสัตว์เลี้ยงได้เลยครับ</p>
-                  <button className="myann-create-btn" style={{marginTop:16}} onClick={() => navigate('/add-announcement')}>
-                    + สร้างประกาศ
-                  </button>
                 </div>
               ) : (
                 <div className="myann-grid">
@@ -154,7 +147,7 @@ function MyAnnouncements() {
                         {/* รูปสัตว์เลี้ยง + badge มุมขวาบน */}
                         <div className="myann-card-img-wrap" style={{position:'relative'}}>
                           {ann.petImage && ann.petImage !== 'default.png'
-                            ? <img src={`${API}/api/auth/images/${ann.petImage}`} alt={ann.petName} className="myann-card-img" />
+                            ? <img src={`/images/pets/${ann.petImage}`} alt={ann.petName} className="myann-card-img" />
                             : <div className="myann-card-img-placeholder">{getPetEmoji(ann.petType)}</div>
                           }
                           {/* Badge จำนวนผู้สมัคร */}
@@ -232,7 +225,7 @@ function MyAnnouncements() {
                             </div>
                             <div className="myann-card-img-wrap" style={{position:'relative'}}>
                               {ann.petImage && ann.petImage !== 'default.png'
-                                ? <img src={`${API}/api/auth/images/${ann.petImage}`} alt={ann.petName} className="myann-card-img" style={{filter:'grayscale(35%)'}} />
+                                ? <img src={`/images/pets/${ann.petImage}`} alt={ann.petName} className="myann-card-img" style={{filter:'grayscale(35%)'}} />
                                 : <div className="myann-card-img-placeholder">{getPetEmoji(ann.petType)}</div>
                               }
                             </div>
@@ -262,9 +255,7 @@ function MyAnnouncements() {
             </>
           )}
 
-          <div style={{marginTop:16}}>
-            <button className="btn btn-back" onClick={() => navigate('/my-pets')}>ย้อนกลับ</button>
-          </div>
+
         </div>
       </div>
     </div>

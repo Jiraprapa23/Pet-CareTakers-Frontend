@@ -26,7 +26,7 @@ function ExploreAnnouncements() {
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
   const imageUrl = user.sitterImage && user.sitterImage !== 'default.png'
-    ? `${API}/api/auth/images/${user.sitterImage}` : null;
+    ? `/images/sitters/${user.sitterImage}` : null;
 
   const [announcements, setAnnouncements] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -35,6 +35,8 @@ function ExploreAnnouncements() {
   const [petTypeFilter, setPetTypeFilter] = useState('ทั้งหมด');
   const [showMap, setShowMap] = useState(false);
   const [pinPosition, setPinPosition] = useState(null);
+  const [areaSuggestions, setAreaSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
   // โหลดอัตโนมัติตอนเปิดหน้า
   useEffect(() => {
@@ -47,11 +49,51 @@ function ExploreAnnouncements() {
     );
   }, []);
 
+  // Autocomplete: ดึงรายชื่อตำบล/อำเภอที่ตรงกับคำค้นแบบ debounce
+  useEffect(() => {
+    if (!searchText.trim()) { setAreaSuggestions([]); setShowSuggestions(false); return; }
+    const timer = setTimeout(() => { fetchAreaSuggestions(searchText); }, 300);
+    return () => clearTimeout(timer);
+  }, [searchText]);
+
+  const fetchAreaSuggestions = async (keyword) => {
+    try {
+      const params = new URLSearchParams({ keyword });
+      const res = await fetch(`${API}/api/announcement/search-by-area?${params}`);
+      const data = await res.json();
+      const list = Array.isArray(data) ? data : [];
+      const uniqueAreas = Array.from(
+        new Map(list.map(a => [`${a.subdistrict}|${a.district}`, a])).values()
+      );
+      setAreaSuggestions(uniqueAreas);
+      setShowSuggestions(uniqueAreas.length > 0);
+    } catch (err) {
+      console.error(err);
+      setAreaSuggestions([]);
+      setShowSuggestions(false);
+    }
+  };
+
+  const handleSelectArea = async (area) => {
+    const label = `${area.subdistrict || ''} ${area.district || ''}`.trim();
+    setSearchText(label);
+    setShowSuggestions(false);
+    setLoading(true);
+    setSearched(true);
+    try {
+      const params = new URLSearchParams({ keyword: label });
+      const res = await fetch(`${API}/api/announcement/search-by-area?${params}`);
+      const data = await res.json();
+      setAnnouncements(Array.isArray(data) ? data : []);
+    } catch (err) { console.error(err); }
+    finally { setLoading(false); }
+  };
+
   const fetchAnnouncements = async (lat, lng, petType) => {
     setLoading(true);
     setSearched(true);
     try {
-      const params = new URLSearchParams({ lat, lng, radius: 5 });
+      const params = new URLSearchParams({ lat, lng, radius: 9999 });
       if (petType && petType !== 'ทั้งหมด') params.append('petType', petType);
       const res = await fetch(`${API}/api/sitter-job/search?${params}`);
       const data = await res.json();
@@ -149,7 +191,7 @@ function ExploreAnnouncements() {
 
           {/* Search Bar */}
           <div className="ea-search-bar">
-            <div className="ea-search-input-wrap">
+            <div className="ea-search-input-wrap" style={{position:'relative'}}>
               <span style={{fontSize:16, color:'#aaa'}}>🔍</span>
               <input
                 type="text"
@@ -157,8 +199,23 @@ function ExploreAnnouncements() {
                 placeholder="ค้นหาจากตำบล หรืออำเภอ..."
                 value={searchText}
                 onChange={e => setSearchText(e.target.value)}
+                onFocus={() => { if (areaSuggestions.length > 0) setShowSuggestions(true); }}
+                onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
               />
               <button className="ea-pin-btn" onClick={() => setShowMap(!showMap)} title="ปักหมุดตำแหน่ง">📍</button>
+              {showSuggestions && areaSuggestions.length > 0 && (
+                <div className="ea-suggestions-dropdown">
+                  {areaSuggestions.map((area, idx) => (
+                    <div
+                      key={idx}
+                      className="ea-suggestion-item"
+                      onMouseDown={() => handleSelectArea(area)}
+                    >
+                      📍 {area.subdistrict}, {area.district}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
             <button className="ea-near-btn" onClick={handleNearMe}>ใกล้ฉัน</button>
             <select className="ea-type-select" value={petTypeFilter} onChange={e => setPetTypeFilter(e.target.value)}>
@@ -195,7 +252,7 @@ function ExploreAnnouncements() {
           ) : filteredAnnouncements.length === 0 ? (
             <div className="ea-empty">
               <div style={{fontSize:48, marginBottom:12}}>😔</div>
-              <p>ไม่พบประกาศในรัศมี 5 กิโลเมตรครับ</p>
+              <p>ไม่พบประกาศครับ</p>
             </div>
           ) : (
             <div className="ea-grid">
@@ -212,7 +269,7 @@ function ExploreAnnouncements() {
                     </div>
                     <div className="ea-card-img-wrap">
                       {ann.petImage && ann.petImage !== 'default.png'
-                        ? <img src={`${API}/api/auth/images/${ann.petImage}`} alt={ann.petName} className="ea-card-img" />
+                        ? <img src={`/images/pets/${ann.petImage}`} alt={ann.petName} className="ea-card-img" />
                         : <div className="ea-card-img-placeholder">{getPetEmoji(ann.petType)}</div>
                       }
                     </div>
@@ -259,9 +316,6 @@ function ExploreAnnouncements() {
             </div>
           )}
 
-          <div style={{marginTop:16}}>
-            <button className="btn btn-back" onClick={() => navigate('/profile-sitter')}>ย้อนกลับ</button>
-          </div>
         </div>
       </div>
     </div>

@@ -65,7 +65,7 @@ function ProfileOwner() {
   );
 
   const imageUrl = profile?.profileImage && profile.profileImage !== 'default.png'
-    ? `${API}/api/auth/images/${profile.profileImage}`
+    ? `/images/owners/${profile.profileImage}`
     : null;
 
   return (
@@ -106,7 +106,7 @@ function ProfileOwner() {
             </a>
             <a className="menu-item" onClick={() => navigate('/explore-sitters')}>
               <span className="menu-icon">🔍</span>
-              <span>สำรวจผู้ดูแล</span>
+              <span>ค้นหาผู้ดูแล</span>
             </a>
             <a className="menu-item" onClick={() => navigate('/my-announcements')}>
               <span className="menu-icon">📢</span>
@@ -114,7 +114,7 @@ function ProfileOwner() {
             </a>
             <a className="menu-item" onClick={() => navigate('/active-jobs')}>
               <span className="menu-icon">⚡</span>
-              <span>งานที่กำลังทำ</span>
+              <span>งานที่มอบหมาย</span>
             </a>
           </div>
           <hr className="menu-divider" />
@@ -188,17 +188,9 @@ function ProfileOwner() {
 
           {/* Buttons — นอกกรอบ ชิดใต้ card */}
           <div className="btn-group">
-            <button className="btn btn-back" onClick={() => navigate('/')}>
-              ย้อนกลับ
+            <button className="btn btn-edit" onClick={() => navigate('/edit-owner')}>
+              ✏️ แก้ไข
             </button>
-            <div style={{ display: 'flex', gap: 10 }}>
-              <button className="btn btn-add" onClick={() => navigate('/add-pet')}>
-                + เพิ่มสัตว์เลี้ยง
-              </button>
-              <button className="btn btn-edit" onClick={() => navigate('/edit-owner')}>
-                ✏️ แก้ไข
-              </button>
-            </div>
           </div>
 
         </div>

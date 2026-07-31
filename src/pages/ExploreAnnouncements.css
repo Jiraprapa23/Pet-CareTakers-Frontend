@@ -38,6 +38,32 @@
   border-radius: 6px;
 }
 
+.ea-suggestions-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #e0d6d0;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(141,110,99,0.15);
+  z-index: 20;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.ea-suggestion-item {
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #3d2b1f;
+  cursor: pointer;
+  font-family: 'Sarabun', sans-serif;
+  border-bottom: 0.5px solid #f0e8e2;
+}
+
+.ea-suggestion-item:last-child { border-bottom: none; }
+.ea-suggestion-item:hover { background: #f5f0ed; }
+
 .ea-near-btn {
   padding: 10px 18px;
   background: #8D6E63;

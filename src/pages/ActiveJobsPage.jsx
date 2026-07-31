@@ -16,8 +16,8 @@ function ActiveJobsPage() {
   const [loading, setLoading] = useState(true);
 
   const imageUrl = isOwner
-    ? (user.profileImage && user.profileImage !== 'default.png' ? `${API}/api/auth/images/${user.profileImage}` : null)
-    : (user.sitterImage && user.sitterImage !== 'default.png' ? `${API}/api/auth/images/${user.sitterImage}` : null);
+    ? (user.profileImage && user.profileImage !== 'default.png' ? `/images/owners/${user.profileImage}` : null)
+    : (user.sitterImage && user.sitterImage !== 'default.png' ? `/images/sitters/${user.sitterImage}` : null);
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -118,7 +118,7 @@ function ActiveJobsPage() {
 
         <div className="main-content">
           <div className="aj-header">
-            <div className="aj-title">⚡ งานที่กำลังทำ</div>
+            <div className="aj-title">📋 งานที่มอบหมาย</div>
             <span className="aj-count">{jobs.length} งาน</span>
           </div>
 
@@ -127,7 +127,7 @@ function ActiveJobsPage() {
           ) : jobs.length === 0 ? (
             <div className="aj-empty">
               <div style={{fontSize:52, marginBottom:12}}>⚡</div>
-              <p>ยังไม่มีงานที่กำลังทำอยู่ครับ</p>
+              <p>ยังไม่มีงานที่มอบหมายครับ</p>
               <p style={{fontSize:13, color:'#999', marginTop:6}}>
                 {isOwner ? 'สร้างประกาศเพื่อหาผู้ดูแลได้เลยครับ' : 'สำรวจประกาศเพื่อหางานได้เลยครับ'}
               </p>
@@ -142,32 +142,48 @@ function ActiveJobsPage() {
                 const status = job.status || job.appStatus;
                 return (
                   <div key={job.announceID || job.applyJobID} className="aj-card">
-                    {/* รูปสัตว์เลี้ยง */}
-                    <div className="aj-card-img">
-                      {job.petImage && job.petImage !== 'default.png'
-                        ? <img src={`${API}/api/auth/images/${job.petImage}`} alt={job.petName} />
-                        : <span>{getPetEmoji(job.petType)}</span>}
+                    {/* Header */}
+                    <div className="aj-card-header">
+                      <span className="aj-postdate">{job.postdate ? `โพสต์: ${formatDate(job.postdate)}` : ''}</span>
+                      <span className="aj-pet-name">{job.petName}</span>
+                      <span className="aj-status-badge" style={{background:statusStyle.bg, color:statusStyle.color, border:`0.5px solid ${statusStyle.border}`}}>
+                        {status}
+                      </span>
                     </div>
 
+                    {/* รูปสัตว์เลี้ยง + badge มุมขวาบน */}
+                    <div className="aj-card-img-wrap" style={{position:'relative'}}>
+                      {job.petImage && job.petImage !== 'default.png'
+                        ? <img src={`/images/pets/${job.petImage}`} alt={job.petName} className="aj-card-img" />
+                        : <div className="aj-card-img-placeholder">{getPetEmoji(job.petType)}</div>}
+                      {isOwner && job.applicantCount !== undefined && (
+                        <div className={`aj-applicant-badge ${job.applicantCount > 0 ? 'has-applicant' : 'no-applicant'}`}>
+                          👥 {job.applicantCount > 0 ? `${job.applicantCount} คน` : '0 คน'}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* ข้อมูล */}
                     <div className="aj-card-body">
-                      <div className="aj-card-top">
-                        <span className="aj-pet-name">{job.petName}</span>
-                        <span className="aj-status" style={{background:statusStyle.bg, color:statusStyle.color, border:`0.5px solid ${statusStyle.border}`}}>
-                          {status}
-                        </span>
-                      </div>
                       <div className="aj-info-row">
-                        <span className="aj-lbl">ประเภท</span>
+                        <span className="aj-lbl">ประเภทสัตว์</span>
                         <span>{job.petType} {getPetEmoji(job.petType)}</span>
+                        {job.breed && (
+                          <>
+                            <span className="aj-lbl" style={{marginLeft:8}}>สายพันธุ์</span>
+                            <span>{job.breed}</span>
+                          </>
+                        )}
                       </div>
+                      {job.gender && (
+                        <div className="aj-info-row">
+                          <span>{job.gender === 'เพศผู้' ? '♂' : '♀'} {job.gender}</span>
+                        </div>
+                      )}
                       <div className="aj-info-row">
                         <span className="aj-lbl">วันที่ดูแล</span>
                         <span>{formatDate(job.startdate)} - {formatDate(job.enddate)}</span>
-                        <span style={{color:'#8D6E63', fontWeight:600}}> {calcDays(job.startdate, job.enddate)} วัน</span>
-                      </div>
-                      <div className="aj-info-row">
-                        <span className="aj-lbl">พื้นที่</span>
-                        <span>{job.subdistrict}, {job.district}</span>
+                        <span style={{color:'#8D6E63', fontWeight:600}}>&nbsp;{calcDays(job.startdate, job.enddate)} วัน</span>
                       </div>
 
                       {/* Action hint */}
@@ -180,7 +196,11 @@ function ActiveJobsPage() {
                       {!isOwner && status === 'ได้รับเลือก' && (
                         <div className="aj-hint green">🎉 คุณได้รับเลือก! เตรียมตัวสำหรับงานดูแลครับ</div>
                       )}
+                    </div>
 
+                    {/* ที่อยู่ + ปุ่ม */}
+                    <div className="aj-card-footer">
+                      <span className="aj-location">📍 {job.subdistrict}, {job.district}</span>
                       <button
                         className="aj-detail-btn"
                         onClick={() => navigate(isOwner
@@ -188,7 +208,7 @@ function ActiveJobsPage() {
                           : `/announcement-detail-sitter/${job.announceID}`
                         )}
                       >
-                        รายละเอียด →
+                        รายละเอียด
                       </button>
                     </div>
                   </div>

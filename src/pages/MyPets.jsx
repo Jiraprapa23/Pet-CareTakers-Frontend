@@ -13,9 +13,9 @@ function MyPets() {
   const [pets, setPets] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // รูป avatar topbar
+  // รูป avatar topbar — ชี้ไปที่ React public/images/owners/
   const imageUrl = user.profileImage && user.profileImage !== 'default.png'
-    ? `${API}/api/auth/images/${user.profileImage}`
+    ? `/images/owners/${user.profileImage}`
     : null;
 
   useEffect(() => {
@@ -75,11 +75,9 @@ function MyPets() {
     return 'default';
   };
 
-  // แยก active และ deceased
   const activePets = pets.filter(p => !p.isDeceased);
   const deceasedPets = pets.filter(p => p.isDeceased);
 
-  // Component การ์ดสัตว์เลี้ยง
   const PetCard = ({ pet, isDeceased = false }) => {
     const typeName = pet.petType?.petTypeName || '';
     const emoji = getPetEmoji(typeName);
@@ -90,7 +88,7 @@ function MyPets() {
         <div className="pet-card-img-wrap">
           {pet.petImage && pet.petImage !== 'default.png'
             ? <img
-                src={`${API}/api/auth/images/${pet.petImage}`}
+                src={`/images/pets/${pet.petImage}`}
                 alt={pet.petName}
                 className="pet-card-img"
                 style={isDeceased ? { filter: 'grayscale(40%)' } : {}}
@@ -133,8 +131,6 @@ function MyPets() {
 
   return (
     <div className="app-layout">
-
-      {/* =================== Topbar =================== */}
       <div className="topbar">
         <div className="topbar-left">
           <img src={logo} alt="logo" className="topbar-logo" />
@@ -152,8 +148,6 @@ function MyPets() {
       </div>
 
       <div className="body-row">
-
-        {/* =================== Sidebar =================== */}
         <div className="sidebar">
           <div className="sidebar-menu">
             <a className="menu-item" onClick={() => navigate('/profile-owner')}>
@@ -163,13 +157,13 @@ function MyPets() {
               <span className="menu-icon">🐾</span><span>รายการสัตว์เลี้ยง</span>
             </a>
             <a className="menu-item" onClick={() => navigate('/explore-sitters')}>
-              <span className="menu-icon">🔍</span><span>สำรวจผู้ดูแล</span>
+              <span className="menu-icon">🔍</span><span>ค้นหาผู้ดูแล</span>
             </a>
             <a className="menu-item" onClick={() => navigate('/my-announcements')}>
               <span className="menu-icon">📢</span><span>รายการประกาศ</span>
             </a>
             <a className="menu-item" onClick={() => navigate('/active-jobs')}>
-              <span className="menu-icon">⚡</span><span>งานที่กำลังทำ</span>
+              <span className="menu-icon">⚡</span><span>งานที่มอบหมาย</span>
             </a>
           </div>
           <hr className="menu-divider" />
@@ -178,20 +172,9 @@ function MyPets() {
           </a>
         </div>
 
-        {/* =================== Main Content =================== */}
         <div className="main-content">
-
-          {/* Header */}
           <div className="mypets-header">
             <div className="mypets-title">รายการสัตว์เลี้ยง</div>
-            <div className="mypets-btn-group">
-              <button className="btn-outline-brown" onClick={() => navigate('/explore-sitters')}>
-                🔍 สำรวจผู้ดูแล
-              </button>
-              <button className="btn-add" onClick={() => navigate('/my-announcements')}>
-                + สร้างประกาศ
-              </button>
-            </div>
           </div>
 
           {loading ? (
@@ -199,7 +182,6 @@ function MyPets() {
           ) : (
             <>
               {activePets.length === 0 && deceasedPets.length === 0 ? (
-                /* Empty State */
                 <div className="mypets-empty">
                   <div className="mypets-empty-icon">🐾</div>
                   <p>ยังไม่มีสัตว์เลี้ยง</p>
@@ -212,21 +194,17 @@ function MyPets() {
                 </div>
               ) : (
                 <>
-                  {/* ========== Section สัตว์เลี้ยงปกติ ========== */}
                   <div className="mypets-section-label">สัตว์เลี้ยงของฉัน</div>
                   <div className="mypets-grid" style={{ marginBottom: 24 }}>
                     {activePets.map(pet => (
                       <PetCard key={pet.petID} pet={pet} isDeceased={false} />
                     ))}
-                    {/* Card เพิ่มสัตว์เลี้ยง */}
                     <div className="pet-card-add" onClick={() => navigate('/add-pet')}>
                       <div className="pet-card-add-circle">+</div>
                       <div className="pet-card-add-text">เพิ่มสัตว์เลี้ยง</div>
                       <div className="pet-card-add-sub">กดเพื่อเพิ่มสัตว์เลี้ยงใหม่</div>
                     </div>
                   </div>
-
-                  {/* ========== Section อยู่ในความทรงจำ ========== */}
                   {deceasedPets.length > 0 && (
                     <>
                       <div className="mypets-divider" />
@@ -243,9 +221,6 @@ function MyPets() {
             </>
           )}
 
-          <div style={{ marginTop: 16 }}>
-            <button className="btn btn-back" onClick={() => navigate('/profile-owner')}>ย้อนกลับ</button>
-          </div>
         </div>
       </div>
     </div>

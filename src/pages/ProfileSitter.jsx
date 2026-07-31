@@ -65,11 +65,11 @@ function ProfileSitter() {
   );
 
   const imageUrl = profile?.sitterImage && profile.sitterImage !== 'default.png'
-    ? `${API}/api/auth/images/${profile.sitterImage}`
+    ? `/images/sitters/${profile.sitterImage}`
     : null;
 
   const qrUrl = profile?.qrCodeImage && profile.qrCodeImage !== 'default.png'
-    ? `${API}/api/auth/images/${profile.qrCodeImage}`
+    ? `/images/qrcodes/${profile.qrCodeImage}`
     : null;
 
   const timeSlots = [

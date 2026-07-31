@@ -11,6 +11,8 @@ function Login() {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [showEmailHint, setShowEmailHint] = useState(false);
+  const [showPwHint, setShowPwHint] = useState(false);
 
   // Validate แล้ว Login
   const handleLogin = async () => {
@@ -128,41 +130,64 @@ setPasswordError('อีเมลหรือรหัสผ่านไม่�
           </div>
 
           {/* ช่องอีเมล */}
-          <div className="form-field">
+          <div className="form-field" style={{position:'relative'}}>
             <label>อีเมล</label>
             <input
               type="text"
-              placeholder="กรอกอีเมล"
               value={email}
+              onFocus={() => setShowEmailHint(true)}
+              onBlur={() => setShowEmailHint(false)}
               onChange={(e) => {
                 setEmail(e.target.value);
                 setEmailError('');
               }}
             />
+            {showEmailHint && (
+              <div style={{
+                position:'absolute', top:'100%', left:0, marginTop:4,
+                background:'#fff', border:'0.5px solid #e0d6d0', borderRadius:8,
+                padding:'8px 12px', fontSize:12, color:'#5D3A2E',
+                boxShadow:'0 4px 12px rgba(0,0,0,0.1)', zIndex:10,
+                whiteSpace:'nowrap', lineHeight:1.9,
+              }}>
+                📧 ตัวอย่าง: example@email.com
+              </div>
+            )}
             {emailError && <p className="error-msg">{emailError}</p>}
           </div>
 
           {/* ช่องรหัสผ่าน */}
-          <div className="form-field">
+          <div className="form-field" style={{position:'relative'}}>
             <label>รหัสผ่าน</label>
             <input
               type="password"
-              placeholder="กรอกรหัสผ่าน"
               value={password}
+              onFocus={() => setShowPwHint(true)}
+              onBlur={() => setShowPwHint(false)}
               onChange={(e) => {
                 setPassword(e.target.value);
                 setPasswordError('');
               }}
             />
-            <p style={{ fontSize: '12px', color: '#8D6E63', marginTop: '4px' }}>
-                ต้องเป็นตัวอักษรภาษาอังกฤษหรือตัวเลข รวมอักษรพิเศษ [! # _ .] และมีความยาว 8-15 ตัวอักษร
-            </p>
+            {showPwHint && (
+              <div style={{
+                position:'absolute', top:'100%', left:0, marginTop:4,
+                background:'#fff', border:'0.5px solid #e0d6d0', borderRadius:8,
+                padding:'8px 12px', fontSize:12, color:'#5D3A2E',
+                boxShadow:'0 4px 12px rgba(0,0,0,0.1)', zIndex:10,
+                whiteSpace:'nowrap', lineHeight:1.9,
+              }}>
+                ✅ ตัวอักษรภาษาอังกฤษหรือตัวเลข<br />
+                ✅ อักษรพิเศษ [! # _ .] ได้<br />
+                ✅ ความยาว 8-15 ตัวอักษร
+              </div>
+            )}
             {passwordError && <p className="error-msg">{passwordError}</p>}
           </div>
 
           {/* ลิงก์สมัครสมาชิก */}
           <div className="register-link">
-            <a onClick={() => navigate(role === 'owner' ? '/register-owner' : '/register-sitter')}>
+            <a onClick={() => navigate('/register')}>
               ยังไม่มีบัญชี ?
             </a>
           </div>

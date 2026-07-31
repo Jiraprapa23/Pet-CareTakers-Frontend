@@ -22,7 +22,7 @@ function AnnouncementDetail() {
   const [deleting, setDeleting] = useState(false);
 
   const imageUrl = user.profileImage && user.profileImage !== 'default.png'
-    ? `${API}/api/auth/images/${user.profileImage}` : null;
+    ? `/images/owners/${user.profileImage}` : null;
 
   const fetchDetail = async () => {
     try {
@@ -101,12 +101,12 @@ function AnnouncementDetail() {
   };
 
   const hasApprovedSitter = ann?.applicants?.some(a => a.appStatus === 'ได้รับเลือก');
-const totalSlots = [
-  ann?.carePet?.careMorning, ann?.carePet?.careAfternoon,
-  ann?.carePet?.careEvening, ann?.carePet?.careNight
-].filter(Boolean).length;
-const reportedCount = ann?.reports?.length || 0;
-const allReported = totalSlots > 0 && reportedCount >= totalSlots;
+  const totalSlots = [
+    ann?.carePet?.careMorning, ann?.carePet?.careAfternoon,
+    ann?.carePet?.careEvening, ann?.carePet?.careNight
+  ].filter(Boolean).length;
+  const reportedCount = ann?.reports?.length || 0;
+  const allReported = totalSlots > 0 && reportedCount >= totalSlots;
 
   const getBehaviors = (pet) => {
     const list = [];
@@ -134,7 +134,6 @@ const allReported = totalSlots > 0 && reportedCount >= totalSlots;
 
   return (
     <div className="app-layout">
-      {/* Topbar */}
       <div className="topbar">
         <div className="topbar-left">
           <img src={logo} alt="logo" className="topbar-logo" />
@@ -150,22 +149,19 @@ const allReported = totalSlots > 0 && reportedCount >= totalSlots;
       </div>
 
       <div className="body-row">
-        {/* Sidebar */}
         <div className="sidebar">
           <div className="sidebar-menu">
             <a className="menu-item" onClick={() => navigate('/profile-owner')}><span className="menu-icon">👤</span><span>โปรไฟล์ของฉัน</span></a>
             <a className="menu-item" onClick={() => navigate('/my-pets')}><span className="menu-icon">🐾</span><span>รายการสัตว์เลี้ยง</span></a>
-            <a className="menu-item" onClick={() => navigate('/explore-sitters')}><span className="menu-icon">🔍</span><span>สำรวจผู้ดูแล</span></a>
+            <a className="menu-item" onClick={() => navigate('/explore-sitters')}><span className="menu-icon">🔍</span><span>ค้นหาผู้ดูแล</span></a>
             <a className="menu-item active" onClick={() => navigate('/my-announcements')}><span className="menu-icon">📢</span><span>รายการประกาศ</span></a>
-            <a className="menu-item" onClick={() => navigate('/active-jobs')}><span className="menu-icon">⚡</span><span>งานที่กำลังทำ</span></a>
+            <a className="menu-item" onClick={() => navigate('/active-jobs')}><span className="menu-icon">⚡</span><span>งานที่มอบหมาย</span></a>
           </div>
           <hr className="menu-divider" />
           <a className="menu-item menu-logout" onClick={handleLogout}><span className="menu-icon">🚪</span><span>ออกจากระบบ</span></a>
         </div>
 
         <div className="main-content">
-
-          {/* =================== Card หลัก =================== */}
           <div className="ad-card">
             <div className="ad-card-top">
               <div>
@@ -177,16 +173,14 @@ const allReported = totalSlots > 0 && reportedCount >= totalSlots;
               </span>
             </div>
 
-            {/* ========== แถวบน: เจ้าของ (ซ้าย) + สัตว์เลี้ยง (ขวา) ========== */}
             <div className="ad-top-row">
-
               {/* เจ้าของ */}
               <div className="ad-sec-box">
                 <div className="ad-sec-title">เจ้าของสัตว์เลี้ยง</div>
                 <div className="ad-owner-row">
                   <div className="ad-avatar">
                     {ann?.owner?.profileImage && ann.owner.profileImage !== 'default.png'
-                      ? <img src={`${API}/api/auth/images/${ann.owner.profileImage}`} alt="owner" />
+                      ? <img src={`/images/owners/${ann.owner.profileImage}`} alt="owner" />
                       : <span>👤</span>}
                   </div>
                   <div>
@@ -205,7 +199,7 @@ const allReported = totalSlots > 0 && reportedCount >= totalSlots;
                 <div className="ad-pet-row">
                   <div className="ad-pet-img">
                     {ann?.pet?.petImage && ann.pet.petImage !== 'default.png'
-                      ? <img src={`${API}/api/auth/images/${ann.pet.petImage}`} alt="pet" />
+                      ? <img src={`/images/pets/${ann.pet.petImage}`} alt="pet" />
                       : <span style={{fontSize:28}}>🐾</span>}
                   </div>
                   <div style={{flex:1}}>
@@ -215,9 +209,7 @@ const allReported = totalSlots > 0 && reportedCount >= totalSlots;
                     <div className="ad-info-row"><span className="ad-lbl">น้ำหนัก :</span> {ann?.currentweight}</div>
                   </div>
                 </div>
-
                 <div className="ad-pet-sub-grid">
-                  {/* วัคซีน */}
                   <div>
                     <div className="ad-sub-title">วัคซีน</div>
                     {ann?.pet?.vacRabiesDate && <div className="ad-dot-row"><span className="ad-dot">•</span>Rabies [{formatDate(ann.pet.vacRabiesDate)}]</div>}
@@ -232,7 +224,6 @@ const allReported = totalSlots > 0 && reportedCount >= totalSlots;
                       </div>
                     </div>
                   </div>
-                  {/* พฤติกรรม */}
                   <div>
                     <div className="ad-sub-title">พฤติกรรม</div>
                     {getBehaviors(ann?.pet).length > 0
@@ -243,10 +234,7 @@ const allReported = totalSlots > 0 && reportedCount >= totalSlots;
               </div>
             </div>
 
-            {/* ========== แถวล่าง: การดูแล + บริการเสริม + ที่อยู่ ========== */}
             <div className="ad-bottom-row">
-
-              {/* การดูแล */}
               <div className="ad-sec-box">
                 <div className="ad-sec-title">รายละเอียดการดูแล</div>
                 <div style={{fontSize:13, fontWeight:700, color:'#3d2b1f', marginBottom:8}}>
@@ -269,7 +257,6 @@ const allReported = totalSlots > 0 && reportedCount >= totalSlots;
                 </div>
               </div>
 
-              {/* บริการเสริม */}
               <div className="ad-sec-box">
                 <div className="ad-sec-title">บริการเสริม</div>
                 {ann?.carePet?.medicineDetail
@@ -277,7 +264,6 @@ const allReported = totalSlots > 0 && reportedCount >= totalSlots;
                   : <div className="ad-dot-row"><span className="ad-dot">•</span>ไม่มีการป้อนยา</div>}
                 {ann?.carePet?.isCleanService && <div className="ad-dot-row"><span className="ad-dot">•</span>เก็บ อึ อี</div>}
                 {ann?.carePet?.isWalkService && <div className="ad-dot-row"><span className="ad-dot">•</span>พาเดินเล่น</div>}
-
                 {ann?.totalAmount > 0 && (
                   <div style={{marginTop:12, paddingTop:10, borderTop:'0.5px solid #f0e8e2'}}>
                     <div className="ad-sub-title">ค่าดูแลรวม</div>
@@ -288,7 +274,6 @@ const allReported = totalSlots > 0 && reportedCount >= totalSlots;
                 )}
               </div>
 
-              {/* ที่อยู่ */}
               <div className="ad-sec-box">
                 <div className="ad-sec-title">ที่อยู่</div>
                 <div className="ad-info-row" style={{marginBottom:6}}>
@@ -301,12 +286,8 @@ const allReported = totalSlots > 0 && reportedCount >= totalSlots;
                   </span>
                 </div>
                 {ann?.latitude && ann?.longitude && (
-                  <a
-                    href={`https://www.google.com/maps?q=${ann.latitude},${ann.longitude}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="ad-map-btn"
-                  >
+                  <a href={`https://www.google.com/maps?q=${ann.latitude},${ann.longitude}`}
+                    target="_blank" rel="noopener noreferrer" className="ad-map-btn">
                     🗺️ นำทางด้วย Google Maps
                   </a>
                 )}
@@ -314,7 +295,6 @@ const allReported = totalSlots > 0 && reportedCount >= totalSlots;
             </div>
           </div>
 
-          {/* =================== ปุ่มแก้ไข + ลบ =================== */}
           <div className="ad-action-row">
             <button className="ad-edit-btn" onClick={handleEdit}>✏️ แก้ไข</button>
             {(() => {
@@ -324,18 +304,15 @@ const allReported = totalSlots > 0 && reportedCount >= totalSlots;
               const hasActiveApplicant = ann?.applicants?.some(a => a.appStatus === 'รอพิจารณา' || a.appStatus === 'ได้รับเลือก');
               const canDelete = endPassed && safeStatus && !hasActiveApplicant;
               return canDelete ? (
-                <button
-                  className="ad-edit-btn"
+                <button className="ad-edit-btn"
                   style={{background:'#fef2f2', color:'#dc2626', border:'0.5px solid #fecaca'}}
-                  onClick={() => setDeleteModal(true)}
-                >
+                  onClick={() => setDeleteModal(true)}>
                   🗑️ ลบประกาศ
                 </button>
               ) : null;
             })()}
           </div>
 
-          {/* =================== รายชื่อผู้ส่งคำขอ =================== */}
           <div className="ad-section-wrap">
             <div className="ad-section-header" onClick={() => setShowApplicants(!showApplicants)}>
               <div style={{display:'flex', alignItems:'center', gap:8}}>
@@ -344,7 +321,6 @@ const allReported = totalSlots > 0 && reportedCount >= totalSlots;
               </div>
               <span style={{fontSize:12, color:'#8D6E63'}}>{showApplicants ? '▲ ปิด' : '▼ เปิด'}</span>
             </div>
-
             {showApplicants && (
               <div className="ad-section-body">
                 {!ann?.applicants || ann.applicants.length === 0 ? (
@@ -354,7 +330,7 @@ const allReported = totalSlots > 0 && reportedCount >= totalSlots;
                     <div key={applicant.applyJobID} className={`ad-applicant-card ${applicant.appStatus === 'ไม่ได้รับเลือก' ? 'rejected' : ''}`}>
                       <div className="ad-applicant-img">
                         {applicant.sitterImage && applicant.sitterImage !== 'default.png'
-                          ? <img src={`${API}/api/auth/images/${applicant.sitterImage}`} alt="sitter" />
+                          ? <img src={`/images/sitters/${applicant.sitterImage}`} alt="sitter" />
                           : <span>👤</span>}
                       </div>
                       <div className="ad-applicant-info">
@@ -380,78 +356,71 @@ const allReported = totalSlots > 0 && reportedCount >= totalSlots;
             )}
           </div>
 
-          {/* =================== รายงานการดูแล =================== */}
           <div className="ad-section-wrap">
-  <div className="ad-section-header" onClick={() => setShowReport(!showReport)}>
-    <div style={{display:'flex', alignItems:'center', gap:8}}>
-      <span className="ad-section-title">รายงานการดูแล</span>
-      <span className="ad-count-badge">{ann?.reports?.length || 0} ช่วงเวลา</span>
-    </div>
-    <span style={{fontSize:12, color:'#8D6E63'}}>{showReport ? '▲ ปิด' : '▼ เปิด'}</span>
-  </div>
-  {showReport && (
-    <div className="ad-section-body">
-      {!ann?.reports || ann.reports.length === 0 ? (
-        <div className="ad-empty-text">ยังไม่มีรายงานการดูแล</div>
-      ) : (
-        ann.reports.map((report, i) => (
-          <div key={i} style={{background:'#faf7f6', border:'0.5px solid #e8ddd6', borderRadius:10, padding:12, marginBottom:10}}>
-            <div style={{fontSize:13, fontWeight:700, color:'#8D6E63', marginBottom:8}}>
-              🕐 {report.timecare}
+            <div className="ad-section-header" onClick={() => setShowReport(!showReport)}>
+              <div style={{display:'flex', alignItems:'center', gap:8}}>
+                <span className="ad-section-title">รายงานการดูแล</span>
+                <span className="ad-count-badge">{ann?.reports?.length || 0} ช่วงเวลา</span>
+              </div>
+              <span style={{fontSize:12, color:'#8D6E63'}}>{showReport ? '▲ ปิด' : '▼ เปิด'}</span>
             </div>
-            {/* รูปภาพ */}
-            {report.image && (() => {
-              try {
-                const imgs = JSON.parse(report.image);
-                return imgs.length > 0 ? (
-                  <div style={{display:'flex', gap:8, flexWrap:'wrap', marginBottom:8}}>
-                    {imgs.map((img, idx) => (
-                      <a key={idx} href={`${API}/api/auth/images/${img}`} target="_blank" rel="noopener noreferrer">
-                        <img src={`${API}/api/auth/images/${img}`} alt={`report-${idx}`}
-                          style={{width:100, height:80, objectFit:'cover', borderRadius:8, border:'0.5px solid #e0d6d0'}} />
-                      </a>
-                    ))}
-                  </div>
-                ) : null;
-              } catch { return null; }
-            })()}
-            {/* วิดีโอ */}
-            {report.video && (
-              <div style={{marginTop:4}}>
-                <video controls style={{width:'100%', maxWidth:320, borderRadius:8, border:'0.5px solid #e0d6d0'}}>
-                  <source src={`${API}/api/auth/images/${report.video}`} type="video/mp4" />
-                </video>
+            {showReport && (
+              <div className="ad-section-body">
+                {!ann?.reports || ann.reports.length === 0 ? (
+                  <div className="ad-empty-text">ยังไม่มีรายงานการดูแล</div>
+                ) : (
+                  ann.reports.map((report, i) => (
+                    <div key={i} style={{background:'#faf7f6', border:'0.5px solid #e8ddd6', borderRadius:10, padding:12, marginBottom:10}}>
+                      <div style={{fontSize:13, fontWeight:700, color:'#8D6E63', marginBottom:8}}>
+                        🕐 {report.timecare}
+                      </div>
+                      {report.image && (() => {
+                        try {
+                          const imgs = JSON.parse(report.image);
+                          return imgs.length > 0 ? (
+                            <div style={{display:'flex', gap:8, flexWrap:'wrap', marginBottom:8}}>
+                              {imgs.map((img, idx) => (
+                                <a key={idx} href={`/images/reports/${img}`} target="_blank" rel="noopener noreferrer">
+                                  <img src={`/images/reports/${img}`} alt={`report-${idx}`}
+                                    style={{width:100, height:80, objectFit:'cover', borderRadius:8, border:'0.5px solid #e0d6d0'}} />
+                                </a>
+                              ))}
+                            </div>
+                          ) : null;
+                        } catch { return null; }
+                      })()}
+                      {report.video && (
+                        <div style={{marginTop:4}}>
+                          <video controls style={{width:'100%', maxWidth:320, borderRadius:8, border:'0.5px solid #e0d6d0'}}>
+                            <source src={`/images/reports/${report.video}`} type="video/mp4" />
+                          </video>
+                        </div>
+                      )}
+                    </div>
+                  ))
+                )}
               </div>
             )}
           </div>
-        ))
-      )}
-    </div>
-  )}
-</div>
 
-          {/* =================== ปุ่มด้านล่าง =================== */}
           <div className="btn-group" style={{marginTop:8}}>
-  <button className="btn btn-back" onClick={() => navigate('/my-announcements')}>ย้อนกลับ</button>
-  {hasApprovedSitter && ann?.status !== 'งานเสร็จสิ้น' && (
-    allReported
-      ? <button className="ad-complete-btn" onClick={() => setCompleteModal(true)}>✅ งานเสร็จสมบูรณ์</button>
-      : <div style={{fontSize:13, color:'#b45309', background:'#fef9ee', padding:'8px 14px', borderRadius:8, border:'0.5px solid #fde68a'}}>
-          ⏳ รอผู้ดูแลส่งรายงานให้ครบ {reportedCount}/{totalSlots} ช่วงเวลา
-        </div>
-  )}
-  {ann?.isPaymentConfirmed === 'ชำระเงินเรียบร้อยแล้ว' && (
-    <button className="ad-complete-btn" style={{background:'#f59e0b'}} onClick={() => navigate(`/review/${announceID}`)}>
-      ⭐ รีวิวผู้ดูแล
-    </button>
-  )}
-</div>
+            <button className="btn btn-back" onClick={() => navigate('/my-announcements')}>ย้อนกลับ</button>
+            {hasApprovedSitter && ann?.status !== 'งานเสร็จสิ้น' && (
+              allReported
+                ? <button className="ad-complete-btn" onClick={() => setCompleteModal(true)}>✅ งานเสร็จสมบูรณ์</button>
+                : <div style={{fontSize:13, color:'#b45309', background:'#fef9ee', padding:'8px 14px', borderRadius:8, border:'0.5px solid #fde68a'}}>
+                    ⏳ รอผู้ดูแลส่งรายงานให้ครบ {reportedCount}/{totalSlots} ช่วงเวลา
+                  </div>
+            )}
+            {ann?.isPaymentConfirmed === 'ชำระเงินเรียบร้อยแล้ว' && (
+              <button className="ad-complete-btn" style={{background:'#f59e0b'}} onClick={() => navigate(`/review/${announceID}`)}>
+                ⭐ รีวิวผู้ดูแล
+              </button>
+            )}
           </div>
         </div>
-     
-      
+      </div>
 
-      {/* Modal อนุมัติ */}
       {confirmModal.show && (
         <div className="ad-modal-overlay">
           <div className="ad-modal">
@@ -467,7 +436,6 @@ const allReported = totalSlots > 0 && reportedCount >= totalSlots;
         </div>
       )}
 
-      {/* Modal ลบ */}
       {deleteModal && (
         <div className="ad-modal-overlay">
           <div className="ad-modal">
@@ -486,7 +454,6 @@ const allReported = totalSlots > 0 && reportedCount >= totalSlots;
         </div>
       )}
 
-      {/* Modal งานเสร็จ */}
       {completeModal && (
         <div className="ad-modal-overlay">
           <div className="ad-modal">

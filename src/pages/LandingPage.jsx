@@ -1,43 +1,179 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
+import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import './LandingPage.css';
 import logo from '../assets/logo.png';
 
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({ iconRetinaUrl: markerIcon2x, iconUrl: markerIcon, shadowUrl: markerShadow });
+
 const API = 'http://localhost:8096';
+
+const amphoeData = {
+  'เมืองเชียงใหม่':['ศรีภูมิ','พระสิงห์','หายยา','ช้างม่อย','ช้างคลาน','วัดเกต','ช้างเผือก','สุเทพ','แม่เหียะ','ป่าแดด','หนองหอย','ฟ้าฮ่าม','ป่าตัน','สันผีเสื้อ'],
+  'จอมทอง':['บ้านหลวง','ข่วงเปา','สบเตี๊ยะ','บ้านแปะ','ดอยแก้ว','แม่สอย'],
+  'แม่แจ่ม':['ช่างเคิ่ง','ท่าผา','บ้านทับ','แม่ศึก','ปางหินฝน','กองแขก'],
+  'เชียงดาว':['เชียงดาว','เมืองนะ','เมืองงาย','แม่นะ','เมืองคอง','ปิงโค้ง','ทุ่งข้าวพวง'],
+  'ดอยสะเก็ด':['เชิงดอย','สันปูเลย','ลวงเหนือ','ป่าป้อง','สง่าบ้าน','ตลาดขวัญ','สำราญราษฎร์','แม่คือ','ตลาดใหญ่','แม่ฮ้อยเงิน','แม่โป่ง','ป่าเมี่ยง'],
+  'แม่แตง':['สันมหาพน','แม่แตง','ขี้เหล็ก','ช่อแล','แม่หอพระ','สบเปิง','บ้านเป้า','สันป่ายาง','ป่าแป๋','เมืองก๋าย','อินทขิล','กื้ดช้าง'],
+  'แม่ริม':['ริมใต้','ริมเหนือ','สันโป่ง','ขี้เหล็ก','สะลวง','ห้วยทราย','แม่แรม','โป่งแยง','เหมืองแก้ว','ดอนแก้ว','แม่สา'],
+  'สะเมิง':['สะเมิงใต้','สะเมิงเหนือ','แม่สาบ','บ่อแก้ว','ยั้งเมิน'],
+  'ฝาง':['เวียง','ม่อนปิ่น','แม่งอน','แม่สูน','สันทราย','แม่คะ','โป่งน้ำร้อน','แม่ข่า'],
+  'แม่อาย':['แม่อาย','แม่สาว','สันต้นหมื้อ','แม่นาวาง','ท่าตอน','บ้านหลวง','มะลิกา'],
+  'พร้าว':['เวียง','ทุ่งหลวง','ป่าตุ้ม','น้ำแพร่','เขื่อนผาก','แม่แวน','แม่ปั๋ง','โหล่งขอด','สันทราย'],
+  'สันป่าตอง':['ยุหว่า','สันกลาง','ท่าวังพร้าว','มะขามหลวง','แม่ก๊า','บ้านแม','บ้านกลาง','ทุ่งต้อม','น้ำบ่อหลวง','มะขุนหวาน'],
+  'สันกำแพง':['สันกำแพง','ทรายมูล','ร้องวัวแดง','บวกค้าง','แช่ช้าง','ออนใต้','แม่ปูคา','ห้วยทราย','ต้นเปา','สันกลาง'],
+  'สันทราย':['สันทรายน้อย','สันพระเนตร','สันนาเม็ง','สันป่าเปา','หนองจ๊อม','หนองหาร','แม่แฝก','แม่แฝกใหม่','เมืองเล็น','ป่าไผ่','หนองแหย่ง','สันทรายหลวง'],
+  'หางดง':['หางดง','หนองแก๋ว','หารแก้ว','หนองตอง','ขุนคง','สบแม่ข่า','บ้านแหวน','สันผักหวาน','หนองควาย','บ้านปง','น้ำแพร่'],
+  'ฮอด':['ฮอด','หางดง','บ้านตาล','บ่อหลวง','บ่อสลี','นาคอเรือ'],
+  'ดอยเต่า':['ดอยเต่า','ท่าเดื่อ','มืดกา','บ้านแอ่น','บงตัน'],
+  'อมก๋อย':['อมก๋อย','ยางเปียง','แม่ตื่น','ม่อนจอง','สบโขง','นาเกียน'],
+  'สารภี':['ยางเนิ้ง','สารภี','ชมภู','ไชยสถาน','ขัวมุง','หนองแฝก','หนองผึ้ง','ท่ากว้าง','ดอนแก้ว','ท่าวังตาล','สันทราย','ป่าบง'],
+  'เวียงแหง':['เวียง','เปียงหลวง','แสนไห'],
+  'ไชยปราการ':['ปงตำ','ศรีดงเย็น','แม่ทะลบ','หนองบัว'],
+  'แม่วาง':['บ้านกาด','ทุ่งรวงทอง','แม่วิน','ดอนเปา','ทุ่งปี๊'],
+  'แม่ออน':['ออนเหนือ','ออนกลาง','บ้านสหกรณ์','ห้วยแก้ว','แม่ทา','ทาเหนือ'],
+  'ดอยหล่อ':['ดอยหล่อ','สันติสุข','ยางคราม','สองแคว'],
+  'กัลยาณิวัฒนา':['บ้านจันทร์','แม่แดด','แจ่มหลวง'],
+};
+
+function buildSuggestions(q) {
+  if (!q) return [];
+  const res = [];
+  const amps = Object.keys(amphoeData).filter(a => a.includes(q));
+  if (amps.length) res.push({ type: 'amphoe', items: amps.map(a => ({ label: a, sub: 'อำเภอ' })) });
+  const tabs = [];
+  Object.entries(amphoeData).forEach(([amp, ts]) => {
+    ts.filter(t => t.includes(q)).forEach(t => tabs.push({ label: t, sub: amp }));
+  });
+  if (tabs.length) res.push({ type: 'tambon', items: tabs.slice(0, 8) });
+  return res;
+}
+
+function MapPinPicker({ onSelect }) {
+  useMapEvents({
+    click(e) { onSelect(e.latlng); }
+  });
+  return null;
+}
 
 function LandingPage() {
   const navigate = useNavigate();
+  const searchRef = useRef(null);
+
   const [activeTab, setActiveTab] = useState('ann');
   const [announcements, setAnnouncements] = useState([]);
   const [sitters, setSitters] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  // Search state
+  const [searchText, setSearchText] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [petType, setPetType] = useState('ทั้งหมด');
+
+  // Map modal state
+  const [showMapModal, setShowMapModal] = useState(false);
+  const [pinPosition, setPinPosition] = useState(null);
+
+  // โหลดข้อมูลเริ่มต้น
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchDefault = async () => {
       try {
-        // ดึงประกาศ (ใช้ GPS กรุงเทพ fallback)
         navigator.geolocation.getCurrentPosition(
           async (pos) => {
-            const res = await fetch(`${API}/api/sitter-job/search?lat=${pos.coords.latitude}&lng=${pos.coords.longitude}&radius=50`);
-            const data = await res.json();
-            setAnnouncements(Array.isArray(data) ? data.slice(0, 6) : []);
+            const { latitude: lat, longitude: lng } = pos.coords;
+            await fetchByLatLng(lat, lng);
           },
-          async () => {
-            const res = await fetch(`${API}/api/sitter-job/search?lat=18.7883&lng=98.9853&radius=50`);
-            const data = await res.json();
-            setAnnouncements(Array.isArray(data) ? data.slice(0, 6) : []);
-          }
+          async () => { await fetchByLatLng(18.7883, 98.9853); }
         );
-
-        // ดึงผู้ดูแล
-        const res2 = await fetch(`${API}/api/sitter/search?lat=18.7883&lng=98.9853&radius=50`);
-        const data2 = await res2.json();
-        setSitters(Array.isArray(data2) ? data2.slice(0, 6) : []);
       } catch (err) { console.error(err); }
       finally { setLoading(false); }
     };
-    fetchData();
+    fetchDefault();
+  }, []);
+
+  const fetchByLatLng = async (lat, lng) => {
+    setLoading(true);
+    try {
+      const ptParam = petType !== 'ทั้งหมด' ? `&petType=${petType}` : '';
+      const [r1, r2] = await Promise.all([
+        fetch(`${API}/api/sitter-job/search?lat=${lat}&lng=${lng}&radius=9999${ptParam}`),
+        fetch(`${API}/api/sitter/search?lat=${lat}&lng=${lng}&radius=9999${ptParam}`),
+      ]);
+      const [d1, d2] = await Promise.all([r1.json(), r2.json()]);
+      setAnnouncements(Array.isArray(d1) ? d1 : []);
+      setSitters(Array.isArray(d2) ? d2 : []);
+    } catch (err) { console.error(err); }
+    finally { setLoading(false); }
+  };
+
+  const fetchByArea = async (keyword) => {
+    setLoading(true);
+    try {
+      const ptParam = petType !== 'ทั้งหมด' ? `&petType=${petType}` : '';
+      const [r1, r2] = await Promise.all([
+        fetch(`${API}/api/sitter-job/search-by-area?keyword=${encodeURIComponent(keyword)}${ptParam}`),
+        fetch(`${API}/api/sitter/search-by-area?keyword=${encodeURIComponent(keyword)}${ptParam}`),
+      ]);
+      const [d1, d2] = await Promise.all([r1.json(), r2.json()]);
+      setAnnouncements(Array.isArray(d1) ? d1 : []);
+      setSitters(Array.isArray(d2) ? d2 : []);
+    } catch (err) { console.error(err); }
+    finally { setLoading(false); }
+  };
+
+  const handleSearch = () => {
+    setShowDropdown(false);
+    if (searchText.trim()) {
+      fetchByArea(searchText.trim());
+    } else {
+      fetchByLatLng(18.7883, 98.9853);
+    }
+  };
+
+  const handleNearMe = () => {
+    if (!navigator.geolocation) { alert('เบราว์เซอร์ไม่รองรับ GPS'); return; }
+    navigator.geolocation.getCurrentPosition(
+      (pos) => fetchByLatLng(pos.coords.latitude, pos.coords.longitude),
+      () => alert('ไม่สามารถดึงตำแหน่งได้ กรุณาอนุญาต GPS')
+    );
+  };
+
+  const handlePinSelect = (latlng) => {
+    setPinPosition(latlng);
+  };
+
+  const handlePinConfirm = () => {
+    if (!pinPosition) return;
+    setShowMapModal(false);
+    fetchByLatLng(pinPosition.lat, pinPosition.lng);
+  };
+
+  const handleSuggestionInput = (val) => {
+    setSearchText(val);
+    const s = buildSuggestions(val);
+    setSuggestions(s);
+    setShowDropdown(s.length > 0 && val.length > 0);
+  };
+
+  const selectSuggestion = (label) => {
+    setSearchText(label);
+    setShowDropdown(false);
+    fetchByArea(label);
+  };
+
+  // ปิด dropdown เมื่อคลิกข้างนอก
+  useEffect(() => {
+    const handler = (e) => { if (!searchRef.current?.contains(e.target)) setShowDropdown(false); };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
   }, []);
 
   const formatDate = (dateStr) => {
@@ -81,19 +217,78 @@ function LandingPage() {
         </div>
       </div>
 
+      {/* Search Hero */}
+      <div className="lp-hero">
+        <div className="lp-hero-title">ค้นหาผู้ดูแลสัตว์เลี้ยงและประกาศ</div>
+        <div className="lp-hero-sub">ในจังหวัดเชียงใหม่</div>
+
+        <div className="lp-search-box">
+          {/* แถวค้นหา */}
+          <div className="lp-search-row" ref={searchRef}>
+            <div className="lp-input-wrap">
+              <span className="lp-search-icon">🔍</span>
+              <input
+                className="lp-search-input"
+                placeholder="พิมพ์ชื่อตำบลหรืออำเภอ เช่น สันทราย..."
+                value={searchText}
+                onChange={e => handleSuggestionInput(e.target.value)}
+                onKeyDown={e => e.key === 'Enter' && handleSearch()}
+                autoComplete="off"
+              />
+              {showDropdown && suggestions.length > 0 && (
+                <div className="lp-dropdown">
+                  {suggestions.map(group => (
+                    <div key={group.type}>
+                      <div className="lp-dd-group">{group.type === 'amphoe' ? 'อำเภอ' : 'ตำบล'}</div>
+                      {group.items.map(item => (
+                        <div key={item.label} className="lp-dd-item" onClick={() => selectSuggestion(item.label)}>
+                          📍 {item.label} <span className="lp-dd-sub">{item.sub}</span>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+            <button className="lp-btn-search" onClick={handleSearch}>ค้นหา</button>
+          </div>
+
+          {/* แถวปุ่ม */}
+          <div className="lp-tools-row">
+            <button className="lp-btn-pin" onClick={() => setShowMapModal(true)}>
+              📌 ปักหมุดตำแหน่ง
+            </button>
+            <button className="lp-btn-near" onClick={handleNearMe}>
+              📍 ใกล้ฉัน
+            </button>
+            <select
+              className="lp-pet-select"
+              value={petType}
+              onChange={e => setPetType(e.target.value)}
+            >
+              <option value="ทั้งหมด">🐾 ประเภทสัตว์เลี้ยง</option>
+              <option value="สุนัข">🐶 สุนัข</option>
+              <option value="แมว">🐱 แมว</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
       {/* Tabs */}
       <div className="lp-tabs">
-        <div className={`lp-tab ${activeTab === 'ann' ? 'active' : ''}`} onClick={() => setActiveTab('ann')}>
-          📢 ประกาศหาผู้ดูแล
+        <div className={`lp-tab lp-tab-ann ${activeTab === 'ann' ? 'active' : ''}`} onClick={() => setActiveTab('ann')}>
+          <span className="lp-tab-icon-circle lp-tab-icon-ann">📢</span>
+          ประกาศหาผู้ดูแล
         </div>
-        <div className={`lp-tab ${activeTab === 'sit' ? 'active' : ''}`} onClick={() => setActiveTab('sit')}>
-          👤 ผู้ดูแลสัตว์เลี้ยง
+        <div className={`lp-tab lp-tab-sit ${activeTab === 'sit' ? 'active' : ''}`} onClick={() => setActiveTab('sit')}>
+          <span className="lp-tab-icon-circle lp-tab-icon-sit">👤</span>
+          ผู้ดูแลสัตว์เลี้ยง
         </div>
       </div>
 
       {/* Content */}
       <div className="lp-content">
-        {/* =================== ประกาศ =================== */}
+        {/* =============== ประกาศ =============== */}
         {activeTab === 'ann' && (
           <>
             <div className="lp-section-header">
@@ -118,7 +313,7 @@ function LandingPage() {
                       </div>
                       <div className="lp-ann-img">
                         {ann.petImage && ann.petImage !== 'default.png'
-                          ? <img src={`${API}/api/auth/images/${ann.petImage}`} alt={ann.petName} />
+                          ? <img src={`/images/pets/${ann.petImage}`} alt={ann.petName} />
                           : <span>{getPetEmoji(ann.petType)}</span>}
                       </div>
                       <div className="lp-ann-body">
@@ -150,7 +345,7 @@ function LandingPage() {
           </>
         )}
 
-        {/* =================== ผู้ดูแล =================== */}
+        {/* =============== ผู้ดูแล =============== */}
         {activeTab === 'sit' && (
           <>
             <div className="lp-section-header">
@@ -167,17 +362,20 @@ function LandingPage() {
                   <div key={sitter.sitterID} className="lp-sitter-card">
                     <div className="lp-sitter-av">
                       {sitter.sitterImage && sitter.sitterImage !== 'default.png'
-                        ? <img src={`${API}/api/auth/images/${sitter.sitterImage}`} alt={sitter.firstname} />
+                        ? <img src={`/images/sitters/${sitter.sitterImage}`} alt={sitter.firstname} />
                         : <span>👤</span>}
                     </div>
                     <div className="lp-sitter-info">
                       <div className="lp-sitter-name">{sitter.firstname} {sitter.lastname}</div>
-                      <div className="lp-sitter-det">รับดูแล {sitter.petAlowType} · {sitter.acceptedPetSize}</div>
+                      <div className="lp-sitter-det">รับดูแล {sitter.petAlowPet} · {sitter.acceptedPetSize}</div>
                       <div className="lp-sitter-det">
                         <span style={{color:'#f59e0b'}}>{'★'.repeat(Math.round(sitter.avgRating || 0))}{'☆'.repeat(5 - Math.round(sitter.avgRating || 0))}</span>
                         {sitter.avgRating ? ` ${sitter.avgRating.toFixed(1)}` : ' ยังไม่มีรีวิว'}
                       </div>
                       <div className="lp-sitter-det">📍 {sitter.subdistrict}, {sitter.district}</div>
+                      {sitter.distance != null && (
+                        <div className="lp-sitter-det" style={{color:'#3A7CA5'}}>ห่าง {sitter.distance} กม.</div>
+                      )}
                       <div className="lp-sitter-price">{sitter.pricePerDay} บาท/วัน</div>
                       <button className="lp-detail-btn" style={{marginTop:8}} onClick={() => setShowModal(true)}>ดูโปรไฟล์</button>
                     </div>
@@ -199,7 +397,29 @@ function LandingPage() {
         </div>
       </div>
 
-      {/* Modal */}
+      {/* Map Modal */}
+      {showMapModal && (
+        <div className="lp-modal-overlay">
+          <div className="lp-modal" style={{width:500, maxWidth:'95vw'}}>
+            <div className="lp-modal-title">📌 เลือกตำแหน่งที่ต้องการค้นหา</div>
+            <div className="lp-modal-body" style={{marginBottom:10}}>กดบนแผนที่เพื่อปักหมุดตำแหน่ง</div>
+            <div style={{width:'100%', height:300, borderRadius:10, overflow:'hidden', marginBottom:14, border:'0.5px solid #e0d6d0'}}>
+              <MapContainer center={pinPosition ? [pinPosition.lat, pinPosition.lng] : [18.7883, 98.9853]} zoom={11} style={{width:'100%', height:'100%'}}>
+                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution='&copy; OpenStreetMap' />
+                <MapPinPicker onSelect={handlePinSelect} />
+                {pinPosition && <Marker position={[pinPosition.lat, pinPosition.lng]} />}
+              </MapContainer>
+            </div>
+            {pinPosition && <div style={{fontSize:12, color:'#8D6E63', marginBottom:10}}>📍 ตำแหน่งที่เลือก: {pinPosition.lat.toFixed(5)}, {pinPosition.lng.toFixed(5)}</div>}
+            <div className="lp-modal-btns">
+              <button className="lp-modal-btn-primary" onClick={handlePinConfirm} disabled={!pinPosition}>ค้นหาจากตำแหน่งนี้</button>
+              <button className="lp-modal-btn-outline" onClick={() => setShowMapModal(false)}>ปิด</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Login Modal */}
       {showModal && (
         <div className="lp-modal-overlay">
           <div className="lp-modal">
@@ -209,7 +429,7 @@ function LandingPage() {
               คุณต้องเข้าสู่ระบบหรือลงทะเบียนก่อน<br/>เพื่อดูรายละเอียดเพิ่มเติมครับ
             </div>
             <div className="lp-modal-btns">
-            <button className="lp-btn-white" onClick={() => navigate('/login')}>เข้าสู่ระบบ</button>
+              <button className="lp-modal-btn-primary" onClick={() => navigate('/login')}>เข้าสู่ระบบ</button>
               <button className="lp-modal-btn-outline" onClick={() => navigate('/register')}>ลงทะเบียน</button>
             </div>
             <div className="lp-modal-cancel" onClick={() => setShowModal(false)}>ยกเลิก</div>
