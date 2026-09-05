@@ -1,33 +1,42 @@
 /* =================== Navbar =================== */
 .ar-navbar {
-  background: #8D6E63;
+  background: #7FB3D9;
+  height: 90px;
+  padding: 12px 24px;
+  overflow: hidden;
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 12px 24px;
 }
-.ar-navbar-logo img { width: 60px; height: auto; }
+.ar-navbar-logo img {
+  width: 150px;
+  height: 900px;
+  object-fit: contain;
+  margin-top: 30px;
+  margin-left: 10px;
+  flex-shrink: 0;
+}
 .ar-navbar-title {
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 700;
   color: #fff;
-  line-height: 1.5;
+  line-height: 1.3;
 }
 
 /* =================== Page =================== */
 .ar-page {
-  min-height: calc(100vh - 80px);
-  background: #f9f5f2;
+  min-height: calc(100vh - 90px);
+  background: #FFFFFF;
   padding: 24px 20px 40px;
 }
 .ar-card {
   background: #fff;
   border-radius: 16px;
-  border: 0.5px solid #e8ddd6;
+  border: 0.5px solid #d6e7f2;
   max-width: 1100px;
   margin: 0 auto;
   padding: 24px;
-  box-shadow: 0 2px 12px rgba(141,110,99,0.08);
+  box-shadow: 0 2px 12px rgba(92,147,191,0.10);
 }
 
 /* =================== Toggle =================== */
@@ -39,12 +48,12 @@
 .ar-toggle-track {
   position: relative;
   display: flex;
-  background: #f5f0ed;
+  background: #EBF4FA;
   border-radius: 12px;
   padding: 4px;
   cursor: pointer;
   min-width: 340px;
-  border: 0.5px solid #e0d6d0;
+  border: 0.5px solid #d6e7f2;
   transition: border-color 0.25s;
 }
 .ar-toggle-track.ar-toggle-sitter { border-color: #b5cfe0; }
@@ -57,7 +66,7 @@
   transition: left 0.25s cubic-bezier(.4,0,.2,1), background 0.25s;
   z-index: 0;
 }
-.ar-pill-left { left: 4px; background: #8D6E63; }
+.ar-pill-left { left: 4px; background: #7FB3D9; }
 .ar-pill-right { left: calc(50%); background: #3A7CA5; }
 .ar-toggle-option {
   flex: 1;
@@ -86,15 +95,15 @@
   font-weight: 600;
   padding-bottom: 16px;
   margin-bottom: 16px;
-  border-bottom: 0.5px solid #e8ddd6;
+  border-bottom: 0.5px solid #d6e7f2;
 }
-.ar-form-title.ar-owner { color: #5D3A2E; }
+.ar-form-title.ar-owner { color: #1a1a1a; }
 .ar-form-title.ar-sitter { color: #1E4D6B; }
 
 /* =================== Section =================== */
 .ar-section-box {
-  background: #faf7f5;
-  border: 0.5px solid #e8ddd6;
+  background: #EBF4FA;
+  border: 0.5px solid #d6e7f2;
   border-radius: 12px;
   padding: 16px;
   margin-bottom: 14px;
@@ -108,7 +117,7 @@
   display: inline-block;
 }
 .ar-owner .ar-section-label,
-.ar-section-label:not(.ar-sitter-label) { background: #f0e8e2; color: #5D3A2E; }
+.ar-section-label:not(.ar-sitter-label) { background: #EBF4FA; color: #1a1a1a; }
 .ar-sitter-label { background: #e6f0f7; color: #1E4D6B; }
 
 /* =================== Profile =================== */
@@ -135,8 +144,8 @@
   width: 90px;
   height: 90px;
   border-radius: 50%;
-  background: #f5f0ed;
-  border: 0.5px solid #e0d6d0;
+  background: #EBF4FA;
+  border: 0.5px solid #d6e7f2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -165,7 +174,7 @@
   color: #fff;
   border: 2px solid #fff;
 }
-.ar-owner-plus { background: #8D6E63; }
+.ar-owner-plus { background: #7FB3D9; }
 .ar-sitter-plus { background: #3A7CA5; }
 
 /* =================== Info grid =================== */
@@ -174,23 +183,23 @@
 
 /* =================== Field =================== */
 .ar-field { display: flex; flex-direction: column; gap: 3px; }
-.ar-field label { font-size: 12px; color: #5D3A2E; font-weight: 500; }
+.ar-field label { font-size: 12px; color: #1a1a1a; font-weight: 500; }
 .ar-field input, .ar-field select {
   padding: 7px 10px;
-  border: 0.5px solid #d6c8be;
+  border: 0.5px solid #d6e7f2;
   border-radius: 8px;
   font-size: 13px;
   background: #fff;
-  color: #3d2b1f;
+  color: #1a1a1a;
   width: 100%;
   box-sizing: border-box;
   transition: border-color 0.2s;
 }
 .ar-field input:focus, .ar-field select:focus {
   outline: none;
-  border-color: #8D6E63;
+  border-color: #7FB3D9;
 }
-.ar-field input:disabled { background: #f5f0ed; color: #aaa; cursor: not-allowed; }
+.ar-field input:disabled { background: #EBF4FA; color: #aaa; cursor: not-allowed; }
 
 /* =================== Rows =================== */
 .ar-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -199,7 +208,7 @@
 /* =================== Age =================== */
 .ar-age-display {
   font-size: 13px;
-  color: #8D6E63;
+  color: #7FB3D9;
   font-weight: 500;
   padding-top: 24px;
   white-space: nowrap;
@@ -217,17 +226,17 @@
   justify-content: space-between;
   margin-bottom: 4px;
   font-size: 13px;
-  color: #5D3A2E;
+  color: #1a1a1a;
 }
-.ar-map-hint { font-size: 11px; color: #8D6E63; margin: 0 0 6px 0; }
+.ar-map-hint { font-size: 11px; color: #7FB3D9; margin: 0 0 6px 0; }
 .ar-map-box {
   width: 100%;
   height: 200px;
   border-radius: 10px;
   overflow: hidden;
-  border: 0.5px solid #e0d6d0;
+  border: 0.5px solid #d6e7f2;
 }
-.ar-location-text { font-size: 11px; color: #8D6E63; margin: 5px 0 0 0; }
+.ar-location-text { font-size: 11px; color: #7FB3D9; margin: 5px 0 0 0; }
 
 /* =================== GPS button =================== */
 .ar-gps-btn {
@@ -239,31 +248,31 @@
   color: #fff;
   font-weight: 500;
 }
-.ar-owner-gps { background: #8D6E63; }
+.ar-owner-gps { background: #7FB3D9; }
 .ar-sitter-gps { background: #3A7CA5; }
 
 /* =================== Upload =================== */
 .ar-upload-btn {
-  background: #f5f0ed;
-  border: 0.5px solid #d6c8be;
+  background: #EBF4FA;
+  border: 0.5px solid #d6e7f2;
   border-radius: 6px;
   padding: 4px 12px;
   font-size: 12px;
-  color: #5D3A2E;
+  color: #1a1a1a;
   cursor: pointer;
 }
-.ar-upload-btn:hover { background: #ede5df; }
+.ar-upload-btn:hover { background: #d6e7f2; }
 .ar-file-hint { font-size: 10px; color: #aaa; margin: 2px 0 0 0; text-align: center; }
 .ar-file-name-box {
   display: flex;
   align-items: center;
   gap: 6px;
-  background: #f5f0ed;
-  border: 0.5px solid #e0d6d0;
+  background: #EBF4FA;
+  border: 0.5px solid #d6e7f2;
   border-radius: 6px;
   padding: 4px 8px;
   font-size: 11px;
-  color: #5D3A2E;
+  color: #1a1a1a;
   max-width: 160px;
 }
 .ar-file-name-box span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
@@ -284,11 +293,11 @@
 
 /* =================== QR =================== */
 .ar-qr-upload-box {
-  border: 1.5px dashed #d6c8be;
+  border: 1.5px dashed #d6e7f2;
   border-radius: 10px;
   padding: 20px;
   text-align: center;
-  background: #faf7f5;
+  background: #EBF4FA;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -305,11 +314,11 @@
   align-items: center;
   gap: 8px;
   font-size: 13px;
-  color: #5D3A2E;
+  color: #1a1a1a;
   padding: 6px 10px;
   background: #fff;
   border-radius: 6px;
-  border: 0.5px solid #e8ddd6;
+  border: 0.5px solid #d6e7f2;
   cursor: pointer;
   white-space: nowrap;
   width: 100%;
@@ -320,11 +329,11 @@
   width: 15px;
   height: 15px;
   cursor: pointer;
-  accent-color: #8D6E63;
+  accent-color: #7FB3D9;
 }
 
 /* =================== Divider =================== */
-.ar-divider { border: none; border-top: 0.5px solid #e8ddd6; margin: 16px 0; }
+.ar-divider { border: none; border-top: 0.5px solid #d6e7f2; margin: 16px 0; }
 
 /* =================== Required mark =================== */
 .ar-req { color: #dc2626; }
@@ -336,21 +345,20 @@
 .ar-btn-group {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
-  padding-top: 16px;
-  border-top: 0.5px solid #e8ddd6;
+  max-width: 1100px;
+  margin: 16px auto 0;
 }
 .ar-btn-back {
-  background: #f5f0ed;
-  border: 0.5px solid #d6c8be;
+  background: #9e9e9e;
+  border: none;
   border-radius: 8px;
   padding: 9px 20px;
   font-size: 13px;
-  color: #5D3A2E;
+  color: #fff;
   cursor: pointer;
   font-weight: 500;
 }
-.ar-btn-back:hover { background: #ede5df; }
+.ar-btn-back:hover { background: #757575; }
 .ar-btn-submit {
   border: none;
   border-radius: 8px;
@@ -362,7 +370,7 @@
   transition: opacity 0.2s;
 }
 .ar-btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
-.ar-owner-btn { background: #8D6E63; }
-.ar-owner-btn:hover:not(:disabled) { background: #7a5f52; }
+.ar-owner-btn { background: #7FB3D9; }
+.ar-owner-btn:hover:not(:disabled) { background: #5C93BF; }
 .ar-sitter-btn { background: #3A7CA5; }
 .ar-sitter-btn:hover:not(:disabled) { background: #2d6389; }

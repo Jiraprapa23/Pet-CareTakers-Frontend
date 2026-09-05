@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import './ProfileOwner.css';
+import './Profileowner.css';
 import logo from '../assets/logo.png';
 import NotificationBell from '../components/NotificationBell';
 
-const API = 'http://localhost:8096';
+import { API_BASE_URL as API } from '../config';
 
 function ProfileOwner() {
   const navigate = useNavigate();
@@ -52,12 +52,6 @@ function ProfileOwner() {
     navigate('/');
   };
 
-  const openMap = () => {
-    if (profile?.latitude && profile?.longitude) {
-      window.open(`https://www.google.com/maps?q=${profile.latitude},${profile.longitude}`, '_blank');
-    }
-  };
-
   if (loading) return (
     <div className="app-layout">
       <div className="loading-box">กำลังโหลดข้อมูล...</div>
@@ -76,7 +70,7 @@ function ProfileOwner() {
         <div className="topbar-left">
           <img src={logo} alt="logo" className="topbar-logo" />
           <div className="topbar-title">
-            ระบบตามหาผู้ดูแลสัตว์เลี้ยง ภายในจังหวัดเชียงใหม่
+            ระบบตามหาผู้ดูแลสัตว์เลี้ยง<br />ภายในจังหวัดเชียงใหม่
           </div>
         </div>
         <div className="topbar-user">
@@ -112,10 +106,6 @@ function ProfileOwner() {
               <span className="menu-icon">📢</span>
               <span>รายการประกาศ</span>
             </a>
-            <a className="menu-item" onClick={() => navigate('/active-jobs')}>
-              <span className="menu-icon">⚡</span>
-              <span>งานที่มอบหมาย</span>
-            </a>
           </div>
           <hr className="menu-divider" />
           <a className="menu-item menu-logout" onClick={handleLogout}>
@@ -129,7 +119,7 @@ function ProfileOwner() {
 
           {/* Profile Card */}
           <div className="profile-card">
-            <div className="profile-card-title">ลงทะเบียน เจ้าของสัตว์เลี้ยง</div>
+            <div className="profile-card-title">โปรไฟล์ของฉัน</div>
 
             <div className="profile-body">
               <div className="profile-avatar">
@@ -175,11 +165,10 @@ function ProfileOwner() {
                 <div className="info-row">
                   <span className="info-label">ที่อยู่จากปักหมุด </span>
                   <span className="info-pin">📍</span>
-                  <span className="map-link" onClick={openMap}>
+                  <span>
                     บ้านเลขที่ {profile?.addressNo} ถนน/เขต {profile?.street}&nbsp;
                     ตำบล {profile?.subdistrict} อำเภอ {profile?.district}&nbsp;
                     จังหวัด {profile?.province} รหัสไปรษณีย์ {profile?.zipcode}
-                    &nbsp;(กดเพื่อนำทาง)
                   </span>
                 </div>
               </div>

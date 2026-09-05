@@ -5,7 +5,7 @@ import './AddPet.css';
 import logo from '../assets/logo.png';
 import NotificationBell from '../components/NotificationBell';
 
-const API = 'http://localhost:8096';
+import { API_BASE_URL as API } from '../config';
 
 function AddPet() {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ function AddPet() {
 
   // รูป avatar topbar
   const imageUrl = user.profileImage && user.profileImage !== 'default.png'
-    ? `${API}/api/auth/images/${user.profileImage}`
+    ? `/images/owners/${user.profileImage}`
     : null;
 
   // รูปภาพสัตว์เลี้ยง
@@ -168,7 +168,7 @@ function AddPet() {
         body: form,
       });
 
-      alert('เพิ่มสัตว์เลี้ยงสำเร็จ!');
+      alert('เพิ่มสัตว์เลี้ยงสำเร็จ');
       navigate('/my-pets');
     } catch (err) {
       alert('เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง');
@@ -187,7 +187,7 @@ function AddPet() {
       <div className="topbar">
         <div className="topbar-left">
           <img src={logo} alt="logo" className="topbar-logo" />
-          <div className="topbar-title">ระบบตามหาผู้ดูแลสัตว์เลี้ยง ภายในจังหวัดเชียงใหม่</div>
+          <div className="topbar-title">ระบบตามหาผู้ดูแลสัตว์เลี้ยง<br />ภายในจังหวัดเชียงใหม่</div>
         </div>
         <div className="topbar-user">
           <span>ยินดีต้อนรับ คุณ{user.firstname}</span>
@@ -216,9 +216,6 @@ function AddPet() {
             </a>
             <a className="menu-item" onClick={() => navigate('/my-announcements')}>
               <span className="menu-icon">📢</span><span>รายการประกาศ</span>
-            </a>
-            <a className="menu-item" onClick={() => navigate('/active-jobs')}>
-              <span className="menu-icon">⚡</span><span>งานที่กำลังทำ</span>
             </a>
           </div>
           <hr className="menu-divider" />
@@ -291,7 +288,7 @@ function AddPet() {
               </div>
 
               <div className="addpet-field">
-                <label>วันเกิด (โดยประมาณ)</label>
+                <label>วันเกิด <span style={{color:'#aaa', fontSize:11, fontWeight:400}}>(โดยประมาณ)</span></label>
                 <input type="date" value={birthDate} max={today} onChange={e => { setBirthDate(e.target.value); setErrors(p => ({ ...p, birthDate: '' })); }} />
                 {errors.birthDate && <p className="error-msg">{errors.birthDate}</p>}
               </div>
@@ -303,7 +300,7 @@ function AddPet() {
               <div className="addpet-section-title">ข้อมูลสุขภาพ</div>
 
               <div className="addpet-field">
-                <label>วัคซีน (ครั้งล่าสุดโดยประมาณ)</label>
+                <label><span style={{color:'#3023ED'}}>วัคซีน</span> <span style={{color:'#aaa', fontWeight:400}}>(ครั้งล่าสุดโดยประมาณ)</span></label>
 
                 {/* Rabies */}
                 <div className="addpet-vaccine-item">
@@ -324,7 +321,7 @@ function AddPet() {
                 <div className="addpet-vaccine-item">
                   <label className="addpet-checkbox-item">
                     <input type="checkbox" checked={vaccineDHPPi} onChange={e => { setVaccineDHPPi(e.target.checked); if (!e.target.checked) setVacDhppiDate(''); setErrors(p => ({ ...p, vacDhppiDate: '' })); }} />
-                    <span>วัคซีนรวมสุนัข DHPPi <span style={{ color: '#8D6E63', fontSize: 11 }}>(เฉพาะสุนัข)</span></span>
+                    <span>วัคซีนรวมสุนัข DHPPi <span style={{ color: '#dc2626', fontSize: 12 }}>(เฉพาะสุนัข)</span></span>
                   </label>
                   {vaccineDHPPi && (
                     <div className="addpet-vaccine-date">
@@ -339,7 +336,7 @@ function AddPet() {
                 <div className="addpet-vaccine-item">
                   <label className="addpet-checkbox-item">
                     <input type="checkbox" checked={vaccineFVRCP} onChange={e => { setVaccineFVRCP(e.target.checked); if (!e.target.checked) setVacFvrcpDate(''); setErrors(p => ({ ...p, vacFvrcpDate: '' })); }} />
-                    <span>วัคซีนรวมแมว FVRCP <span style={{ color: '#8D6E63', fontSize: 11 }}>(เฉพาะแมว)</span></span>
+                    <span>วัคซีนรวมแมว FVRCP <span style={{ color: '#dc2626', fontSize: 12 }}>(เฉพาะแมว)</span></span>
                   </label>
                   {vaccineFVRCP && (
                     <div className="addpet-vaccine-date">
@@ -416,7 +413,6 @@ function AddPet() {
 
           {/* ปุ่ม */}
           <div className="btn-group">
-            <button className="btn btn-back" onClick={() => navigate('/my-pets')}>ย้อนกลับ</button>
             <button className="btn-save" onClick={handleSave}>บันทึก</button>
           </div>
         </div>

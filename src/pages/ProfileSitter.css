@@ -18,7 +18,7 @@ body {
 
 /* =================== Topbar =================== */
 .topbar {
-  background-color: #7FB3D9 !important;
+  background-color: #7FB3D9;
   padding: 12px 24px;
   display: flex;
   align-items: center;
@@ -171,7 +171,7 @@ body {
 
 .profile-card-title {
   text-align: center;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   color: #1a1a1a;
   padding-bottom: 16px;
@@ -214,7 +214,7 @@ body {
 }
 
 .info-section-title {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 700;
   color: #7FB3D9;
   margin-bottom: 14px;
@@ -223,7 +223,7 @@ body {
 }
 
 .info-row {
-  font-size: 14px;
+  font-size: 16px;
   color: #1a1a1a;
   margin-bottom: 8px;
   line-height: 1.6;
@@ -243,7 +243,7 @@ body {
   color: #1a73e8;
   text-decoration: underline;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .map-link:hover {
@@ -262,11 +262,10 @@ body {
   border: 1px solid #d6e7f2;
   border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 1px 4px rgba(92,147,191,0.10);
 }
 
 .detail-card-title {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 700;
   color: #7FB3D9;
   margin-bottom: 14px;
@@ -275,7 +274,7 @@ body {
 }
 
 .detail-item {
-  font-size: 13px;
+  font-size: 15px;
   color: #1a1a1a;
   margin-bottom: 6px;
   line-height: 1.5;
@@ -306,9 +305,101 @@ body {
 }
 
 .qr-name {
-  font-size: 12px;
+  font-size: 14px;
   color: #7FB3D9;
   margin-top: 6px;
+}
+
+/* =================== หัวข้อ section แบบกึ่งกลาง (เวอร์ชันใหม่) =================== */
+.sp2-divider {
+  border: none;
+  margin: 22px 0 18px;
+}
+
+.sp2-section-title {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 16px;
+}
+
+/* เนื้อหาส่วน "รายละเอียดการดูแล/การเงิน" ให้ชิดซ้ายเท่ากับ .profile-info
+   (avatar 120px + gap 24px = 144px) เพราะไม่มีรูปข้างๆ เหมือนส่วนข้อมูลส่วนตัว */
+.sp2-indent {
+  margin-left: 144px;
+}
+
+/* =================== แถวหมวดกลุ่ม (label + bullet หลายบรรทัด) =================== */
+.sp2-simple-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.sp2-simple-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #7FB3D9;
+  min-width: 160px;
+  flex-shrink: 0;
+}
+
+.sp2-simple-row span:not(.sp2-simple-label) {
+  font-size: 16px;
+  color: #1a1a1a;
+}
+
+.sp2-group-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.sp2-group-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #7FB3D9;
+  min-width: 160px;
+  flex-shrink: 0;
+  padding-top: 1px;
+}
+
+.sp2-group-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 200px;
+  margin-bottom: 4px;
+}
+
+.sp2-group-bullet {
+  font-size: 16px;
+  color: #1a1a1a;
+  display: flex;
+  gap: 6px;
+  line-height: 1.5;
+}
+
+/* =================== รายละเอียดการเงิน: ข้อความ + QR วางคู่กัน =================== */
+.sp2-finance-row {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.sp2-finance-text {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.sp2-qr-box {
+  margin-top: 0;
+  flex-shrink: 0;
+  width: 160px;
 }
 
 /* =================== Buttons =================== */
@@ -321,7 +412,7 @@ body {
 .btn {
   padding: 10px 24px;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   cursor: pointer;
   border: none;
@@ -364,6 +455,6 @@ body {
   justify-content: center;
   align-items: center;
   height: 300px;
-  font-size: 16px;
+  font-size: 18px;
   color: #7FB3D9;
 }

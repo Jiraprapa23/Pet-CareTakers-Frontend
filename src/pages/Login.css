@@ -6,12 +6,12 @@
 
 body {
   font-family: 'Sarabun', sans-serif;
-  background-color: #FAF7F6;
+  background-color: #FFFFFF;
 }
 
 /* Navbar */
 .navbar {
-  background-color: #8D6E63;
+  background-color: #7FB3D9;
   padding: 12px 24px;
   display: flex;
   align-items: center;
@@ -48,7 +48,7 @@ body {
 
 /* Page Layout */
 .login-page {
-  background-color: #FAF7F6;
+  background-color: #FFFFFF;
   min-height: calc(100vh - 80px);
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -68,23 +68,24 @@ body {
 /* Right Form Card */
 .login-card {
   background: #ffffff;
-  border: 1px solid #e0d6d0;
+  border: 1px solid #d6e7f2;
   border-radius: 12px;
   padding: 32px 36px;
+  box-shadow: 0 1px 4px rgba(92,147,191,0.10);
 }
 
 .login-title {
   text-align: center;
   font-size: 24px;
   font-weight: 700;
-  color: #3d2b1f;
+  color: #1a1a1a;
   margin-bottom: 24px;
 }
 
 /* Tab */
 .tab-wrap {
   display: flex;
-  background-color: #f0e8e2;
+  background-color: #EBF4FA;
   border-radius: 999px;
   padding: 4px;
   margin-bottom: 28px;
@@ -100,12 +101,12 @@ body {
   cursor: pointer;
   border: none;
   background: transparent;
-  color: #8D6E63;
+  color: #5C93BF;
   transition: all 0.2s;
 }
 
 .tab-btn.active {
-  background-color: #8D6E63;
+  background-color: #7FB3D9;
   color: #ffffff;
 }
 
@@ -117,7 +118,7 @@ body {
 .form-field label {
   display: block;
   font-size: 15px;
-  color: #3d2b1f;
+  color: #1a1a1a;
   margin-bottom: 8px;
   font-weight: 500;
 }
@@ -125,17 +126,17 @@ body {
 .form-field input {
   width: 100%;
   padding: 11px 14px;
-  border: 1px solid #d6c5b8;
+  border: 1px solid #d6e7f2;
   border-radius: 8px;
   font-size: 14px;
-  color: #3d2b1f;
+  color: #1a1a1a;
   background: #ffffff;
   outline: none;
   font-family: 'Sarabun', sans-serif;
 }
 
 .form-field input:focus {
-  border-color: #8D6E63;
+  border-color: #7FB3D9;
 }
 
 /* Error Message */
@@ -153,7 +154,7 @@ body {
 
 .register-link a {
   font-size: 14px;
-  color: #8D6E63;
+  color: #2563EB;
   text-decoration: underline;
   cursor: pointer;
 }
@@ -162,7 +163,7 @@ body {
 .btn-login {
   width: 100%;
   padding: 13px;
-  background-color: #8D6E63;
+  background-color: #7FB3D9;
   color: #ffffff;
   border: none;
   border-radius: 8px;
@@ -174,5 +175,5 @@ body {
 }
 
 .btn-login:hover {
-  background-color: #7a5e55;
+  background-color: #5C93BF;
 }

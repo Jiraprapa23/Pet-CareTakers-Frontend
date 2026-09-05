@@ -12,31 +12,30 @@ import logo from '../assets/logo.png';
 import NotificationBell from '../components/NotificationBell';
 
 const amphoeData = {
-  'เมืองเชียงใหม่':['ศรีภูมิ','พระสิงห์','หายยา','ช้างม่อย','ช้างคลาน','วัดเกต','ช้างเผือก','สุเทพ','แม่เหียะ','ป่าแดด','หนองหอย','ท่าศาลา','หนองป่าครั่ง','ฟ้าฮ่าม','ป่าตัน','สันผีเสื้อ'],
-  'กัลยาณิวัฒนา':['บ้านจันทร์','แม่แดด','แจ่มหลวง'],
+  'เมืองเชียงใหม่':['ช้างม่อย','ช้างคลาน','วัดเกต','ช้างเผือก','สุเทพ','แม่เหียะ','ป่าแดด','หนองหอย','ท่าศาลา','หนองป่าครั่ง','ฟ้าฮ่าม','ป่าตัน','สันผีเสื้อ','ศรีภูมิ','พระสิงห์','หายยา'],
   'จอมทอง':['บ้านหลวง','ข่วงเปา','สบเตี๊ยะ','บ้านแปะ','ดอยแก้ว','แม่สอย'],
+  'แม่แจ่ม':['ช่างเคิ่ง','ท่าผา','บ้านทับ','แม่ศึก','แม่นาจร','บ้านจันทร์','ปางหินฝน','กองแขก','แม่แดด','แจ่มหลวง'],
   'เชียงดาว':['เชียงดาว','เมืองนะ','เมืองงาย','แม่นะ','เมืองคอง','ปิงโค้ง','ทุ่งข้าวพวง'],
-  'ไชยปราการ':['ปงตำ','ศรีดงเย็น','แม่ทะลบ','หนองบัว'],
-  'ดอยเต่า':['ดอยเต่า','ท่าเดื่อ','มืดกา','บ้านแอ่น','บงตัน','โปงทุ่ง'],
   'ดอยสะเก็ด':['เชิงดอย','สันปูเลย','ลวงเหนือ','ป่าป้อง','สง่าบ้าน','ป่าลาน','ตลาดขวัญ','สำราญราษฎร์','แม่คือ','ตลาดใหญ่','แม่ฮ้อยเงิน','แม่โป่ง','ป่าเมี่ยง','เทพเสด็จ'],
-  'ดอยหล่อ':['ดอยหล่อ','สองแคว','ยางคราม','สันติสุข'],
-  'ฝาง':['เวียง','ม่อนปิ่น','แม่งอน','แม่สูน','สันทราย','แม่คะ','แม่ข่า','โป่งน้ำร้อน'],
-  'พร้าว':['เวียง','ทุ่งหลวง','ป่าตุ้ม','ป่าไหน่','สันทราย','บ้านโป่ง','น้ำแพร่','เขื่อนผาก','แม่แวน','แม่ปั๋ง','โหล่งขอด'],
-  'แม่แจ่ม':['ช่างเคิ่ง','ท่าผา','บ้านทับ','แม่ศึก','แม่นาจร','ปางหินฝน','กองแขก'],
-  'แม่แตง':['สันมหาพน','แม่แตง','ขี้เหล็ก','ช่อแล','แม่หอพระ','สบเปิง','สันป่ายาง','บ้านเป้า','ป่าแป๋','เมืองก๋าย','บ้านช้าง','กื้ดช้าง','อินทขิล'],
+  'แม่แตง':['สันมหาพน','แม่แตง','ขี้เหล็ก','ช่อแล','แม่หอพระ','สบเปิง','บ้านเป้า','สันป่ายาง','ป่าแป๋','เมืองก๋าย','บ้านช้าง','กื้ดช้าง','อินทขิล','สมก๋าย'],
   'แม่ริม':['ริมใต้','ริมเหนือ','สันโป่ง','ขี้เหล็ก','สะลวง','ห้วยทราย','แม่แรม','โป่งแยง','แม่สา','ดอนแก้ว','เหมืองแก้ว'],
-  'แม่วาง':['บ้านกาด','ทุ่งปี๊','ทุ่งรวงทอง','แม่วิน','ดอนเปา'],
-  'แม่ออน':['ออนเหนือ','ออนกลาง','บ้านสหกรณ์','ห้วยแก้ว','แม่ทา','ทาเหนือ'],
-  'แม่อาย':['แม่อาย','แม่สาว','สันต้นหมื้อ','แม่นาวาง','ท่าตอน','บ้านหลวง','มะลิกา'],
-  'เวียงแหง':['เมืองแหง','เปียงหลวง','แสนไห'],
   'สะเมิง':['สะเมิงใต้','สะเมิงเหนือ','แม่สาบ','บ่อแก้ว','ยั้งเมิน'],
+  'ฝาง':['เวียง','ม่อนปิ่น','แม่งอน','แม่สูน','สันทราย','แม่คะ','แม่ข่า','โป่งน้ำร้อน'],
+  'แม่อาย':['แม่อาย','แม่สาว','สันต้นหมื้อ','แม่นาวาง','ท่าตอน','บ้านหลวง','มะลิกา'],
+  'พร้าว':['เวียง','ทุ่งหลวง','ป่าตุ้ม','ป่าไหน่','สันทราย','บ้านโป่ง','น้ำแพร่','เขื่อนผาก','แม่แวน','แม่ปั๋ง','โหล่งขอด'],
+  'สันป่าตอง':['ยุหว่า','สันกลาง','ท่าวังพร้าว','มะขามหลวง','แม่ก๊า','บ้านแม','บ้านกลาง','ทุ่งสะโตก','ทุ่งต้อม','น้ำบ่อหลวง','มะขุนหวาน'],
   'สันกำแพง':['สันกำแพง','ทรายมูล','ร้องวัวแดง','บวกค้าง','แช่ช้าง','ออนใต้','แม่ปูคา','ห้วยทราย','ต้นเปา','สันกลาง'],
   'สันทราย':['สันทรายหลวง','สันทรายน้อย','สันพระเนตร','สันนาเม็ง','สันป่าเปา','หนองแหย่ง','หนองจ๊อม','หนองหาร','แม่แฝก','แม่แฝกใหม่','เมืองเล็น','ป่าไผ่'],
-  'สันป่าตอง':['ยุหว่า','สันกลาง','ท่าวังพร้าว','มะขามหลวง','แม่ก๊า','บ้านแม','บ้านกลาง','ทุ่งสะโตก','ทุ่งต้อม','น้ำบ่อหลวง','มะขุนหวาน'],
-  'สารภี':['ยางเนิ้ง','สารภี','ชมภู','ไชยสถาน','ขัวมุง','หนองแฝก','หนองผึ้ง','ท่ากว้าง','ดอนแก้ว','ท่าวังตาล','สันทราย','ป่าบง'],
   'หางดง':['หางดง','หนองแก๋ว','หารแก้ว','หนองตอง','ขุนคง','สบแม่ข่า','บ้านแหวน','สันผักหวาน','หนองควาย','บ้านปง','น้ำแพร่'],
-  'อมก๋อย':['อมก๋อย','ยางเปียง','แม่ตื่น','ม่อนจอง','แม่หลอง','นาเกียน'],
   'ฮอด':['หางดง','ฮอด','บ้านตาล','บ่อหลวง','บ่อสลี','นาคอเรือ'],
+  'ดอยเต่า':['ดอยเต่า','ท่าเดื่อ','มืดกา','บ้านแอ่น','บงตัน','โปงทุ่ง'],
+  'อมก๋อย':['อมก๋อย','ยางเปียง','แม่ตื่น','ม่อนจอง','สบโขง','นาเกียน'],
+  'สารภี':['ยางเนิ้ง','สารภี','ชมภู','ไชยสถาน','ขัวมุง','หนองแฝก','หนองผึ้ง','ท่ากว้าง','ดอนแก้ว','ท่าวังตาล','สันทราย','ป่าบง'],
+  'เวียงแหง':['เมืองแหง','เปียงหลวง','แสนไห'],
+  'ไชยปราการ':['ปงตำ','ศรีดงเย็น','แม่ทะลบ','หนองบัว'],
+  'แม่วาง':['บ้านกาด','ทุ่งปี้','ทุ่งรวงทอง','แม่วิน','ดอนเปา'],
+  'แม่ออน':['ออนเหนือ','ออนกลาง','บ้านสหกรณ์','ห้วยแก้ว','แม่ทา','ทาเหนือ'],
+  'ดอยหล่อ':['ดอยหล่อ','สองแคว','ยางคราม','สันติสุข'],
 };
 
 function buildSuggestions(q) {
@@ -59,7 +58,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: markerShadow,
 });
 
-const API = 'http://localhost:8096';
+import { API_BASE_URL as API } from '../config';
 
 function MapPicker({ position, setPosition }) {
   useMapEvents({
@@ -75,8 +74,15 @@ function ExploreSitters() {
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
   const imageUrl = user.profileImage && user.profileImage !== 'default.png'
-    ? `${API}/api/auth/images/${user.profileImage}`
+    ? `/images/owners/${user.profileImage}`
     : null;
+
+  const getDistanceBadge = (distance) => {
+    if (distance == null) return null;
+    if (distance <= 5) return { label: `🐾 ใกล้ที่สุด`, color: '#7FB3D9', glow: 'rgba(127,179,217,0.55)', glowSoft: 'rgba(127,179,217,0.4)', hoverGlow: 'rgba(127,179,217,1)', hoverGlowSoft: 'rgba(127,179,217,0.85)' };
+    if (distance <= 10) return { label: `🐾🐾 ใกล้`, color: '#5C93BF', glow: 'rgba(92,147,191,0.7)', glowSoft: 'rgba(92,147,191,0.5)', hoverGlow: 'rgba(92,147,191,1)', hoverGlowSoft: 'rgba(92,147,191,0.9)' };
+    return { label: `🐾🐾🐾 ไกล`, color: '#2D5F86', glow: 'rgba(45,95,134,0.85)', glowSoft: 'rgba(45,95,134,0.6)', hoverGlow: 'rgba(45,95,134,1)', hoverGlowSoft: 'rgba(45,95,134,0.95)' };
+  };
 
   const [sitters, setSitters] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -88,6 +94,7 @@ function ExploreSitters() {
   const [searchText, setSearchText] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [hasLocationSearch, setHasLocationSearch] = useState(false);
   const searchRef = useRef(null);
 
   // ปิด dropdown เมื่อคลิกข้างนอก
@@ -110,6 +117,20 @@ function ExploreSitters() {
     try {
       const params = new URLSearchParams({ keyword });
       if (petTypeFilter && petTypeFilter !== 'ทั้งหมด') params.append('petType', petTypeFilter);
+
+      // ขอตำแหน่งจริงของผู้ใช้ (ถ้าอนุญาต) เพื่อคำนวณระยะทางจริง
+      const position = await new Promise((resolve) => {
+        if (!navigator.geolocation) { resolve(null); return; }
+        navigator.geolocation.getCurrentPosition(
+          (pos) => resolve(pos.coords),
+          () => resolve(null)
+        );
+      });
+      if (position) {
+        params.append('lat', position.latitude);
+        params.append('lng', position.longitude);
+      }
+
       const res = await fetch(`${API}/api/sitter/search-by-area?${params}`);
       const data = await res.json();
       setSitters(Array.isArray(data) ? data : []);
@@ -125,10 +146,11 @@ function ExploreSitters() {
 
   const handleSearchClick = () => {
     setShowDropdown(false);
+    setHasLocationSearch(true);
     if (searchText.trim()) {
       fetchSittersByArea(searchText.trim());
     } else {
-      alert('กรุณาพิมพ์ชื่อตำบลหรืออำเภอก่อนครับ');
+      fetchSitters(18.7883, 98.9853, petTypeFilter);
     }
   };
 
@@ -145,6 +167,7 @@ function ExploreSitters() {
       (pos) => {
         const { latitude, longitude } = pos.coords;
         setSearchPosition([latitude, longitude]);
+        setHasLocationSearch(true);
         fetchSitters(latitude, longitude, petTypeFilter);
       },
       () => {
@@ -156,9 +179,10 @@ function ExploreSitters() {
 
   // ค้นหาจากตำแหน่งที่ปักหมุด
   const handleSearchByPin = () => {
-    if (!pinPosition) { alert('กรุณาปักหมุดตำแหน่งบนแผนที่ก่อนครับ'); return; }
+    if (!pinPosition) { alert('กรุณาปักหมุดตำแหน่งบนแผนที่'); return; }
     setSearchPosition(pinPosition);
     setShowMap(false);
+    setHasLocationSearch(true);
     fetchSitters(pinPosition[0], pinPosition[1], petTypeFilter);
   };
 
@@ -186,20 +210,18 @@ function ExploreSitters() {
 
   const getPetTypeEmoji = (petType) => {
     if (!petType) return '';
-    if (petType.includes('สุนัข') && petType.includes('แมว')) return '🐶 🐱';
-    if (petType.includes('สุนัข')) return '🐶';
-    if (petType.includes('แมว')) return '🐱';
+    if (petType.includes('สุนัข') && petType.includes('แมว')) return 'สุนัข 🐶 แมว 🐱';
+    if (petType.includes('สุนัข')) return 'สุนัข 🐶';
+    if (petType.includes('แมว')) return 'แมว 🐱';
     return petType;
   };
 
   const renderStars = (rating) => {
     if (!rating) return null;
-    const full = Math.floor(rating);
-    const half = rating % 1 >= 0.5;
     return (
       <span className="star-rating">
-        {'⭐'.repeat(full)}{half ? '✨' : ''}
-        <span className="star-score"> {rating}</span>
+        <span style={{color:'#f59e0b'}}>{'★'.repeat(Math.round(rating))}{'☆'.repeat(5 - Math.round(rating))}</span>
+        <span className="star-score"> {rating.toFixed(1)}</span>
       </span>
     );
   };
@@ -210,7 +232,7 @@ function ExploreSitters() {
       <div className="topbar">
         <div className="topbar-left">
           <img src={logo} alt="logo" className="topbar-logo" />
-          <div className="topbar-title">ระบบตามหาผู้ดูแลสัตว์เลี้ยง ภายในจังหวัดเชียงใหม่</div>
+          <div className="topbar-title">ระบบตามหาผู้ดูแลสัตว์เลี้ยง<br />ภายในจังหวัดเชียงใหม่</div>
         </div>
         <div className="topbar-user">
           <span>ยินดีต้อนรับ คุณ{user.firstname}</span>
@@ -236,9 +258,6 @@ function ExploreSitters() {
             </a>
             <a className="menu-item" onClick={() => navigate('/my-announcements')}>
               <span className="menu-icon">📢</span><span>รายการประกาศ</span>
-            </a>
-            <a className="menu-item" onClick={() => navigate('/active-jobs')}>
-              <span className="menu-icon">⚡</span><span>งานที่มอบหมาย</span>
             </a>
           </div>
           <hr className="menu-divider" />
@@ -289,8 +308,7 @@ function ExploreSitters() {
                 value={petTypeFilter}
                 onChange={e => setPetTypeFilter(e.target.value)}
               >
-                <option value="ทั้งหมด">ประเภทสัตว์เลี้ยง</option>
-                <option value="ทั้งหมด">ทั้งหมด</option>
+                <option value="ทั้งหมด">🐾 ทั้งหมด</option>
                 <option value="สุนัข">🐶 สุนัข</option>
                 <option value="แมว">🐱 แมว</option>
               </select>
@@ -308,7 +326,7 @@ function ExploreSitters() {
                 </MapContainer>
               </div>
               {pinPosition && (
-                <p style={{ fontSize: 12, color: '#8D6E63', marginTop: 6 }}>
+                <p style={{ fontSize: 12, color: '#7FB3D9', marginTop: 6 }}>
                   📍 ตำแหน่งที่เลือก: {pinPosition[0].toFixed(5)}, {pinPosition[1].toFixed(5)}
                 </p>
               )}
@@ -324,49 +342,68 @@ function ExploreSitters() {
           ) : !searched ? (
             <div className="explore-empty">
               <div style={{ fontSize: 48, marginBottom: 12 }}>🔍</div>
-              <p>กดปุ่ม "ใกล้ฉัน" หรือปักหมุดตำแหน่งเพื่อค้นหาผู้ดูแลใกล้คุณครับ</p>
+              <p>กดปุ่ม "ใกล้ฉัน" หรือปักหมุดตำแหน่งเพื่อค้นหาผู้ดูแลใกล้คุณ</p>
             </div>
           ) : filteredSitters.length === 0 ? (
             <div className="explore-empty">
               <div style={{ fontSize: 48, marginBottom: 12 }}>😔</div>
-              <p>ไม่พบผู้ดูแลครับ</p>
+              <p>ไม่พบผู้ดูแล</p>
             </div>
           ) : (
             <div className="explore-list">
-              {filteredSitters.map(sitter => (
-                <div key={sitter.sitterID} className="explore-card">
+              {filteredSitters.map(sitter => {
+                const distInfo = hasLocationSearch ? getDistanceBadge(sitter.distance) : null;
+                return (
+                <div
+                  key={sitter.sitterID}
+                  className="explore-card"
+                  style={distInfo ? {
+                    boxShadow: `0 0 0 4px ${distInfo.glow}, 0 8px 20px ${distInfo.glowSoft}`,
+                    '--hover-glow': distInfo.hoverGlow,
+                    '--hover-glow-soft': distInfo.hoverGlowSoft,
+                  } : {}}
+                >
+                  {sitter.avgRating ? (
+                    <div className="explore-card-rating-corner">{renderStars(sitter.avgRating)}</div>
+                  ) : (
+                    <div className="explore-card-rating-corner explore-new-badge">🆕 ผู้ดูแลใหม่</div>
+                  )}
                   <div className="explore-card-img-wrap">
                     {sitter.sitterImage && sitter.sitterImage !== 'default.png'
-                      ? <img src={`${API}/api/auth/images/${sitter.sitterImage}`} alt={sitter.firstname} className="explore-card-img" />
+                      ? <img src={`/images/sitters/${sitter.sitterImage}`} alt={sitter.firstname} className="explore-card-img" />
                       : <div className="explore-card-img-placeholder">👤</div>
                     }
                   </div>
-                  <div className="explore-card-info">
-                    <div className="explore-card-top-row">
-                      <div className="explore-card-name">
-                        {sitter.firstname} {sitter.lastname}
-                        <span style={{ fontSize: 12, background: sitter.gender === 'ชาย' ? '#EDF4FB' : '#FDF2F8', color: sitter.gender === 'ชาย' ? '#1d4ed8' : '#be185d', border: `0.5px solid ${sitter.gender === 'ชาย' ? '#BFDBFE' : '#FBCFE8'}`, padding: '2px 8px', borderRadius: 20, fontWeight: 600, whiteSpace: 'nowrap', marginLeft: 8 }}>
-                          {sitter.gender === 'ชาย' ? '♂ ชาย' : '♀ หญิง'}
-                        </span>
-                      </div>
-                      {sitter.avgRating && renderStars(sitter.avgRating)}
-                    </div>
-                    <div className="explore-card-pettype">
-                      ประเภทสัตว์เลี้ยงที่รับดูแล &nbsp;
-                      <span className="explore-card-pettype-val">{getPetTypeEmoji(sitter.petAlowPet)}</span>
-                    </div>
-                    <div className="explore-card-price">💰 {sitter.pricePerDay} บาท / วัน</div>
-                    <div className="explore-card-location">📍 ตำบล{sitter.subdistrict}, {sitter.province}</div>
-                    <div className="explore-card-divider" />
-                    <div className="explore-card-bottom">
-                      <span className="explore-card-distance">📍 ห่างจากคุณ {sitter.distance} กิโลเมตร</span>
-                      <button className="explore-detail-btn" onClick={() => navigate(`/sitter-profile/${sitter.sitterID}`)}>
-                        รายละเอียด
-                      </button>
-                    </div>
+                  <div className="explore-card-name">
+                    {sitter.firstname} {sitter.lastname}
                   </div>
+                  <div className="explore-card-top-row">
+                    <span style={{ fontSize: 12, background: sitter.gender === 'ชาย' ? '#EDF4FB' : '#FDF2F8', color: sitter.gender === 'ชาย' ? '#1d4ed8' : '#be185d', border: `0.5px solid ${sitter.gender === 'ชาย' ? '#BFDBFE' : '#FBCFE8'}`, padding: '2px 8px', borderRadius: 20, fontWeight: 600, whiteSpace: 'nowrap' }}>
+                      {sitter.gender === 'ชาย' ? '♂ ชาย' : '♀ หญิง'}
+                    </span>
+                  </div>
+                  <div className="explore-card-pettype">
+                    ประเภทสัตว์เลี้ยงที่รับดูแล &nbsp;
+                    <span className="explore-card-pettype-val">{getPetTypeEmoji(sitter.petAlowPet)}</span>
+                  </div>
+                  <div className="explore-card-price">💰 {sitter.pricePerDay} บาท / วัน</div>
+                  <div className="explore-card-location">📍 {sitter.subdistrict}, {sitter.district}, {sitter.province}</div>
+                  {distInfo && (
+                    <>
+                      <div className="explore-card-distance-label" style={{ color: distInfo.color }}>
+                        {distInfo.label}
+                      </div>
+                      <div className="explore-card-distance-km" style={{ color: distInfo.color }}>
+                        ห่างจากคุณ {sitter.distance} กม.
+                      </div>
+                    </>
+                  )}
+                  <button className="explore-detail-btn" onClick={() => navigate(`/sitter-profile/${sitter.sitterID}`)}>
+                    ดูโปรไฟล์
+                  </button>
                 </div>
-              ))}
+                );
+              })}
             </div>
           )}
 

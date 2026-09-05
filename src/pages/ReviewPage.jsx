@@ -5,7 +5,7 @@ import './ReviewPage.css';
 import logo from '../assets/logo.png';
 import NotificationBell from '../components/NotificationBell';
 
-const API = 'http://localhost:8096';
+import { API_BASE_URL as API } from '../config';
 
 function ReviewPage() {
   const navigate = useNavigate();
@@ -16,14 +16,14 @@ function ReviewPage() {
   const [sitter, setSitter] = useState(null);
   const [sitterApply, setSitterApply] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(5);
   const [hoverRating, setHoverRating] = useState(0);
   const [comment, setComment] = useState('');
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
 
   const imageUrl = user.profileImage && user.profileImage !== 'default.png'
-    ? `${API}/api/auth/images/${user.profileImage}` : null;
+    ? `/images/owners/${user.profileImage}` : null;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,7 +57,7 @@ function ReviewPage() {
 
   const calcDays = (start, end) => {
     if (!start || !end) return 1;
-    return Math.max(1, Math.round((new Date(end) - new Date(start)) / (1000*60*60*24)));
+    return Math.max(1, Math.round((new Date(end) - new Date(start)) / (1000*60*60*24)) + 1);
   };
 
   const validate = () => {
@@ -103,7 +103,7 @@ function ReviewPage() {
 
   if (loading) return (
     <div className="app-layout">
-      <div style={{padding:60, textAlign:'center', color:'#8D6E63'}}>กำลังโหลดข้อมูล...</div>
+      <div style={{padding:60, textAlign:'center', color:'#7FB3D9'}}>กำลังโหลดข้อมูล...</div>
     </div>
   );
 
@@ -112,7 +112,7 @@ function ReviewPage() {
       <div className="topbar">
         <div className="topbar-left">
           <img src={logo} alt="logo" className="topbar-logo" />
-          <div className="topbar-title">ระบบตามหาผู้ดูแลสัตว์เลี้ยง ภายในจังหวัดเชียงใหม่</div>
+          <div className="topbar-title">ระบบตามหาผู้ดูแลสัตว์เลี้ยง<br />ภายในจังหวัดเชียงใหม่</div>
         </div>
         <div className="topbar-user">
           <span>ยินดีต้อนรับ คุณ{user.firstname}</span>
@@ -129,9 +129,7 @@ function ReviewPage() {
             <a className="menu-item" onClick={() => navigate('/profile-owner')}><span className="menu-icon">👤</span><span>โปรไฟล์ของฉัน</span></a>
             <a className="menu-item" onClick={() => navigate('/my-pets')}><span className="menu-icon">🐾</span><span>รายการสัตว์เลี้ยง</span></a>
             <a className="menu-item" onClick={() => navigate('/explore-sitters')}><span className="menu-icon">🔍</span><span>สำรวจผู้ดูแล</span></a>
-            <a className="menu-item active" onClick={() => navigate('/my-announcements')}><span className="menu-icon">📢</span><span>รายการประกาศ</span></a>
-            <a className="menu-item" onClick={() => navigate('/active-jobs')}><span className="menu-icon">⚡</span><span>งานที่กำลังทำ</span></a>
-          </div>
+            <a className="menu-item active" onClick={() => navigate('/my-announcements')}><span className="menu-icon">📢</span><span>รายการประกาศ</span></a>          </div>
           <hr className="menu-divider" />
           <a className="menu-item menu-logout" onClick={handleLogout}><span className="menu-icon">🚪</span><span>ออกจากระบบ</span></a>
         </div>
@@ -140,15 +138,12 @@ function ReviewPage() {
           <div className="rv-card">
             <div className="rv-card-title">ให้คะแนน และ รีวิว</div>
 
-            {/* ชื่อเจ้าของ */}
-            <div className="rv-owner-name">{user.firstname} {user.lastname}</div>
-
             {/* ข้อมูลผู้ดูแล */}
             {sitter && (
               <div className="rv-sitter-section">
                 <div className="rv-sitter-img">
                   {sitter.sitterImage && sitter.sitterImage !== 'default.png'
-                    ? <img src={`${API}/api/auth/images/${sitter.sitterImage}`} alt="sitter" />
+                    ? <img src={`/images/sitters/${sitter.sitterImage}`} alt="sitter" />
                     : <span>👤</span>}
                 </div>
                 <div className="rv-sitter-info">
@@ -165,8 +160,8 @@ function ReviewPage() {
                     </div>
                   )}
                   <div className="rv-sitter-dates">
-                    วันที่ดูแล {formatDate(ann?.startdate)} - {formatDate(ann?.enddate)} &nbsp;
-                    <span className="rv-days-badge">{calcDays(ann?.startdate, ann?.enddate)} วัน</span>
+                    วันที่ดูแล <span style={{color:'#F96320', fontWeight:600}}>{calcDays(ann?.startdate, ann?.enddate)} วัน</span>
+                    <span style={{color:'#1a1a1a'}}> ({formatDate(ann?.startdate)} - {formatDate(ann?.enddate)})</span>
                   </div>
                 </div>
               </div>
@@ -176,7 +171,7 @@ function ReviewPage() {
 
             {submitted ? (
               <div className="rv-submitted">
-                ✅ คุณส่งรีวิวงานนี้แล้วครับ
+                ✅ คุณส่งรีวิวงานนี้แล้ว
               </div>
             ) : (
               <>
@@ -209,7 +204,7 @@ function ReviewPage() {
             )}
           </div>
 
-          <div className="btn-group" style={{marginTop:16}}>
+          <div className="btn-group rv-btn-group-split" style={{marginTop:16}}>
             <button className="btn btn-back" onClick={() => navigate(`/announcement-detail/${announceID}`)}>ย้อนกลับ</button>
             {!submitted && (
               <button className="rv-submit-btn" onClick={handleSubmit}>ส่งรีวิว</button>

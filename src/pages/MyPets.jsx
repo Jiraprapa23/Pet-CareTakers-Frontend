@@ -5,7 +5,7 @@ import './MyPets.css';
 import logo from '../assets/logo.png';
 import NotificationBell from '../components/NotificationBell';
 
-const API = 'http://localhost:8096';
+import { API_BASE_URL as API } from '../config';
 
 function MyPets() {
   const navigate = useNavigate();
@@ -82,10 +82,15 @@ function MyPets() {
     const typeName = pet.petType?.petTypeName || '';
     const emoji = getPetEmoji(typeName);
     const placeholderClass = getPlaceholderClass(typeName);
+    const isMale = pet.gender === 'เพศผู้';
 
     return (
       <div className={`pet-card${isDeceased ? ' memorial' : ''}`}>
-        <div className="pet-card-img-wrap">
+        <div className="pet-card-header">
+          <div className="pet-card-name">{pet.petName}</div>
+          {isDeceased && <div className="pet-card-memorial-tag">🌈 อยู่ในความทรงจำ</div>}
+        </div>
+        <div className="pet-card-photo">
           {pet.petImage && pet.petImage !== 'default.png'
             ? <img
                 src={`/images/pets/${pet.petImage}`}
@@ -100,30 +105,28 @@ function MyPets() {
                 {emoji}
               </div>
           }
-          {isDeceased && <div className="memorial-badge-card">🌈 อยู่ในความทรงจำ</div>}
-          <div className="pet-type-badge">{emoji} {typeName}</div>
-          <div className="pet-card-overlay">
-            <div className="pet-card-name-overlay">{pet.petName}</div>
-          </div>
         </div>
         <div className="pet-card-body">
-          <div className="pet-card-tags">
-            {pet.breed && <span className="pet-tag pet-tag-breed">{pet.breed}</span>}
-            <span className={`pet-tag ${pet.gender === 'เพศผู้' ? 'pet-tag-male' : 'pet-tag-female'}`}>
-              {pet.gender === 'เพศผู้' ? '♂' : '♀'} {pet.gender}
-            </span>
+          <div className="pet-card-info-row">
+            <b>ประเภทสัตว์</b> {typeName} {emoji}
+            {pet.breed && <>&nbsp;&nbsp;<b>สายพันธุ์</b> {pet.breed}</>}
+          </div>
+          <div className={`pet-card-gender ${isMale ? 'male' : 'female'}`}>
+            {isMale ? '♂' : '♀'} {pet.gender}
           </div>
           <div className="pet-card-age">
             วันเกิด <span>{formatDate(pet.birthDate)}</span>
             {' · '}อายุ <span>{calcAge(pet.birthDate)}</span>
             <span style={{ color: '#aaa', fontSize: 11 }}> (โดยประมาณ)</span>
           </div>
-          <button
-            className={`btn-detail${isDeceased ? ' memorial' : ''}`}
-            onClick={() => navigate(`/pet-detail/${pet.petID}`)}
-          >
-            รายละเอียด
-          </button>
+          <div className="pet-card-footer">
+            <button
+              className={`btn-detail${isDeceased ? ' memorial' : ''}`}
+              onClick={() => navigate(`/pet-detail/${pet.petID}`)}
+            >
+              รายละเอียด
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -134,7 +137,7 @@ function MyPets() {
       <div className="topbar">
         <div className="topbar-left">
           <img src={logo} alt="logo" className="topbar-logo" />
-          <div className="topbar-title">ระบบตามหาผู้ดูแลสัตว์เลี้ยง ภายในจังหวัดเชียงใหม่</div>
+          <div className="topbar-title">ระบบตามหาผู้ดูแลสัตว์เลี้ยง<br />ภายในจังหวัดเชียงใหม่</div>
         </div>
         <div className="topbar-user">
           <span>ยินดีต้อนรับ คุณ{user.firstname}</span>
@@ -162,9 +165,6 @@ function MyPets() {
             <a className="menu-item" onClick={() => navigate('/my-announcements')}>
               <span className="menu-icon">📢</span><span>รายการประกาศ</span>
             </a>
-            <a className="menu-item" onClick={() => navigate('/active-jobs')}>
-              <span className="menu-icon">⚡</span><span>งานที่มอบหมาย</span>
-            </a>
           </div>
           <hr className="menu-divider" />
           <a className="menu-item menu-logout" onClick={handleLogout}>
@@ -174,7 +174,7 @@ function MyPets() {
 
         <div className="main-content">
           <div className="mypets-header">
-            <div className="mypets-title">รายการสัตว์เลี้ยง</div>
+            <div className="mypets-title">รายการสัตว์เลี้ยงของฉัน</div>
           </div>
 
           {loading ? (
@@ -194,7 +194,7 @@ function MyPets() {
                 </div>
               ) : (
                 <>
-                  <div className="mypets-section-label">สัตว์เลี้ยงของฉัน</div>
+                  
                   <div className="mypets-grid" style={{ marginBottom: 24 }}>
                     {activePets.map(pet => (
                       <PetCard key={pet.petID} pet={pet} isDeceased={false} />
@@ -202,7 +202,7 @@ function MyPets() {
                     <div className="pet-card-add" onClick={() => navigate('/add-pet')}>
                       <div className="pet-card-add-circle">+</div>
                       <div className="pet-card-add-text">เพิ่มสัตว์เลี้ยง</div>
-                      <div className="pet-card-add-sub">กดเพื่อเพิ่มสัตว์เลี้ยงใหม่</div>
+                      
                     </div>
                   </div>
                   {deceasedPets.length > 0 && (

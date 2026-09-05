@@ -5,7 +5,7 @@ import './PaymentPage.css';
 import logo from '../assets/logo.png';
 import NotificationBell from '../components/NotificationBell';
 
-const API = 'http://localhost:8096';
+import { API_BASE_URL as API } from '../config';
 
 function PaymentPage() {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ function PaymentPage() {
   const slipRef = useRef(null);
 
   const imageUrl = user.profileImage && user.profileImage !== 'default.png'
-    ? `${API}/api/auth/images/${user.profileImage}` : null;
+    ? `/images/owners/${user.profileImage}` : null;
 
   const fetchData = async () => {
     try {
@@ -49,7 +49,7 @@ function PaymentPage() {
 
   const calcDays = (start, end) => {
     if (!start || !end) return 1;
-    return Math.max(1, Math.round((new Date(end) - new Date(start)) / (1000*60*60*24)));
+    return Math.max(1, Math.round((new Date(end) - new Date(start)) / (1000*60*60*24)) + 1);
   };
 
   const handleSlipChange = (e) => {
@@ -83,7 +83,7 @@ function PaymentPage() {
       });
       const data = await res.json();
       if (!res.ok) { alert(data.message); return; }
-      alert('ยืนยันการชำระเงินเรียบร้อยแล้ว กรุณารอผู้ดูแลยืนยันการรับเงิน');
+      alert('ชำระเงินเรียบร้อยแล้ว กรุณารอผู้ดูแลยืนยันการรับเงิน');
       navigate(`/announcement-detail/${announceID}`);
     } catch (err) { alert('เกิดข้อผิดพลาด'); }
     finally { setUploading(false); }
@@ -96,7 +96,7 @@ function PaymentPage() {
 
   if (loading) return (
     <div className="app-layout">
-      <div style={{padding:60, textAlign:'center', color:'#8D6E63'}}>กำลังโหลดข้อมูล...</div>
+      <div style={{padding:60, textAlign:'center', color:'#7FB3D9'}}>กำลังโหลดข้อมูล...</div>
     </div>
   );
 
@@ -105,7 +105,7 @@ function PaymentPage() {
       <div className="topbar">
         <div className="topbar-left">
           <img src={logo} alt="logo" className="topbar-logo" />
-          <div className="topbar-title">ระบบตามหาผู้ดูแลสัตว์เลี้ยง ภายในจังหวัดเชียงใหม่</div>
+          <div className="topbar-title">ระบบตามหาผู้ดูแลสัตว์เลี้ยง<br />ภายในจังหวัดเชียงใหม่</div>
         </div>
         <div className="topbar-user">
           <span>ยินดีต้อนรับ คุณ{user.firstname}</span>
@@ -123,7 +123,6 @@ function PaymentPage() {
             <a className="menu-item" onClick={() => navigate('/my-pets')}><span className="menu-icon">🐾</span><span>รายการสัตว์เลี้ยง</span></a>
             <a className="menu-item" onClick={() => navigate('/explore-sitters')}><span className="menu-icon">🔍</span><span>สำรวจผู้ดูแล</span></a>
             <a className="menu-item active" onClick={() => navigate('/my-announcements')}><span className="menu-icon">📢</span><span>รายการประกาศ</span></a>
-            <a className="menu-item" onClick={() => navigate('/active-jobs')}><span className="menu-icon">⚡</span><span>งานที่กำลังทำ</span></a>
           </div>
           <hr className="menu-divider" />
           <a className="menu-item menu-logout" onClick={handleLogout}><span className="menu-icon">🚪</span><span>ออกจากระบบ</span></a>
@@ -144,8 +143,8 @@ function PaymentPage() {
                     <div className="pay-info-row"><span className="pay-lbl">ชื่อบัญชี</span><span>{sitter.accountName || '-'}</span></div>
                     {sitter.qrCodeImage && sitter.qrCodeImage !== 'default.png' && (
                       <div className="pay-qr-wrap">
-                        <img src={`${API}/api/auth/images/${sitter.qrCodeImage}`} alt="QR Code" className="pay-qr-img" />
-                        <div style={{fontSize:12, color:'#8D6E63', marginTop:6, textAlign:'center'}}>{sitter.firstname} {sitter.lastname}</div>
+                        <img src={`/images/qrcodes/${sitter.qrCodeImage}`} alt="QR Code" className="pay-qr-img" />
+                        <div style={{fontSize:12, color:'#7FB3D9', marginTop:6, textAlign:'center'}}>{sitter.firstname} {sitter.lastname}</div>
                       </div>
                     )}
                   </>
@@ -159,8 +158,9 @@ function PaymentPage() {
                 <div className="pay-section-title">รายละเอียดและการชำระ</div>
                 <div className="pay-info-row">
                   <span className="pay-lbl">วันที่จ้างงาน</span>
-                  <span>{formatDate(ann?.startdate)} - {formatDate(ann?.enddate)}
-                    <span className="pay-days-badge">({days} วัน)</span>
+                  <span>
+                    <span style={{color:'#F96320', fontWeight:600}}>{days} วัน</span>
+                    <span style={{color:'#1a1a1a'}}>&nbsp;({formatDate(ann?.startdate)} - {formatDate(ann?.enddate)})</span>
                   </span>
                 </div>
                 <div className="pay-total">
@@ -194,10 +194,10 @@ function PaymentPage() {
             </div>
           </div>
 
-          <div className="btn-group" style={{marginTop:16}}>
+          <div className="btn-group pay-btn-group-split" style={{marginTop:16}}>
             <button className="btn btn-back" onClick={() => navigate(`/announcement-detail/${announceID}`)}>ย้อนกลับ</button>
             <button className="pay-confirm-btn" onClick={handleSubmit} disabled={uploading}>
-              {uploading ? 'กำลังอัพโหลด...' : '✅ ยืนยันการชำระเงิน'}
+              {uploading ? 'กำลังอัพโหลด...' : '💳 ยืนยันการชำระเงิน'}
             </button>
           </div>
         </div>

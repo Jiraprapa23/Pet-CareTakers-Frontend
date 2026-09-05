@@ -4,9 +4,25 @@ import './ProfileOwner.css';
 import './AnnouncementDetailSitter.css';
 import logo from '../assets/logo.png';
 
-const API = 'http://localhost:8096';
+import { API_BASE_URL as API } from '../config';
 
 function AnnouncementDetailSitter() {
+  const statusIcons = {
+    'รับสมัคร': '📢',
+    'รอพิจารณา': '⏳',
+    'ได้รับผู้ดูแลแล้ว': '👤',
+    'กำลังดูแล': '🐾',
+    'งานเสร็จสิ้น': '✅',
+    'หมดอายุ': '🚫',
+  };
+  const appStatusIcons = {
+    'รอพิจารณา': '⏳',
+    'ได้รับเลือก': '👤',
+    'กำลังดูแล': '🐾',
+    'ไม่ได้รับเลือก': '❌',
+    'ถอนคำขอแล้ว': '↩️',
+    'งานเสร็จสิ้น': '✅',
+  };
   const navigate = useNavigate();
   const { announceID } = useParams();
   const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -26,7 +42,7 @@ function AnnouncementDetailSitter() {
   const videoRef = useRef(null);
 
   const imageUrl = user.sitterImage && user.sitterImage !== 'default.png'
-    ? `${API}/api/auth/images/${user.sitterImage}` : null;
+    ? `/images/sitters/${user.sitterImage}` : null;
 
     const fetchDetail = async () => {
       try {
@@ -34,7 +50,10 @@ function AnnouncementDetailSitter() {
         const data = await res.json();
         console.log('myStatus:', data.myStatus);
         setAnn(data);
-      if (data.careSlots && data.careSlots.length > 0) setSelectedSlot(data.careSlots[0]);
+        if (data.careSlots && data.careSlots.length > 0) {
+          const nextUnreported = data.careSlots.find(s => !data.reportedSlotsToday?.includes(s));
+          setSelectedSlot(nextUnreported || data.careSlots[0]);
+        }
     } catch (err) { console.error(err); }
     finally { setLoading(false); }
   };
@@ -58,7 +77,7 @@ function AnnouncementDetailSitter() {
 
   const calcDays = (start, end) => {
     if (!start || !end) return 0;
-    return Math.max(1, Math.round((new Date(end) - new Date(start)) / (1000*60*60*24)));
+    return Math.max(1, Math.round((new Date(end) - new Date(start)) / (1000*60*60*24)) + 1);
   };
 
   const getBehaviors = (pet) => {
@@ -132,8 +151,8 @@ function AnnouncementDetailSitter() {
       alert('กรุณาอัปโหลดรูปภาพและวิดีโอการดูแล');
       return;
     }
-    if (ann?.reportedSlots?.includes(selectedSlot)) {
-      alert('คุณส่งรายงานช่วงเวลานี้ไปแล้ว');
+    if (ann?.reportedSlotsToday?.includes(selectedSlot)) {
+      alert('คุณส่งรายงานช่วงเวลานี้ของวันนี้ไปแล้ว');
       return;
     }
     try {
@@ -173,7 +192,7 @@ function AnnouncementDetailSitter() {
 
   if (loading) return (
     <div className="app-layout">
-      <div style={{padding:60, textAlign:'center', color:'#8D6E63'}}>กำลังโหลดข้อมูล...</div>
+      <div style={{padding:60, textAlign:'center', color:'#7FB3D9'}}>กำลังโหลดข้อมูล...</div>
     </div>
   );
 
@@ -182,7 +201,7 @@ function AnnouncementDetailSitter() {
       <div className="topbar">
         <div className="topbar-left">
           <img src={logo} alt="logo" className="topbar-logo" />
-          <div className="topbar-title">ระบบตามหาผู้ดูแลสัตว์เลี้ยง ภายในจังหวัดเชียงใหม่</div>
+          <div className="topbar-title">ระบบตามหาผู้ดูแลสัตว์เลี้ยง<br />ภายในจังหวัดเชียงใหม่</div>
         </div>
         <div className="topbar-user">
           <span>ยินดีต้อนรับ คุณ{user.firstname}</span>
@@ -196,7 +215,7 @@ function AnnouncementDetailSitter() {
         <div className="sidebar">
           <div className="sidebar-menu">
             <a className="menu-item" onClick={() => navigate('/profile-sitter')}><span className="menu-icon">👤</span><span>โปรไฟล์ของฉัน</span></a>
-            <a className="menu-item active" onClick={() => navigate('/explore-announcements')}><span className="menu-icon">📋</span><span>สำรวจประกาศ</span></a>
+            <a className="menu-item" onClick={() => navigate('/explore-announcements')}><span className="menu-icon">📋</span><span>สำรวจประกาศ</span></a>
             <a className="menu-item" onClick={() => navigate('/my-applications')}><span className="menu-icon">📝</span><span>คำขอที่ส่งแล้ว</span></a>
           </div>
           <hr className="menu-divider" />
@@ -207,113 +226,279 @@ function AnnouncementDetailSitter() {
 
           {/* =================== Card หลัก =================== */}
           <div className="ads-card">
-            <div className="ads-card-top">
-              <div>
-                <div className="ads-card-title">รายละเอียด</div>
-                <div className="ads-postdate">📅 {formatDate(ann?.postdate)}</div>
-              </div>
+            <div className="ads-card-title-wrap">
+              <div className="ads-card-title">รายละเอียดประกาศ</div>
+              <div className="ads-postdate-center">โพสต์ {formatDate(ann?.postdate)}</div>
               {myStatus && (
-                <span className={`ads-my-status ads-status-${myStatus.replace(/\s/g,'')}`}>{myStatus}</span>
+                <span className={`ads-my-status ads-status-${myStatus.replace(/\s/g,'')} ads-status-float`}>{appStatusIcons[myStatus] || ''} {myStatus}</span>
               )}
               {!myStatus && (
-                <span className={`ads-status-badge ads-status-${ann?.status?.replace(/\s/g,'')}`}>{ann?.status}</span>
+                <span className={`ads-status-badge ads-status-${ann?.status?.replace(/\s/g,'')} ads-status-float`}>{statusIcons[ann?.status] || ''} {ann?.status}</span>
               )}
             </div>
 
-            {/* แถวบน: เจ้าของ + สัตว์เลี้ยง */}
-            <div className="ads-top-row">
-              <div className="ads-sec-box">
-                <div className="ads-sec-title">เจ้าของสัตว์เลี้ยง</div>
-                <div className="ads-owner-row">
-                  <div className="ads-avatar">
-                    {ann?.owner?.profileImage && ann.owner.profileImage !== 'default.png'
-                      ? <img src={`${API}/api/auth/images/${ann.owner.profileImage}`} alt="owner" />
-                      : <span>👤</span>}
-                  </div>
-                  <div>
-                    <div style={{fontSize:14, fontWeight:700, color:'#3d2b1f'}}>{ann?.owner?.firstname} {ann?.owner?.lastname}</div>
-                    <div style={{fontSize:12, color:'#8D6E63'}}>{ann?.owner?.gender} · อายุ {calcAge(ann?.owner?.birthdate)} ปี</div>
-                  </div>
-                </div>
-                <div className="ads-info-row"><span className="ads-lbl">โทร :</span> {ann?.owner?.phoneNumber}</div>
-                <div className="ads-info-row"><span className="ads-lbl">อีเมล :</span> {ann?.owner?.email}</div>
+            {/* ========== เจ้าของสัตว์เลี้ยง ========== */}
+            <div className="ads-owner-block">
+              <div className="ads-owner-avatar">
+                {ann?.owner?.profileImage && ann.owner.profileImage !== 'default.png'
+                  ? <img src={`/images/owners/${ann.owner.profileImage}`} alt="owner" />
+                  : <span style={{fontSize:48}}>👤</span>}
               </div>
-
-              <div className="ads-sec-box">
-                <div className="ads-sec-title">ข้อมูลสัตว์เลี้ยง</div>
-                <div className="ads-pet-row">
-                  <div className="ads-pet-img">
-                    {ann?.pet?.petImage && ann.pet.petImage !== 'default.png'
-                      ? <img src={`${API}/api/auth/images/${ann.pet.petImage}`} alt="pet" />
-                      : <span style={{fontSize:28}}>🐾</span>}
-                  </div>
-                  <div style={{flex:1}}>
-                    <div style={{fontSize:14, fontWeight:700, color:'#3d2b1f', marginBottom:4}}>{ann?.pet?.petName}</div>
-                    <div className="ads-info-row"><span className="ads-lbl">ประเภท :</span> {ann?.pet?.petType}</div>
-                    <div className="ads-info-row"><span className="ads-lbl">เพศ :</span> {ann?.pet?.gender}</div>
-                    <div className="ads-info-row"><span className="ads-lbl">น้ำหนัก :</span> {ann?.currentweight}</div>
-                  </div>
+              <div className="ads-owner-info">
+                <div className="ads-section-title-lg first">เจ้าของสัตว์เลี้ยง</div>
+                <div className="ads-field-row">
+                  <span>
+                    <span className="ads-field-label">ชื่อ-นามสกุล : </span>
+                    <span className="ads-field-value">{ann?.owner?.firstname} {ann?.owner?.lastname}</span>
+                  </span>
                 </div>
-                <div className="ads-pet-sub-grid">
-                  <div>
-                    <div className="ads-sub-title">วัคซีน</div>
-                    {ann?.pet?.vacRabiesDate && <div className="ads-dot-row"><span className="ads-dot">•</span>Rabies [{formatDate(ann.pet.vacRabiesDate)}]</div>}
-                    {ann?.pet?.vacDhppiDate && <div className="ads-dot-row"><span className="ads-dot">•</span>DHPPi [{formatDate(ann.pet.vacDhppiDate)}]</div>}
-                    {ann?.pet?.vacFvrcpDate && <div className="ads-dot-row"><span className="ads-dot">•</span>FVRCP [{formatDate(ann.pet.vacFvrcpDate)}]</div>}
-                    {!ann?.pet?.vacRabiesDate && !ann?.pet?.vacDhppiDate && !ann?.pet?.vacFvrcpDate && <div style={{fontSize:12,color:'#aaa'}}>ไม่มีข้อมูลวัคซีน</div>}
-                    <div className="ads-sub-title" style={{marginTop:6}}>โรคประจำตัว</div>
-                    <div className="ads-dot-row"><span className="ads-dot">•</span>{ann?.pet?.hasCongenitalDisease === 'มี' ? ann.pet.congenitalDiseaseDetail : 'ไม่มีโรคประจำตัว'}</div>
-                  </div>
-                  <div>
-                    <div className="ads-sub-title">พฤติกรรม</div>
-                    {getBehaviors(ann?.pet).length > 0
-                      ? getBehaviors(ann?.pet).map((b,i) => <div key={i} className="ads-dot-row"><span className="ads-dot">•</span>{b}</div>)
-                      : <div style={{fontSize:12,color:'#aaa'}}>ไม่มีข้อมูล</div>}
-                  </div>
+                <div className="ads-field-row">
+                  <span>
+                    <span className="ads-field-label">หมายเลขโทรศัพท์ : </span>
+                    <span className="ads-field-value">{ann?.owner?.phoneNumber}</span>
+                  </span>
                 </div>
+                <div className="ads-field-row">
+                  <span>
+                    <span className="ads-field-label">อีเมล : </span>
+                    <span className="ads-field-value">{ann?.owner?.email}</span>
+                  </span>
+                </div>
+                <div className="ads-field-row">
+                  <span className="ads-address-text" style={{margin:0}}>
+                    <span className="ads-field-label">ที่อยู่ : </span>
+                    บ้านเลขที่ {ann?.addressNo} ถนน/เขต {ann?.street && ann.street !== '-' ? ann.street : '-'}&nbsp;
+                    ตำบล {ann?.subdistrict} อำเภอ {ann?.district}&nbsp;
+                    จังหวัด {ann?.province} รหัสไปรษณีย์ {ann?.zipcode}
+                  </span>
+                </div>
+                {ann?.latitude && ann?.longitude && (
+                  <div className="ads-field-row">
+                    <a href={`https://www.google.com/maps?q=${ann.latitude},${ann.longitude}`}
+                      target="_blank" rel="noopener noreferrer" className="ads-address-link" style={{margin:0}}>
+                      📍 ที่อยู่จากปักหมุด : บ้านเลขที่ {ann?.addressNo} ถนน/เขต {ann?.street && ann.street !== '-' ? ann.street : '-'}&nbsp;
+                      ตำบล {ann?.subdistrict} อำเภอ {ann?.district}&nbsp;
+                      จังหวัด {ann?.province} รหัสไปรษณีย์ {ann?.zipcode} (กดเพื่อนำทาง)
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
 
-            {/* แถวล่าง: การดูแล + บริการ + ที่อยู่ */}
-            <div className="ads-bottom-row">
-              <div className="ads-sec-box">
-                <div className="ads-sec-title">รายละเอียดการดูแล</div>
-                <div style={{fontSize:13, fontWeight:700, color:'#3d2b1f', marginBottom:8}}>
-                  {formatDate(ann?.startdate)} - {formatDate(ann?.enddate)}
-                  <span className="ads-days-badge">{calcDays(ann?.startdate, ann?.enddate)} วัน</span>
+            <div className="ads-detail-body">
+
+              {/* ========== ซ้าย: รูปสัตว์เลี้ยง + ที่อยู่ ========== */}
+              <div className="ads-detail-left">
+                <div className="ads-detail-photo">
+                  {ann?.pet?.petImage && ann.pet.petImage !== 'default.png'
+                    ? <img src={`/images/pets/${ann.pet.petImage}`} alt="pet" />
+                    : <span style={{fontSize:60}}>🐾</span>}
                 </div>
-                <div className="ads-sub-title">ช่วงเวลาดูแล</div>
-                {ann?.carePet?.careMorning && <div className="ads-dot-row"><span className="ads-dot">•</span>เช้า 06:00 - 10:00น.</div>}
-                {ann?.carePet?.careAfternoon && <div className="ads-dot-row"><span className="ads-dot">•</span>กลางวัน 11:00 - 15:00น.</div>}
-                {ann?.carePet?.careEvening && <div className="ads-dot-row"><span className="ads-dot">•</span>เย็น 16:00 - 20:00น.</div>}
-                {ann?.carePet?.careNight && <div className="ads-dot-row"><span className="ads-dot">•</span>ดึก 21:00 - 24:00น.</div>}
-                <div className="ads-sub-title" style={{marginTop:8}}>การให้อาหาร</div>
-                {ann?.carePet?.feedMorning && <div className="ads-dot-row"><span className="ads-dot">•</span>เช้า 06:00 - 10:00น.</div>}
-                {ann?.carePet?.feedAfternoon && <div className="ads-dot-row"><span className="ads-dot">•</span>กลางวัน 11:00 - 15:00น.</div>}
-                {ann?.carePet?.feedEvening && <div className="ads-dot-row"><span className="ads-dot">•</span>เย็น 16:00 - 20:00น.</div>}
-                {ann?.carePet?.feedNight && <div className="ads-dot-row"><span className="ads-dot">•</span>ดึก 21:00 - 24:00น.</div>}
-                <div className="ads-sub-title" style={{marginTop:8}}>ปริมาณอาหาร</div>
-                <div className="ads-dot-row"><span className="ads-dot">•</span>{ann?.carePet?.isFoodPrepared ? 'จัดเตรียมไว้แล้ว' : ann?.carePet?.foodAmount || '-'}</div>
-              </div>
 
-              <div className="ads-sec-box">
-                <div className="ads-sec-title">บริการเสริม</div>
-                {ann?.carePet?.medicineDetail ? <div className="ads-dot-row"><span className="ads-dot">•</span>ป้อนยา: {ann.carePet.medicineDetail}</div> : <div className="ads-dot-row"><span className="ads-dot">•</span>ไม่มีการป้อนยา</div>}
-                {ann?.carePet?.isCleanService && <div className="ads-dot-row"><span className="ads-dot">•</span>เก็บ อึ อี</div>}
-                {ann?.carePet?.isWalkService && <div className="ads-dot-row"><span className="ads-dot">•</span>พาเดินเล่น</div>}
-              </div>
-
-              <div className="ads-sec-box">
-                <div className="ads-sec-title">ที่อยู่</div>
-                <div className="ads-info-row" style={{marginBottom:6}}>{ann?.addressNo} {ann?.street && ann.street !== '-' ? `ถนน ${ann.street}` : ''} ต.{ann?.subdistrict} อ.{ann?.district} จ.{ann?.province} {ann?.zipcode}</div>
-                <div style={{display:'flex', gap:4, alignItems:'flex-start'}}>
-                  <span style={{color:'#dc2626'}}>📍</span>
-                  <span style={{fontSize:12, color:'#666'}}>{ann?.addressNo} ต.{ann?.subdistrict} อ.{ann?.district} จ.{ann?.province}</span>
+                <div className="ads-address-title">ที่อยู่</div>
+                <div className="ads-address-text">
+                  ที่อยู่ : {ann?.addressNo} {ann?.street && ann.street !== '-' ? `ถนน/หมู่ ${ann.street}` : ''}&nbsp;
+                  ต.{ann?.subdistrict} อ.{ann?.district}&nbsp;
+                  จ.{ann?.province} {ann?.zipcode}
                 </div>
                 {ann?.latitude && ann?.longitude && (
-                  <a href={`https://www.google.com/maps?q=${ann.latitude},${ann.longitude}`} target="_blank" rel="noopener noreferrer" className="ads-map-btn">
-                    🗺️ นำทางด้วย Google Maps
+                  <a href={`https://www.google.com/maps?q=${ann.latitude},${ann.longitude}`}
+                    target="_blank" rel="noopener noreferrer" className="ads-address-link">
+                    📍 ที่อยู่จากปักหมุด (กดเพื่อนำทาง)
                   </a>
+                )}
+              </div>
+
+              {/* ========== ขวา: เนื้อหาไหลคอลัมน์เดียว ========== */}
+              <div className="ads-detail-right">
+
+                {/* ========== ข้อมูลสัตว์เลี้ยง ========== */}
+                <div className="ads-section-title-lg first">ข้อมูลสัตว์เลี้ยง</div>
+
+                <div className="ads-field-row">
+                  <span>
+                    <span className="ads-field-label">ชื่อสัตว์เลี้ยง </span>
+                    <span className="ads-field-value">{ann?.pet?.petName}</span>
+                  </span>
+                  <span>
+                    <span className="ads-field-label">สายพันธุ์ </span>
+                    <span className="ads-field-value">{ann?.pet?.breed || '-'}</span>
+                  </span>
+                </div>
+
+                <div className="ads-field-row">
+                  <span>
+                    <span className="ads-field-label">ประเภท </span>
+                    <span className="ads-field-value">{ann?.pet?.petType}</span>
+                  </span>
+                  <span>
+                    <span className="ads-field-label">เพศ </span>
+                    <span className="ads-field-value">{ann?.pet?.gender}</span>
+                  </span>
+                </div>
+
+                <div className="ads-field-row">
+                  <span>
+                    <span className="ads-field-label">วันเกิด </span>
+                    <span className="ads-field-value">{formatDate(ann?.pet?.birthDate) || '-'}</span>
+                  </span>
+                  {ann?.pet?.birthDate && (
+                    <span>
+                      <span className="ads-field-label">อายุ </span>
+                      <span className="ads-field-value">{calcAge(ann.pet.birthDate)}</span>
+                      <span className="ads-note-sm"> (โดยประมาณ)</span>
+                    </span>
+                  )}
+                  <span>
+                    <span className="ads-field-label">น้ำหนัก </span>
+                    <span className="ads-field-value">{ann?.currentweight || '-'}</span>
+                  </span>
+                </div>
+
+                {/* ========== ข้อมูลสุขภาพสัตว์เลี้ยง ========== */}
+                <div className="ads-section-title-lg">ข้อมูลสุขภาพสัตว์เลี้ยง</div>
+
+                <div className="ads-cat-row2">
+                  <div className="ads-cat-label2">วัคซีน</div>
+                  <div className="ads-cat-content2">
+                    {!ann?.pet?.vacRabiesDate && !ann?.pet?.vacDhppiDate && !ann?.pet?.vacFvrcpDate
+                      ? <p className="ads-note-sm">ไม่มีข้อมูลวัคซีน</p>
+                      : <>
+                          {ann?.pet?.vacRabiesDate && (
+                            <div className="ads-vaccine-line2">
+                              <span>พิษสุนัขบ้า (Rabies)</span>
+                              <span className="ads-vaccine-date2">[{formatDate(ann.pet.vacRabiesDate)}]</span>
+                            </div>
+                          )}
+                          {ann?.pet?.vacDhppiDate && (
+                            <div className="ads-vaccine-line2">
+                              <span>วัคซีนรวมสุนัข (DHPPi) <span className="ads-vaccine-note2">(เฉพาะสุนัข)</span></span>
+                              <span className="ads-vaccine-date2">[{formatDate(ann.pet.vacDhppiDate)}]</span>
+                            </div>
+                          )}
+                          {ann?.pet?.vacFvrcpDate && (
+                            <div className="ads-vaccine-line2">
+                              <span>วัคซีนรวมแมว (FVRCP) <span className="ads-vaccine-note2">(เฉพาะแมว)</span></span>
+                              <span className="ads-vaccine-date2">[{formatDate(ann.pet.vacFvrcpDate)}]</span>
+                            </div>
+                          )}
+                        </>
+                    }
+                  </div>
+                </div>
+
+                <div className="ads-cat-row2">
+                  <div className="ads-cat-label2">โรคประจำตัว</div>
+                  <div className="ads-cat-content2">
+                    {ann?.pet?.hasCongenitalDisease === 'มี'
+                      ? <div className="ads-bullet2"><span className="ads-dot2">•</span>{ann.pet.congenitalDiseaseDetail}</div>
+                      : <div className="ads-bullet2"><span className="ads-dot2">•</span>ไม่มีโรคประจำตัว</div>
+                    }
+                  </div>
+                </div>
+
+                {/* ========== ข้อมูลพฤติกรรม ========== */}
+                <div className="ads-section-title-lg">ข้อมูลพฤติกรรม</div>
+
+                {(ann?.pet?.behaviorStressAlone || ann?.pet?.behaviorFriendly || ann?.pet?.behaviorFearStranger) && (
+                  <div className="ads-cat-row2">
+                    <div className="ads-cat-label2">ปฏิสัมพันธ์กับคน</div>
+                    <div className="ads-cat-content2">
+                      {ann.pet.behaviorStressAlone && <div className="ads-bullet2"><span className="ads-dot2">•</span>เครียดเมื่อเจ้าของไม่อยู่</div>}
+                      {ann.pet.behaviorFriendly && <div className="ads-bullet2"><span className="ads-dot2">•</span>เฟรนลี่ / ติดคน (ชอบคน เข้าหาคนตลอด)</div>}
+                      {ann.pet.behaviorFearStranger && <div className="ads-bullet2"><span className="ads-dot2">•</span>กลัวคนแปลกหน้า (ต้องรอปรับตัวเล็กน้อย)</div>}
+                    </div>
+                  </div>
+                )}
+
+                {(ann?.pet?.behaviorFearLoudSound || ann?.pet?.behaviorBarkLoud) && (
+                  <div className="ads-cat-row2">
+                    <div className="ads-cat-label2">เสียงและการตอบสนองต่อสิ่งกระตุ้น</div>
+                    <div className="ads-cat-content2">
+                      {ann.pet.behaviorFearLoudSound && <div className="ads-bullet2"><span className="ads-dot2">•</span>กลัวเสียงดัง (ฟ้าร้อง / เครื่องใช้ไฟฟ้า)</div>}
+                      {ann.pet.behaviorBarkLoud && <div className="ads-bullet2"><span className="ads-dot2">•</span>เห่า/ส่งเสียงดังเมื่อมีสิ่งกระตุ้น</div>}
+                    </div>
+                  </div>
+                )}
+
+                {(ann?.pet?.behaviorDislikeTouch || ann?.pet?.behaviorBiteScrath || ann?.pet?.behaviorEscapeExpert ||
+                  ann?.pet?.behaviorHighEnergy || ann?.pet?.behaviorJumpOnPeople || ann?.pet?.behaviorHardControl) && (
+                  <div className="ads-cat-row2">
+                    <div className="ads-cat-label2">พฤติกรรมเสี่ยงต่อการบาดเจ็บ</div>
+                    <div className="ads-cat-content2">
+                      {ann.pet.behaviorDislikeTouch && <div className="ads-bullet2"><span className="ads-dot2">•</span>ไม่ชอบให้จับบางจุด (เช่น หู ท้อง ขา)</div>}
+                      {ann.pet.behaviorBiteScrath && <div className="ads-bullet2"><span className="ads-dot2">•</span>กัดหรือข่วนเมื่อเครียด</div>}
+                      {ann.pet.behaviorEscapeExpert && <div className="ads-bullet2"><span className="ads-dot2">•</span>หนีเก่งเมื่อเปิดประตู</div>}
+                      {ann.pet.behaviorHighEnergy && <div className="ads-bullet2"><span className="ads-dot2">•</span>เล่นแรง / พลังงานสูง</div>}
+                      {ann.pet.behaviorJumpOnPeople && <div className="ads-bullet2"><span className="ads-dot2">•</span>กระโดดใส่คนหรือสิ่งของ</div>}
+                      {ann.pet.behaviorHardControl && <div className="ads-bullet2"><span className="ads-dot2">•</span>ควบคุมยากเมื่อเครียด</div>}
+                    </div>
+                  </div>
+                )}
+
+                {getBehaviors(ann?.pet).length === 0 && (
+                  <p className="ads-note-sm">ไม่มีข้อมูลพฤติกรรมพิเศษ</p>
+                )}
+
+                {/* ========== รายละเอียดการดูแล ========== */}
+                <div className="ads-section-title-lg">รายละเอียดการดูแล</div>
+
+                <div className="ads-cat-row2">
+                  <div className="ads-cat-label2">วันที่ดูแล</div>
+                  <div className="ads-cat-content2">
+                    <div className="ads-bullet2">
+                      <span style={{color:'#F96320', fontWeight:600}}>{calcDays(ann?.startdate, ann?.enddate)} วัน</span>
+                      <span style={{color:'#1a1a1a'}}>&nbsp;({formatDate(ann?.startdate)} - {formatDate(ann?.enddate)})</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="ads-cat-row2">
+                  <div className="ads-cat-label2">ช่วงเวลาการดูแล</div>
+                  <div className="ads-cat-content2">
+                    {ann?.carePet?.careMorning && <div className="ads-bullet2"><span className="ads-dot2">•</span>ช่วงเช้า : 06:00น. - 10:00น.</div>}
+                    {ann?.carePet?.careAfternoon && <div className="ads-bullet2"><span className="ads-dot2">•</span>ช่วงกลางวัน : 11:00น. - 15:00น.</div>}
+                    {ann?.carePet?.careEvening && <div className="ads-bullet2"><span className="ads-dot2">•</span>ช่วงเย็น : 16:00น. - 20:00น.</div>}
+                    {ann?.carePet?.careNight && <div className="ads-bullet2"><span className="ads-dot2">•</span>ช่วงดึก : 21:00น. - 24:00น.</div>}
+                  </div>
+                </div>
+
+                <div className="ads-cat-row2 ads-cat-row2-split">
+                  <div className="ads-cat-pair">
+                    <div className="ads-cat-label2">การให้อาหาร</div>
+                    <div className="ads-cat-content2">
+                      {ann?.carePet?.feedMorning && <div className="ads-bullet2"><span className="ads-dot2">•</span>ช่วงเช้า : 06:00น. - 10:00น.</div>}
+                      {ann?.carePet?.feedAfternoon && <div className="ads-bullet2"><span className="ads-dot2">•</span>ช่วงกลางวัน : 11:00น. - 15:00น.</div>}
+                      {ann?.carePet?.feedEvening && <div className="ads-bullet2"><span className="ads-dot2">•</span>ช่วงเย็น : 16:00น. - 20:00น.</div>}
+                      {ann?.carePet?.feedNight && <div className="ads-bullet2"><span className="ads-dot2">•</span>ช่วงดึก : 21:00น. - 24:00น.</div>}
+                    </div>
+                  </div>
+                  <div className="ads-cat-pair">
+                    <div className="ads-cat-label2">ปริมาณอาหาร</div>
+                    <div className="ads-cat-content2">
+                      <div className="ads-bullet2"><span className="ads-dot2">•</span>{ann?.carePet?.isFoodPrepared ? 'จัดเตรียมไว้ให้แล้ว' : (ann?.carePet?.foodAmount || '-')}</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="ads-cat-row2">
+                  <div className="ads-cat-label2">บริการเสริม</div>
+                  <div className="ads-cat-content2">
+                    <div className="ads-bullet2"><span className="ads-dot2">•</span>{ann?.carePet?.medicineDetail ? `ป้อนยา: ${ann.carePet.medicineDetail}` : 'ไม่มีการป้อนยา'}</div>
+                    {ann?.carePet?.isCleanService && <div className="ads-bullet2"><span className="ads-dot2">•</span>เก็บ ฉี่ อึ</div>}
+                    {ann?.carePet?.isWalkService && <div className="ads-bullet2"><span className="ads-dot2">•</span>พาเดินเล่น</div>}
+                  </div>
+                </div>
+
+                {ann?.totalAmount > 0 && (
+                  <div className="ads-cat-row2">
+                    <div className="ads-cat-label2">ค่าดูแลรวม</div>
+                    <div className="ads-cat-content2">
+                      <div style={{fontSize:16, fontWeight:700, color:'#16a34a'}}>
+                        {ann.totalAmount?.toLocaleString()} บาท
+                      </div>
+                    </div>
+                  </div>
                 )}
               </div>
             </div>
@@ -322,21 +507,28 @@ function AnnouncementDetailSitter() {
           {/* ปุ่มส่ง/ยกเลิกคำขอ */}
           <div className="ads-action-row">
             {!hasApplied && (ann?.status === 'รับสมัคร' || ann?.status === 'รอพิจารณา') && (
-              <button className="ads-apply-btn" onClick={() => setApplyModal(true)}>✅ ส่งคำขอรับงาน</button>
+              <button className="ads-apply-btn" onClick={() => setApplyModal(true)}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{verticalAlign:'middle', marginRight:6, marginBottom:2}}>
+                  <path d="M22 2L11 13"></path>
+                  <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
+                </svg>
+                ส่งคำขอรับงาน
+              </button>
             )}
-            {(isWaiting || isSelected) && (
+            {isWaiting && (
               <button className="ads-cancel-btn" onClick={() => setCancelModal(true)}>❌ ยกเลิกคำขอ</button>
             )}
           </div>
 
-          {/* รายชื่อผู้สมัคร */}
+          {/* รายชื่อผู้สมัคร — ซ่อนเมื่อได้รับเลือกให้ดูแลงานแล้ว เพราะไม่เกี่ยวข้องอีกต่อไป */}
+          {!isSelected && (
           <div className="ads-section-wrap">
             <div className="ads-section-header" onClick={() => setShowApplicants(!showApplicants)}>
               <div style={{display:'flex', alignItems:'center', gap:8}}>
                 <span className="ads-section-title">รายชื่อผู้ส่งคำขอรับงาน</span>
                 <span className="ads-count-badge">{ann?.applicantCount || 0} คน</span>
               </div>
-              <span style={{fontSize:12, color:'#8D6E63'}}>{showApplicants ? '▲ ปิด' : '▼ เปิด'}</span>
+              <span style={{fontSize:12, color:'#7FB3D9'}}>{showApplicants ? '▲ ปิด' : '▼ เปิด'}</span>
             </div>
             {showApplicants && (
               <div className="ads-section-body">
@@ -347,7 +539,7 @@ function AnnouncementDetailSitter() {
                     <div key={applicant.applyJobID} className="ads-applicant-card">
                       <div className="ads-applicant-img">
                         {applicant.sitterImage && applicant.sitterImage !== 'default.png'
-                          ? <img src={`${API}/api/auth/images/${applicant.sitterImage}`} alt="sitter" />
+                          ? <img src={`/images/sitters/${applicant.sitterImage}`} alt="sitter" />
                           : <span>👤</span>}
                       </div>
                       <div className="ads-applicant-info">
@@ -355,16 +547,28 @@ function AnnouncementDetailSitter() {
                           {applicant.sitterName}
                           {applicant.sitterID === user.sitterID && <span className="ads-you-badge"> (คุณ)</span>}
                         </div>
-                        <div className="ads-applicant-detail">💰 {applicant.pricePerDay} บาท/วัน · ต.{applicant.subdistrict}</div>
-                        {applicant.distance && <div className="ads-applicant-dist">📍 ห่างจากประกาศ {applicant.distance} กม.</div>}
+                        <div className="ads-applicant-detail">🐾 รับดูแล {applicant.petAlowPet}</div>
+                        <div className="ads-applicant-detail">💰 {applicant.pricePerDay} บาท/วัน</div>
+                        <div className="ads-applicant-detail">📍 ต.{applicant.subdistrict} อ.{applicant.district} จ.{applicant.province}</div>
+                        {applicant.distance != null && (
+                          <div className="ads-applicant-dist" style={{color: applicant.distance <= 5 ? '#7FB3D9' : applicant.distance <= 10 ? '#5C93BF' : '#2D5F86'}}>
+                            🧭 {applicant.distance <= 5 ? 'ใกล้ที่สุด' : applicant.distance <= 10 ? 'ใกล้' : 'ไกล'} ห่างจากคุณ {applicant.distance} กม.
+                          </div>
+                        )}
                       </div>
-                      <span className={`ads-app-status ads-app-${applicant.appStatus?.replace(/\s/g,'')}`}>{applicant.appStatus}</span>
+                      <div className="ads-applicant-actions">
+                        <span className={`ads-app-status ads-app-${applicant.appStatus?.replace(/\s/g,'')}`}>
+                          {appStatusIcons[applicant.appStatus] || ''} {applicant.appStatus}
+                        </span>
+                        <button className="ads-applicant-detail-btn" onClick={() => navigate(`/sitter-profile/${applicant.sitterID}`)}>รายละเอียด</button>
+                      </div>
                     </div>
                   ))
                 )}
               </div>
             )}
           </div>
+          )}
 
           {/* =================== ส่งรายงานการดูแล (เฉพาะ ได้รับเลือก) =================== */}
           {isSelected && (
@@ -373,15 +577,18 @@ function AnnouncementDetailSitter() {
                 <span className="ads-report-tag">ส่งรายงานการดูแล</span>
                 <select className="ads-report-select" value={selectedSlot} onChange={e => setSelectedSlot(e.target.value)}>
                   {ann?.careSlots?.map(slot => (
-                    <option key={slot} value={slot} disabled={ann?.reportedSlots?.includes(slot)}>
-                      {slot} {ann?.reportedSlots?.includes(slot) ? '✓ ส่งแล้ว' : ''}
+                    <option key={slot} value={slot} disabled={ann?.reportedSlotsToday?.includes(slot)}>
+                      {slot} {ann?.reportedSlotsToday?.includes(slot) ? '✓ ส่งแล้ว' : ''}
                     </option>
                   ))}
                 </select>
               </div>
+              <div style={{fontSize:12, color:'#7FB3D9', marginBottom:12}}>
+                📅 สำหรับวันที่ {formatDate(new Date().toISOString())} (วันนี้)
+              </div>
 
-              {ann?.reportedSlots?.includes(selectedSlot) ? (
-                <div className="ads-reported-notice">✅ ส่งรายงานช่วงเวลานี้เรียบร้อยแล้ว</div>
+              {ann?.reportedSlotsToday?.includes(selectedSlot) ? (
+                <div className="ads-reported-notice">✅ ส่งรายงานช่วงเวลานี้ของวันนี้เรียบร้อยแล้ว</div>
               ) : (
                 <>
                   <div className="ads-upload-grid">
@@ -440,14 +647,14 @@ function AnnouncementDetailSitter() {
               )}
               {ann?.slipImage && (
                 <div style={{marginBottom:8}}>
-                  <a href={`${API}/api/auth/images/${ann.slipImage}`} target="_blank" rel="noopener noreferrer" className="ads-slip-btn">
+                  <a href={`/images/slips/${ann.slipImage}`} target="_blank" rel="noopener noreferrer" className="ads-slip-btn">
                     🖼️ ดูหลักฐานการโอน
                   </a>
                 </div>
               )}
               {ann?.isPaymentConfirmed !== 'ชำระเงินเรียบร้อยแล้ว' && ann?.slipImage && (
                 <div style={{display:'flex', justifyContent:'flex-end'}}>
-                  <button className="ads-confirm-pay-btn" onClick={handleConfirmPayment}>ยืนยันการชำระเงิน</button>
+                  <button className="ads-confirm-pay-btn" onClick={handleConfirmPayment}>💰 ยอมรับการชำระเงิน</button>
                 </div>
               )}
             </div>
@@ -455,6 +662,11 @@ function AnnouncementDetailSitter() {
 
           <div className="btn-group" style={{marginTop:8}}>
             <button className="btn btn-back" onClick={() => navigate('/explore-announcements')}>ย้อนกลับ</button>
+            {ann?.isPaymentConfirmed === 'ชำระเงินเรียบร้อยแล้ว' && (
+              <button className="ads-confirm-pay-btn" style={{background:'#f59e0b'}} onClick={() => navigate(`/review-sitter/${announceID}`)}>
+                ⭐ รีวิวเจ้าของสัตว์เลี้ยง
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -465,8 +677,7 @@ function AnnouncementDetailSitter() {
           <div className="ads-modal">
             <div className="ads-modal-title">ยืนยันการส่งคำขอรับงาน?</div>
             <div className="ads-modal-body">
-              "คุณต้องการส่งคำขอรับงานนี้ใช่หรือไม่?<br/>
-              เมื่อส่งแล้ว คุณจะไม่สามารถแก้ไขรายละเอียดคำขอได้ จนกว่าจะมีการเปลี่ยนสถานะ"
+              คุณต้องการส่งคำขอรับงานนี้ใช่หรือไม่?<br/>
             </div>
             <div className="ads-modal-footer">
               <button className="ads-modal-cancel" onClick={() => setApplyModal(false)}>ยกเลิก</button>
@@ -482,8 +693,8 @@ function AnnouncementDetailSitter() {
           <div className="ads-modal">
             <div className="ads-modal-title">ยืนยันการยกเลิกคำขอรับงาน?</div>
             <div className="ads-modal-body">
-              "คุณต้องการยกเลิกคำขอรับงานนี้ใช่หรือไม่?<br/>
-              หากยืนยัน เจ้าของสัตว์เลี้ยงจะไม่สามารถเลือกคุณสำหรับงานนี้ได้"
+              คุณต้องการยกเลิกคำขอรับงานนี้ใช่หรือไม่?<br/>
+              หากยืนยัน เจ้าของสัตว์เลี้ยงจะไม่สามารถเลือกคุณสำหรับงานนี้ได้
             </div>
             <div className="ads-modal-footer">
               <button className="ads-modal-cancel" onClick={() => setCancelModal(false)}>ยกเลิก</button>

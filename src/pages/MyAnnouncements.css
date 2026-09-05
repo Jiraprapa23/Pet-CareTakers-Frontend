@@ -1,20 +1,21 @@
 /* =================== Header =================== */
 .myann-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  position: relative;
   margin-bottom: 20px;
 }
 
 .myann-title {
   font-size: 20px;
   font-weight: 700;
-  color: #3d2b1f;
+  color: #1a1a1a;
 }
 
 .myann-create-btn {
   padding: 10px 20px;
-  background: linear-gradient(135deg, #8D6E63, #7a5e55);
+  background: #5C93BF;
   color: #fff;
   border: none;
   border-radius: 10px;
@@ -22,36 +23,112 @@
   font-weight: 700;
   cursor: pointer;
   font-family: 'Sarabun', sans-serif;
-  box-shadow: 0 2px 8px rgba(141,110,99,0.3);
+  box-shadow: 0 2px 8px rgba(92,147,191,0.3);
   transition: all 0.2s;
+  position: absolute;
+  right: 0;
 }
 
 .myann-create-btn:hover {
-  background: linear-gradient(135deg, #7a5e55, #6b5048);
-  box-shadow: 0 4px 12px rgba(141,110,99,0.4);
+  background: #4A7FA8;
+  box-shadow: 0 4px 12px rgba(92,147,191,0.4);
   transform: translateY(-1px);
+}
+
+/* =================== Filter Tabs =================== */
+.myann-filter-panel {
+  background: #EBF4FA;
+  border: 1px solid #d6e7f2;
+  border-radius: 14px;
+  padding: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(92,147,191,0.12);
+}
+
+.myann-filter-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: thin;
+  scrollbar-color: #A9D1E8 transparent;
+}
+
+.myann-filter-tabs::-webkit-scrollbar { height: 6px; }
+.myann-filter-tabs::-webkit-scrollbar-thumb { background: #A9D1E8; border-radius: 20px; }
+.myann-filter-tabs::-webkit-scrollbar-track { background: transparent; }
+
+.myann-filter-tab {
+  padding: 8px 16px;
+  background: #fff;
+  border: 1px solid #d6e7f2;
+  border-radius: 20px;
+  font-size: 13px;
+  color: #7FB3D9;
+  cursor: pointer;
+  font-family: 'Sarabun', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+  box-shadow: 0 1px 3px rgba(92,147,191,0.15);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.myann-filter-icon {
+  font-size: 14px;
+}
+
+.myann-filter-tab:hover {
+  background: #F5FAFD;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(92,147,191,0.25);
+}
+
+.myann-filter-tab.active {
+  background: #7FB3D9;
+  color: #fff;
+  border-color: #7FB3D9;
+  box-shadow: 0 3px 10px rgba(92,147,191,0.45);
+  transform: translateY(-1px);
+}
+
+.myann-filter-count {
+  font-size: 11px;
+  background: #EBF4FA;
+  color: #7FB3D9;
+  padding: 1px 6px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.myann-filter-tab.active .myann-filter-count {
+  background: rgba(255,255,255,0.25);
+  color: #fff;
 }
 
 /* =================== Grid =================== */
 .myann-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 16px;
 }
 
-/* =================== Card =================== */
+/* =================== Card (จัดวางแบบเดียวกับหน้าค้นหาประกาศ) =================== */
 .myann-card {
   background: #fff;
-  border: 1px solid #e8ddd6;
+  border: 1px solid #d6e7f2;
   border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 2px 10px rgba(141,110,99,0.08);
+  box-shadow: 0 2px 10px rgba(92,147,191,0.08);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .myann-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(141,110,99,0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(92,147,191,0.22);
 }
 
 /* Header */
@@ -60,26 +137,25 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px 14px 8px;
-  border-bottom: 0.5px solid #f0e8e2;
   gap: 6px;
   flex-wrap: wrap;
 }
 
 .myann-postdate {
-  font-size: 11px;
+  font-size: 12px;
   color: #aaa;
 }
 
 .myann-pet-name {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
-  color: #3d2b1f;
+  color: #7FB3D9;
   flex: 1;
   text-align: center;
 }
 
 .myann-status-badge {
-  font-size: 11px;
+  font-size: 12px;
   padding: 3px 10px;
   border-radius: 20px;
   font-weight: 600;
@@ -89,13 +165,15 @@
 
 /* รูปภาพ */
 .myann-card-img-wrap {
-  width: 100%;
   height: 200px;
   overflow: hidden;
-  background: #f5f0ed;
+  background: #EBF4FA;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 14px;
+  width: calc(100% - 28px);
+  border-radius: 14px;
 }
 
 .myann-card-img {
@@ -110,28 +188,29 @@
 
 /* Body */
 .myann-card-body {
-  padding: 12px 14px;
-  border-bottom: 0.5px solid #f0e8e2;
+  padding: 14px 14px 0;
+  text-align: center;
 }
 
 .myann-info-row {
-  font-size: 13px;
-  color: #3d2b1f;
+  font-size: 14px;
+  color: #1a1a1a;
   margin-bottom: 5px;
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 4px;
   line-height: 1.5;
 }
 
 .myann-info-label {
-  color: #8D6E63;
+  color: #7FB3D9;
   font-weight: 600;
 }
 
 .myann-applicant-count {
-  font-size: 12px;
+  font-size: 13px;
   color: #1d4ed8;
   background: #EDF4FB;
   border: 0.5px solid #BFDBFE;
@@ -145,33 +224,34 @@
 /* Footer */
 .myann-card-footer {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  padding: 10px 14px;
+  gap: 10px;
+  padding: 10px 14px 16px;
 }
 
 .myann-location {
-  font-size: 12px;
-  color: #dc2626;
+  font-size: 13px;
+  color: #F96320;
   font-weight: 500;
 }
 
 .myann-detail-btn {
-  padding: 8px 18px;
-  background: linear-gradient(135deg, #8D6E63, #7a5e55);
+  padding: 9px 32px;
+  background: linear-gradient(135deg, #7FB3D9, #5C93BF);
   color: #fff;
   border: none;
   border-radius: 20px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   cursor: pointer;
   font-family: 'Sarabun', sans-serif;
-  box-shadow: 0 2px 6px rgba(141,110,99,0.25);
+  box-shadow: 0 2px 6px rgba(92,147,191,0.25);
   transition: all 0.2s;
 }
 
 .myann-detail-btn:hover {
-  box-shadow: 0 4px 10px rgba(141,110,99,0.35);
+  box-shadow: 0 4px 10px rgba(92,147,191,0.35);
   transform: translateY(-1px);
 }
 
@@ -180,7 +260,7 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   padding: 4px 10px;
   border-radius: 20px;
@@ -207,9 +287,9 @@
   text-align: center;
   padding: 60px 20px;
   background: #fff;
-  border: 1px solid #e0d6d0;
+  border: 1px solid #d6e7f2;
   border-radius: 16px;
-  color: #5D3A2E;
+  color: #1a1a1a;
 }
 
 .myann-empty p { font-size: 16px; font-weight: 600; }
@@ -217,6 +297,6 @@
 .myann-loading {
   text-align: center;
   padding: 60px;
-  color: #8D6E63;
+  color: #7FB3D9;
   font-size: 16px;
 }

@@ -1,25 +1,11 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+node_modules/
+dist/
+.env
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-public/images/reports/006.mp4
+*.local
+public/images/owners/*
+public/images/pets/*
+public/images/qrcodes/*
+public/images/reports/*
+public/images/sitters/*
+public/images/slips/*

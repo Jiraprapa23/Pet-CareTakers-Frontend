@@ -55,8 +55,8 @@ function Login() {
     // ตอนนี้จำลอง error ก่อน
     // เรียก API Spring Boot
 const url = role === 'owner'
-? 'http://localhost:8096/api/auth/login-owner'
-: 'http://localhost:8096/api/auth/login-sitter';
+? 'http://localhost:8097/api/auth/login-owner'
+: 'http://localhost:8097/api/auth/login-sitter';
 
 try {
 const response = await fetch(url, {
@@ -145,8 +145,8 @@ setPasswordError('อีเมลหรือรหัสผ่านไม่�
             {showEmailHint && (
               <div style={{
                 position:'absolute', top:'100%', left:0, marginTop:4,
-                background:'#fff', border:'0.5px solid #e0d6d0', borderRadius:8,
-                padding:'8px 12px', fontSize:12, color:'#5D3A2E',
+                background:'#fff', border:'0.5px solid #d6e7f2', borderRadius:8,
+                padding:'8px 12px', fontSize:12, color:'#1a1a1a',
                 boxShadow:'0 4px 12px rgba(0,0,0,0.1)', zIndex:10,
                 whiteSpace:'nowrap', lineHeight:1.9,
               }}>
@@ -172,8 +172,8 @@ setPasswordError('อีเมลหรือรหัสผ่านไม่�
             {showPwHint && (
               <div style={{
                 position:'absolute', top:'100%', left:0, marginTop:4,
-                background:'#fff', border:'0.5px solid #e0d6d0', borderRadius:8,
-                padding:'8px 12px', fontSize:12, color:'#5D3A2E',
+                background:'#fff', border:'0.5px solid #d6e7f2', borderRadius:8,
+                padding:'8px 12px', fontSize:12, color:'#1a1a1a',
                 boxShadow:'0 4px 12px rgba(0,0,0,0.1)', zIndex:10,
                 whiteSpace:'nowrap', lineHeight:1.9,
               }}>

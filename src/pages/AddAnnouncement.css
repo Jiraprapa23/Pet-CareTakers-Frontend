@@ -1,18 +1,19 @@
 /* =================== Card หลัก =================== */
 .ann-card {
   background: #fff;
-  border: 1px solid #e0d6d0;
+  border: 1px solid #d6e7f2;
   border-radius: 16px;
   padding: 22px;
+  box-shadow: 0 1px 4px rgba(92,147,191,0.10);
 }
 
 .ann-page-title {
   text-align: center;
   font-size: 18px;
   font-weight: 700;
-  color: #3d2b1f;
+  color: #1a1a1a;
   padding-bottom: 14px;
-  border-bottom: 1px solid #e0d6d0;
+  border-bottom: 1px solid #d6e7f2;
   margin-bottom: 18px;
 }
 
@@ -34,10 +35,10 @@
 .ann-sec-title {
   font-size: 13px;
   font-weight: 700;
-  color: #8D6E63;
+  color: #7FB3D9;
   margin-bottom: 10px;
   padding-bottom: 6px;
-  border-bottom: 0.5px solid #f0e8e2;
+  border-bottom: 0.5px solid #EBF4FA;
 }
 
 /* =================== Fields =================== */
@@ -48,7 +49,7 @@
 .ann-field label {
   display: block;
   font-size: 12px;
-  color: #8D6E63;
+  color: #1a1a1a;
   font-weight: 600;
   margin-bottom: 3px;
   font-family: 'Sarabun', sans-serif;
@@ -58,10 +59,10 @@
 .ann-field select {
   width: 100%;
   padding: 7px 9px;
-  border: 0.5px solid #d6c5b8;
+  border: 0.5px solid #d6e7f2;
   border-radius: 8px;
   font-size: 13px;
-  color: #3d2b1f;
+  color: #1a1a1a;
   background: #fff;
   font-family: 'Sarabun', sans-serif;
 }
@@ -90,64 +91,97 @@
   font-weight: 400;
 }
 
-/* =================== Pet Preview =================== */
+/* =================== Pet Preview (สไตล์เดียวกับ MyPets การ์ด ย่อขนาด) =================== */
 .ann-pet-preview {
-  background: #faf7f6;
-  border: 1px solid #e8ddd6;
-  border-radius: 12px;
-  padding: 14px;
+  background: #fff;
+  border: 1px solid #d6e7f2;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(92,147,191,0.12);
+  padding: 12px;
   text-align: center;
   margin-bottom: 10px;
-}
-
-.ann-pet-preview-img {
-  width: 90px;
-  height: 90px;
-  border-radius: 12px;
-  overflow: hidden;
-  margin: 0 auto 8px;
-  background: #f0e8e2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 42px;
-  border: 1.5px solid #e0d6d0;
-}
-
-.ann-pet-preview-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .ann-pet-preview-name {
   font-size: 14px;
   font-weight: 700;
-  color: #8D6E63;
-  margin-bottom: 6px;
-}
-
-.ann-pet-preview-info {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  font-size: 12px;
-  color: #555;
+  color: #1a1a1a;
   margin-bottom: 8px;
 }
 
+.ann-pet-preview-photo {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #EBF4FA;
+}
+
+.ann-pet-preview-img-el {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ann-pet-preview-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+}
+
+.ann-pet-preview-body {
+  padding-top: 8px;
+}
+
+.ann-pet-preview-row {
+  font-size: 11px;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+  line-height: 1.5;
+}
+
+.ann-pet-preview-row b {
+  color: #7FB3D9;
+  font-weight: 700;
+}
+
+.ann-pet-preview-gender {
+  font-size: 11px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.ann-pet-preview-gender.male { color: #1d4ed8; }
+.ann-pet-preview-gender.female { color: #be185d; }
+
+.ann-pet-preview-age {
+  font-size: 10px;
+  color: #7FB3D9;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.ann-pet-preview-age span {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
 .ann-pet-detail-btn {
-  padding: 6px 16px;
-  background: #8D6E63;
+  padding: 5px 18px;
+  background: #7FB3D9;
   color: #fff;
   border: none;
-  border-radius: 8px;
-  font-size: 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
   cursor: pointer;
   font-family: 'Sarabun', sans-serif;
 }
 
-.ann-pet-detail-btn:hover { background: #7a5e55; }
+.ann-pet-detail-btn:hover { background: #5C93BF; }
 
 /* =================== วันที่สร้าง =================== */
 .ann-postdate {
@@ -155,21 +189,21 @@
   align-items: center;
   gap: 8px;
   padding: 8px 12px;
-  background: #faf7f6;
-  border: 0.5px solid #e0d6d0;
+  background: #FFFFFF;
+  border: 0.5px solid #d6e7f2;
   border-radius: 8px;
   margin-top: 4px;
 }
 
 .ann-postdate-label {
   font-size: 12px;
-  color: #8D6E63;
+  color: #7FB3D9;
   font-weight: 600;
 }
 
 .ann-postdate-val {
   font-size: 12px;
-  color: #3d2b1f;
+  color: #1a1a1a;
   font-weight: 600;
 }
 
@@ -186,7 +220,7 @@
   align-items: flex-start;
   gap: 7px;
   font-size: 13px;
-  color: #3d2b1f;
+  color: #1a1a1a;
   cursor: pointer;
   line-height: 1.4;
   font-family: 'Sarabun', sans-serif;
@@ -195,7 +229,7 @@
 .ann-cb-item input[type="checkbox"] {
   width: 15px;
   height: 15px;
-  accent-color: #8D6E63;
+  accent-color: #7FB3D9;
   flex-shrink: 0;
   margin-top: 2px;
 }
@@ -204,15 +238,15 @@
 .ann-sub-box {
   margin-top: 6px;
   padding: 10px 12px;
-  background: #faf7f6;
-  border: 0.5px solid #e0d6d0;
+  background: #FFFFFF;
+  border: 0.5px solid #d6e7f2;
   border-radius: 8px;
 }
 
 .ann-sub-box label {
   display: block;
   font-size: 12px;
-  color: #8D6E63;
+  color: #1a1a1a;
   font-weight: 600;
   margin-bottom: 4px;
   font-family: 'Sarabun', sans-serif;
@@ -221,10 +255,10 @@
 .ann-sub-box input {
   width: 100%;
   padding: 6px 8px;
-  border: 0.5px solid #d6c5b8;
+  border: 0.5px solid #d6e7f2;
   border-radius: 7px;
   font-size: 13px;
-  color: #3d2b1f;
+  color: #1a1a1a;
   background: #fff;
   font-family: 'Sarabun', sans-serif;
 }
@@ -232,10 +266,10 @@
 .ann-sub-box textarea {
   width: 100%;
   padding: 7px 8px;
-  border: 0.5px solid #d6c5b8;
+  border: 0.5px solid #d6e7f2;
   border-radius: 7px;
   font-size: 13px;
-  color: #3d2b1f;
+  color: #1a1a1a;
   background: #fff;
   font-family: 'Sarabun', sans-serif;
   height: 60px;
@@ -248,7 +282,7 @@
   align-items: center;
   gap: 5px;
   font-size: 12px;
-  color: #8D6E63;
+  color: #7FB3D9;
   font-weight: 600;
   margin-bottom: 5px;
 }
@@ -258,19 +292,19 @@
   height: 180px;
   border-radius: 10px;
   overflow: hidden;
-  border: 0.5px solid #e0d6d0;
+  border: 0.5px solid #d6e7f2;
 }
 
 .ann-map-hint {
   font-size: 11px;
-  color: #8D6E63;
+  color: #1a1a1a;
   margin-top: 4px;
 }
 
 /* =================== Save Button =================== */
 .btn-save {
   padding: 10px 28px;
-  background: #8D6E63;
+  background: #5C93BF;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -280,4 +314,4 @@
   font-family: 'Sarabun', sans-serif;
 }
 
-.btn-save:hover { background: #7a5e55; }
+.btn-save:hover { background: #4A7FA8; }

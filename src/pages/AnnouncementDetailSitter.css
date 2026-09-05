@@ -1,11 +1,11 @@
 /* =================== Card หลัก =================== */
 .ads-card {
   background: #fff;
-  border: 0.5px solid #e0d6d0;
+  border: 0.5px solid #d6e7f2;
   border-radius: 16px;
   padding: 18px;
   margin-bottom: 12px;
-  box-shadow: 0 2px 10px rgba(141,110,99,0.07);
+  box-shadow: 0 2px 10px rgba(92,147,191,0.10);
 }
 
 .ads-card-top {
@@ -14,15 +14,249 @@
   align-items: flex-start;
   margin-bottom: 14px;
   padding-bottom: 12px;
-  border-bottom: 0.5px solid #f0e8e2;
+  border-bottom: 0.5px solid #EBF4FA;
 }
 
-.ads-card-title { font-size: 16px; font-weight: 700; color: #3d2b1f; }
-.ads-postdate { font-size: 11px; color: #aaa; margin-top: 3px; }
+.ads-card-title { font-size: 18px; font-weight: 700; color: #1a1a1a; }
+.ads-postdate { font-size: 13px; color: #aaa; margin-top: 4px; }
+
+/* =================== หัวข้อการ์ดแบบกึ่งกลาง (เวอร์ชันใหม่) =================== */
+.ads-card-title-wrap {
+  position: relative;
+  text-align: center;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #d6e7f2;
+  margin-bottom: 20px;
+}
+
+.ads-postdate-center {
+  font-size: 13px;
+  color: #aaa;
+  margin-top: 4px;
+  text-align: center;
+}
+
+.ads-status-float {
+  position: absolute;
+  top: 2px;
+  right: 0;
+}
+
+/* =================== เจ้าของสัตว์เลี้ยง =================== */
+.ads-owner-block {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #EBF4FA;
+  margin-bottom: 20px;
+}
+
+.ads-owner-avatar {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #EBF4FA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 2px solid #d6e7f2;
+}
+
+.ads-owner-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ads-owner-info {
+  flex: 1;
+  min-width: 0;
+}
+
+/* =================== รูป + ที่อยู่ (ซ้าย) + เนื้อหา (ขวา) =================== */
+.ads-detail-body {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.ads-detail-left {
+  width: 190px;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.ads-detail-photo {
+  width: 190px;
+  height: 190px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 2px solid #d6e7f2;
+  background: #EBF4FA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.ads-detail-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ads-address-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+}
+
+.ads-address-text {
+  font-size: 13px;
+  color: #1a1a1a;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.ads-address-link {
+  font-size: 13px;
+  color: #1a73e8;
+  line-height: 1.6;
+  text-decoration: underline;
+  display: block;
+}
+
+.ads-address-link:hover {
+  color: #1558b0;
+}
+
+.ads-detail-right {
+  flex: 1;
+  min-width: 0;
+}
+
+/* =================== หัวข้อหมวดใหญ่ =================== */
+.ads-section-title-lg {
+  font-size: 15px;
+  font-weight: 700;
+  color: #7FB3D9;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #EBF4FA;
+  margin-top: 22px;
+  margin-bottom: 14px;
+}
+
+.ads-section-title-lg.first {
+  margin-top: 0;
+}
+
+/* =================== แถวข้อมูลพื้นฐาน =================== */
+.ads-field-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 40px;
+  margin-bottom: 10px;
+}
+
+.ads-field-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.ads-field-value {
+  font-size: 14px;
+  font-weight: 400;
+  color: #1a1a1a;
+}
+
+.ads-note-sm {
+  font-size: 12px;
+  color: #aaa;
+}
+
+/* =================== แถวหมวดย่อย (label สีฟ้า + เนื้อหา) =================== */
+.ads-cat-row2 {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.ads-cat-row2-split {
+  gap: 24px;
+}
+
+.ads-cat-pair {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.ads-cat-label2 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #3023ED;
+  min-width: 190px;
+  flex-shrink: 0;
+  line-height: 1.4;
+}
+
+.ads-cat-content2 {
+  flex: 0 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.ads-bullet2 {
+  font-size: 13px;
+  color: #1a1a1a;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  line-height: 1.5;
+}
+
+.ads-dot2 {
+  color: #3023ED;
+  flex-shrink: 0;
+}
+
+.ads-vaccine-line2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 13px;
+  color: #1a1a1a;
+  line-height: 1.5;
+  flex-wrap: wrap;
+}
+
+.ads-vaccine-date2 {
+  color: #1a1a1a;
+  font-weight: 700;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.ads-vaccine-note2 {
+  color: #dc6803;
+  font-size: 12px;
+  font-weight: 500;
+}
 
 .ads-status-badge, .ads-my-status {
-  font-size: 12px;
-  padding: 4px 12px;
+  font-size: 13px;
+  padding: 5px 14px;
   border-radius: 20px;
   font-weight: 600;
 }
@@ -30,69 +264,78 @@
 .ads-status-รับสมัคร { background: #f0fdf4; color: #16a34a; border: 0.5px solid #bbf7d0; }
 .ads-status-รอพิจารณา { background: #EDF4FB; color: #1d4ed8; border: 0.5px solid #BFDBFE; }
 .ads-status-ได้รับเลือก { background: #f0fdf4; color: #16a34a; border: 0.5px solid #bbf7d0; }
-.ads-status-ถอนคำขอแล้ว { background: #f5f0ed; color: #8D6E63; border: 0.5px solid #e0d6d0; }
+.ads-status-ถอนคำขอแล้ว { background: #EBF4FA; color: #7FB3D9; border: 0.5px solid #d6e7f2; }
 .ads-status-ไม่ได้รับเลือก { background: #fef2f2; color: #dc2626; border: 0.5px solid #fecaca; }
 
-/* =================== Layout =================== */
-.ads-top-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
-.ads-bottom-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+/* =================== ส่วนข้อมูล (ไหลต่อกัน ไม่แบ่งกล่อง) =================== */
+.ads-flow-section {
+  padding-top: 20px;
+  margin-bottom: 22px;
+  border-top: 0.5px solid #EBF4FA;
+}
 
-.ads-sec-box {
-  background: #faf7f6;
-  border: 0.5px solid #e8ddd6;
-  border-radius: 10px;
-  padding: 12px;
+.ads-flow-first {
+  padding-top: 0;
+  margin-bottom: 22px;
+  border-top: none;
 }
 
 .ads-sec-title {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
-  color: #8D6E63;
-  margin-bottom: 10px;
+  color: #7FB3D9;
+  margin-bottom: 12px;
   text-transform: uppercase;
   letter-spacing: 0.3px;
-  padding-bottom: 6px;
-  border-bottom: 0.5px solid #f0e8e2;
 }
 
-.ads-sub-title { font-size: 11px; font-weight: 600; color: #5D3A2E; margin-bottom: 4px; }
+.ads-sub-title { font-size: 13px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
 
-.ads-owner-row { display: flex; gap: 10px; align-items: center; margin-bottom: 8px; }
+.ads-owner-row { display: flex; gap: 12px; align-items: center; margin-bottom: 10px; }
 
 .ads-avatar {
-  width: 46px; height: 46px; border-radius: 50%;
-  overflow: hidden; background: #f0e8e2;
+  width: 52px; height: 52px; border-radius: 50%;
+  overflow: hidden; background: #EBF4FA;
   display: flex; align-items: center; justify-content: center;
-  font-size: 20px; flex-shrink: 0; border: 1.5px solid #e0d6d0;
+  font-size: 22px; flex-shrink: 0; border: 1.5px solid #d6e7f2;
 }
 
 .ads-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
-.ads-pet-row { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 8px; }
+.ads-pet-row { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 12px; }
 
-.ads-pet-img {
-  width: 70px; height: 70px; border-radius: 10px;
-  overflow: hidden; background: #f0e8e2;
+.ads-pet-img-lg {
+  width: 84px; height: 84px; border-radius: 12px;
+  overflow: hidden; background: #EBF4FA;
   display: flex; align-items: center; justify-content: center;
-  font-size: 28px; flex-shrink: 0; border: 1.5px solid #e0d6d0;
+  font-size: 34px; flex-shrink: 0; border: 1.5px solid #d6e7f2;
 }
 
-.ads-pet-img img { width: 100%; height: 100%; object-fit: cover; }
+.ads-pet-img-lg img { width: 100%; height: 100%; object-fit: cover; }
 
-.ads-pet-sub-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px; padding-top: 8px; border-top: 0.5px solid #f0e8e2; }
+.ads-pet-name { font-size: 18px; font-weight: 700; color: #1a1a1a; margin-bottom: 10px; }
 
-.ads-info-row { font-size: 12px; color: #3d2b1f; margin-bottom: 4px; display: flex; gap: 4px; flex-wrap: wrap; line-height: 1.5; }
-.ads-lbl { color: #8D6E63; font-weight: 600; flex-shrink: 0; }
+.ads-tag-group { display: flex; flex-wrap: wrap; gap: 8px; }
 
-.ads-dot-row { font-size: 12px; color: #3d2b1f; margin-bottom: 3px; display: flex; gap: 5px; line-height: 1.4; }
-.ads-dot { color: #8D6E63; flex-shrink: 0; margin-top: 1px; }
+.ads-tag {
+  font-size: 13px; font-weight: 600; padding: 4px 12px;
+  border-radius: 20px; font-family: 'Sarabun', sans-serif;
+}
 
-.ads-days-badge { font-size: 11px; background: rgba(141,110,99,0.12); color: #8D6E63; padding: 2px 8px; border-radius: 20px; font-weight: 600; margin-left: 4px; }
+.ads-tag-basic { background: #EBF4FA; border: 0.5px solid #d6e7f2; color: #1a1a1a; }
+
+.ads-info-row { font-size: 14px; color: #1a1a1a; margin-bottom: 8px; display: flex; gap: 5px; flex-wrap: wrap; line-height: 1.6; }
+.ads-lbl { color: #7FB3D9; font-weight: 600; flex-shrink: 0; }
+
+.ads-dot-row { font-size: 14px; color: #1a1a1a; margin-bottom: 4px; display: flex; gap: 6px; line-height: 1.5; }
+.ads-dot { color: #7FB3D9; flex-shrink: 0; margin-top: 1px; }
+
+.ads-days-badge { font-size: 13px; background: rgba(127,179,217,0.15); color: #7FB3D9; padding: 3px 10px; border-radius: 20px; font-weight: 600; margin-left: 6px; }
 
 .ads-map-btn {
-  display: inline-flex; align-items: center; gap: 5px;
-  font-size: 12px; color: #1a73e8; background: #EDF4FB;
-  padding: 6px 12px; border-radius: 20px; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; color: #1a73e8; background: #EDF4FB;
+  padding: 7px 14px; border-radius: 20px; text-decoration: none;
   border: 0.5px solid #BFDBFE; margin-top: 8px; font-family: 'Sarabun', sans-serif;
 }
 
@@ -116,21 +359,34 @@
 
 .ads-cancel-btn:hover { background: #b91c1c; }
 
+.ads-cancel-btn.disabled,
+.ads-cancel-btn:disabled {
+  background: #d1d5db;
+  color: #6b7280;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.ads-cancel-btn.disabled:hover,
+.ads-cancel-btn:disabled:hover {
+  background: #d1d5db;
+}
+
 /* =================== Section =================== */
-.ads-section-wrap { background: #fff; border: 0.5px solid #e0d6d0; border-radius: 12px; margin-bottom: 10px; overflow: hidden; }
+.ads-section-wrap { background: #fff; border: 0.5px solid #d6e7f2; border-radius: 12px; margin-bottom: 10px; overflow: hidden; }
 
 .ads-section-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; cursor: pointer; transition: background 0.15s; }
-.ads-section-header:hover { background: #faf7f6; }
-.ads-section-title { font-size: 14px; font-weight: 700; color: #3d2b1f; }
-.ads-count-badge { font-size: 12px; color: #8D6E63; background: #f5f0ed; padding: 2px 10px; border-radius: 20px; font-weight: 600; }
-.ads-section-body { padding: 14px 16px; border-top: 0.5px solid #f0e8e2; }
+.ads-section-header:hover { background: #EBF4FA; }
+.ads-section-title { font-size: 14px; font-weight: 700; color: #1a1a1a; }
+.ads-count-badge { font-size: 12px; color: #7FB3D9; background: #EBF4FA; padding: 2px 10px; border-radius: 20px; font-weight: 600; }
+.ads-section-body { padding: 14px 16px; border-top: 0.5px solid #EBF4FA; }
 .ads-empty-text { text-align: center; color: #aaa; font-size: 13px; font-style: italic; padding: 20px 0; }
 
 /* =================== Applicant =================== */
 .ads-applicant-card {
-  background: #faf7f6; border: 0.5px solid #e8ddd6;
-  border-radius: 12px; padding: 12px;
-  display: flex; gap: 12px; align-items: flex-start;
+  background: #EBF4FA; border: 0.5px solid #d6e7f2;
+  border-radius: 14px; padding: 14px 16px;
+  display: flex; gap: 14px; align-items: flex-start;
   margin-bottom: 10px;
 }
 
@@ -138,40 +394,63 @@
 
 .ads-applicant-img {
   width: 48px; height: 48px; border-radius: 50%;
-  overflow: hidden; background: #f0e8e2;
+  overflow: hidden; background: #EBF4FA;
   display: flex; align-items: center; justify-content: center;
-  font-size: 20px; flex-shrink: 0; border: 1.5px solid #e0d6d0;
+  font-size: 20px; flex-shrink: 0; border: 1.5px solid #d6e7f2;
 }
 
 .ads-applicant-img img { width: 100%; height: 100%; object-fit: cover; }
 .ads-applicant-info { flex: 1; }
-.ads-applicant-name { font-size: 13px; font-weight: 700; color: #3d2b1f; margin-bottom: 3px; }
-.ads-applicant-detail { font-size: 12px; color: #666; margin-bottom: 2px; }
-.ads-applicant-dist { font-size: 12px; color: #dc2626; font-weight: 600; }
-.ads-you-badge { font-size: 11px; color: #8D6E63; font-weight: 400; }
+.ads-applicant-name { font-size: 13px; font-weight: 700; color: #1a1a1a; margin-bottom: 3px; }
+.ads-applicant-detail { font-size: 13px; color: #1a1a1a; margin-bottom: 3px; }
+.ads-applicant-dist { font-size: 13px; font-weight: 600; margin-top: 2px; }
+.ads-you-badge { font-size: 11px; color: #7FB3D9; font-weight: 400; }
 
-.ads-app-status { font-size: 11px; padding: 4px 10px; border-radius: 20px; font-weight: 600; white-space: nowrap; align-self: flex-start; }
+.ads-applicant-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.ads-applicant-detail-btn {
+  padding: 7px 16px;
+  background: #7FB3D9;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Sarabun', sans-serif;
+}
+
+.ads-applicant-detail-btn:hover { background: #5C93BF; }
+
+.ads-app-status { font-size: 12px; padding: 5px 12px; border-radius: 20px; font-weight: 700; white-space: nowrap; }
 .ads-app-รอพิจารณา { background: #EDF4FB; color: #1d4ed8; border: 0.5px solid #BFDBFE; }
 .ads-app-ได้รับเลือก { background: #f0fdf4; color: #16a34a; border: 0.5px solid #bbf7d0; }
 .ads-app-ไม่ได้รับเลือก { background: #f5f5f5; color: #999; border: 0.5px solid #e0e0e0; }
-.ads-app-ถอนคำขอแล้ว { background: #f5f0ed; color: #8D6E63; border: 0.5px solid #e0d6d0; }
+.ads-app-ถอนคำขอแล้ว { background: #EBF4FA; color: #7FB3D9; border: 0.5px solid #d6e7f2; }
 
 /* =================== ส่งรายงาน =================== */
-.ads-report-box { background: #fff; border: 0.5px solid #e0d6d0; border-radius: 12px; padding: 16px; margin-bottom: 10px; }
+.ads-report-box { background: #fff; border: 0.5px solid #d6e7f2; border-radius: 12px; padding: 16px; margin-bottom: 10px; }
 
 .ads-report-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
 
 .ads-report-tag {
-  background: #8D6E63; color: #fff;
+  background: #7FB3D9; color: #fff;
   padding: 6px 14px; border-radius: 20px;
   font-size: 13px; font-weight: 600;
   white-space: nowrap;
 }
 
 .ads-report-select {
-  padding: 7px 12px; background: #faf7f6;
-  border: 0.5px solid #e0d6d0; border-radius: 8px;
-  font-size: 13px; font-family: 'Sarabun', sans-serif; color: #3d2b1f;
+  padding: 7px 12px; background: #EBF4FA;
+  border: 0.5px solid #d6e7f2; border-radius: 8px;
+  font-size: 13px; font-family: 'Sarabun', sans-serif; color: #1a1a1a;
 }
 
 .ads-reported-notice {
@@ -184,25 +463,25 @@
 .ads-upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
 
 .ads-upload-box {
-  background: #faf7f6; border: 1px dashed #d6c5b8;
+  background: #EBF4FA; border: 1px dashed #d6e7f2;
   border-radius: 12px; padding: 16px; text-align: center; cursor: pointer;
 }
 
 .ads-upload-icon { font-size: 32px; margin-bottom: 5px; }
-.ads-upload-label { font-size: 13px; font-weight: 600; color: #3d2b1f; margin-bottom: 3px; }
+.ads-upload-label { font-size: 13px; font-weight: 600; color: #1a1a1a; margin-bottom: 3px; }
 
 .ads-upload-btn {
   font-size: 12px; padding: 5px 12px;
-  background: #fff; border: 0.5px solid #e0d6d0;
-  border-radius: 20px; cursor: pointer; color: #8D6E63;
+  background: #fff; border: 0.5px solid #d6e7f2;
+  border-radius: 20px; cursor: pointer; color: #7FB3D9;
   margin-top: 6px; font-family: 'Sarabun', sans-serif;
 }
 
 .ads-file-name {
   display: flex; align-items: center; gap: 5px;
   background: #fff; padding: 4px 8px; border-radius: 6px;
-  font-size: 11px; color: #3d2b1f; margin-top: 5px;
-  border: 0.5px solid #e0d6d0; text-align: left;
+  font-size: 11px; color: #1a1a1a; margin-top: 5px;
+  border: 0.5px solid #d6e7f2; text-align: left;
 }
 
 .ads-send-report-btn {
@@ -214,17 +493,17 @@
 .ads-send-report-btn:hover { background: #15803d; }
 
 /* =================== สถานะชำระเงิน =================== */
-.ads-payment-box { background: #fff; border: 0.5px solid #e0d6d0; border-radius: 12px; padding: 16px; margin-bottom: 10px; }
+.ads-payment-box { background: #fff; border: 0.5px solid #d6e7f2; border-radius: 12px; padding: 16px; margin-bottom: 10px; }
 
 .ads-payment-header { margin-bottom: 12px; }
 
 .ads-payment-tag {
-  background: #5D3A2E; color: #fff;
+  background: #7FB3D9; color: #fff;
   padding: 6px 14px; border-radius: 20px;
   font-size: 13px; font-weight: 600;
 }
 
-.ads-payment-status { font-size: 13px; color: #3d2b1f; margin-bottom: 6px; }
+.ads-payment-status { font-size: 13px; color: #1a1a1a; margin-bottom: 6px; }
 .ads-payment-amount { font-size: 16px; font-weight: 700; color: #16a34a; margin-bottom: 10px; }
 
 .ads-slip-btn {
@@ -236,12 +515,12 @@
 }
 
 .ads-confirm-pay-btn {
-  padding: 9px 20px; background: #8D6E63; color: #fff;
+  padding: 9px 20px; background: #16a34a; color: #fff;
   border: none; border-radius: 8px; font-size: 13px; font-weight: 700;
   cursor: pointer; font-family: 'Sarabun', sans-serif;
 }
 
-.ads-confirm-pay-btn:hover { background: #7a5e55; }
+.ads-confirm-pay-btn:hover { background: #15803d; }
 
 /* =================== Modal =================== */
 .ads-modal-overlay {
@@ -255,7 +534,7 @@
   box-shadow: 0 8px 32px rgba(0,0,0,0.15);
 }
 
-.ads-modal-title { font-size: 16px; font-weight: 700; color: #3d2b1f; margin-bottom: 14px; text-align: center; }
+.ads-modal-title { font-size: 16px; font-weight: 700; color: #1a1a1a; margin-bottom: 14px; text-align: center; }
 .ads-modal-body { font-size: 14px; color: #555; text-align: center; margin-bottom: 20px; line-height: 1.6; }
 .ads-modal-footer { display: flex; gap: 10px; justify-content: center; }
 

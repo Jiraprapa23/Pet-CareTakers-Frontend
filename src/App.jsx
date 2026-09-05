@@ -7,11 +7,10 @@ import Login from './pages/Login';
 import AllRegister from './pages/AllRegister';
 
 
-import RegisterOwner from './pages/RegisterOwner';
 import ProfileOwner from './pages/ProfileOwner';
 import EditOwner from './pages/EditOwner';
 
-import RegisterSitter from './pages/RegisterSitter';
+
 import ProfileSitter from './pages/ProfileSitter';
 import EditSitter from './pages/EditSitter';
 
@@ -34,7 +33,7 @@ import MyApplications from './pages/MyApplications';
 import PaymentPage from './pages/PaymentPage';
 import ReviewPage from './pages/ReviewPage';
 import ReviewPageSitter from './pages/ReviewPageSitter';
-import ActiveJobsPage from './pages/ActiveJobsPage';
+
 
 
 function App() {
@@ -45,8 +44,6 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<AllRegister />} />
-        <Route path="/register-owner" element={<RegisterOwner />} />
-        <Route path="/register-sitter" element={<RegisterSitter />} />
         <Route path="/profile-owner" element={<ProfileOwner />} />
         <Route path="/profile-sitter" element={<ProfileSitter />} />
         <Route path="/edit-owner" element={<EditOwner />} />
@@ -67,7 +64,6 @@ function App() {
         <Route path="/payment/:announceID" element={<PaymentPage />} />
         <Route path="/review/:announceID" element={<ReviewPage />} />
         <Route path="/review-sitter/:announceID" element={<ReviewPageSitter />} />
-        <Route path="/active-jobs" element={<ActiveJobsPage />} />
       </Routes>
     </BrowserRouter>
   );

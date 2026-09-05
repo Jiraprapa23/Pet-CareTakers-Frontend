@@ -4,7 +4,7 @@ import './ProfileOwner.css';
 import './ReviewPage.css';
 import logo from '../assets/logo.png';
 
-const API = 'http://localhost:8096';
+import { API_BASE_URL as API } from '../config';
 
 function ReviewPageSitter() {
   const navigate = useNavigate();
@@ -13,14 +13,14 @@ function ReviewPageSitter() {
 
   const [ann, setAnn] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(5);
   const [hoverRating, setHoverRating] = useState(0);
   const [comment, setComment] = useState('');
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
 
   const imageUrl = user.sitterImage && user.sitterImage !== 'default.png'
-    ? `${API}/api/auth/images/${user.sitterImage}` : null;
+    ? `/images/sitters/${user.sitterImage}` : null;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,7 +56,7 @@ function ReviewPageSitter() {
 
   const calcDays = (start, end) => {
     if (!start || !end) return 1;
-    return Math.max(1, Math.round((new Date(end) - new Date(start)) / (1000*60*60*24)));
+    return Math.max(1, Math.round((new Date(end) - new Date(start)) / (1000*60*60*24)) + 1);
   };
 
   const getPetEmoji = (typeName) => {
@@ -106,7 +106,7 @@ function ReviewPageSitter() {
 
   if (loading) return (
     <div className="app-layout">
-      <div style={{padding:60, textAlign:'center', color:'#8D6E63'}}>กำลังโหลดข้อมูล...</div>
+      <div style={{padding:60, textAlign:'center', color:'#7FB3D9'}}>กำลังโหลดข้อมูล...</div>
     </div>
   );
 
@@ -115,7 +115,7 @@ function ReviewPageSitter() {
       <div className="topbar">
         <div className="topbar-left">
           <img src={logo} alt="logo" className="topbar-logo" />
-          <div className="topbar-title">ระบบตามหาผู้ดูแลสัตว์เลี้ยง ภายในจังหวัดเชียงใหม่</div>
+          <div className="topbar-title">ระบบตามหาผู้ดูแลสัตว์เลี้ยง<br />ภายในจังหวัดเชียงใหม่</div>
         </div>
         <div className="topbar-user">
           <span>ยินดีต้อนรับ คุณ{user.firstname}</span>
@@ -147,7 +147,7 @@ function ReviewPageSitter() {
             <div className="rv-sitter-section">
               <div className="rv-sitter-img">
                 {ann?.pet?.petImage && ann.pet.petImage !== 'default.png'
-                  ? <img src={`${API}/api/auth/images/${ann.pet.petImage}`} alt="pet" />
+                  ? <img src={`/images/pets/${ann.pet.petImage}`} alt="pet" />
                   : <span style={{fontSize:32}}>{getPetEmoji(ann?.pet?.petType)}</span>}
               </div>
               <div className="rv-sitter-info">
@@ -167,8 +167,8 @@ function ReviewPageSitter() {
                   <span style={{color:'#aaa', fontSize:12, marginLeft:4}}>(โดยประมาณ)</span>
                 </div>
                 <div className="rv-sitter-dates">
-                  วันที่ดูแล {formatDate(ann?.startdate)} - {formatDate(ann?.enddate)} &nbsp;
-                  <span className="rv-days-badge">{calcDays(ann?.startdate, ann?.enddate)} วัน</span>
+                  วันที่ดูแล <span style={{color:'#F96320', fontWeight:600}}>{calcDays(ann?.startdate, ann?.enddate)} วัน</span>
+                  <span style={{color:'#1a1a1a'}}> ({formatDate(ann?.startdate)} - {formatDate(ann?.enddate)})</span>
                 </div>
               </div>
             </div>
@@ -176,7 +176,7 @@ function ReviewPageSitter() {
             <hr className="rv-divider" />
 
             {submitted ? (
-              <div className="rv-submitted">✅ คุณส่งรีวิวงานนี้แล้วครับ</div>
+              <div className="rv-submitted">✅ คุณส่งรีวิวงานนี้แล้ว</div>
             ) : (
               <div className="rv-bottom-section">
                 <div className="rv-write-label">เขียนรีวิว</div>
@@ -205,7 +205,7 @@ function ReviewPageSitter() {
             )}
           </div>
 
-          <div className="btn-group" style={{marginTop:16}}>
+          <div className="btn-group rv-btn-group-split" style={{marginTop:16}}>
             <button className="btn btn-back" onClick={() => navigate(`/announcement-detail-sitter/${announceID}`)}>ย้อนกลับ</button>
             {!submitted && (
               <>

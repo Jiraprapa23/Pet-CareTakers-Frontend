@@ -14,7 +14,7 @@ import NotificationBell from '../components/NotificationBell';
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({ iconRetinaUrl: markerIcon2x, iconUrl: markerIcon, shadowUrl: markerShadow });
 
-const API = 'http://localhost:8096';
+import { API_BASE_URL as API } from '../config';
 
 // ข้อมูลอำเภอ-ตำบล-รหัสไปรษณีย์ เชียงใหม่
 const CHIANGMAI_DATA = {
@@ -56,7 +56,7 @@ function EditAnnouncement() {
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
   const imageUrl = user.profileImage && user.profileImage !== 'default.png'
-    ? `${API}/api/auth/images/${user.profileImage}` : null;
+    ? `/images/owners/${user.profileImage}` : null;
 
   // สัตว์เลี้ยง
   const [pets, setPets] = useState([]);
@@ -296,7 +296,7 @@ function EditAnnouncement() {
       navigate(`/announcement-detail/${announceID}`);
     } catch (err) {
       console.log('ERROR:', err);
-      alert('ไม่สามารถสร้างประกาศได้ กรุณาลองใหม่อีกครั้ง');
+      alert('ไม่สามารถแก้ไขข้อมูลได้ กรุณาลองใหม่อีกครั้ง');
     }
   };
 
@@ -307,7 +307,7 @@ function EditAnnouncement() {
       <div className="topbar">
         <div className="topbar-left">
           <img src={logo} alt="logo" className="topbar-logo" />
-          <div className="topbar-title">ระบบตามหาผู้ดูแลสัตว์เลี้ยง ภายในจังหวัดเชียงใหม่</div>
+          <div className="topbar-title">ระบบตามหาผู้ดูแลสัตว์เลี้ยง<br />ภายในจังหวัดเชียงใหม่</div>
         </div>
         <div className="topbar-user">
           <span>ยินดีต้อนรับ คุณ{user.firstname}</span>
@@ -325,7 +325,6 @@ function EditAnnouncement() {
             <a className="menu-item" onClick={() => navigate('/my-pets')}><span className="menu-icon">🐾</span><span>รายการสัตว์เลี้ยง</span></a>
             <a className="menu-item" onClick={() => navigate('/explore-sitters')}><span className="menu-icon">🔍</span><span>สำรวจผู้ดูแล</span></a>
             <a className="menu-item active" onClick={() => navigate('/my-announcements')}><span className="menu-icon">📢</span><span>รายการประกาศ</span></a>
-            <a className="menu-item" onClick={() => navigate('/active-jobs')}><span className="menu-icon">⚡</span><span>งานที่กำลังทำ</span></a>
           </div>
           <hr className="menu-divider" />
           <a className="menu-item menu-logout" onClick={handleLogout}><span className="menu-icon">🚪</span><span>ออกจากระบบ</span></a>
@@ -343,7 +342,7 @@ function EditAnnouncement() {
 
                 <div className="ann-field-row">
                   <div className="ann-field">
-                    <label>เลือกสัตว์เลี้ยง</label>
+                    <label style={{color:'#7FB3D9'}}>เลือกสัตว์เลี้ยง</label>
                     <select value={selectedPetID} onChange={e => { setSelectedPetID(e.target.value); setErrors(p => ({...p, petID:''})); }}>
                       <option value="">-- เลือก --</option>
                       {pets.map(p => (
@@ -355,7 +354,7 @@ function EditAnnouncement() {
                     {errors.petID && <p className="error-msg">{errors.petID}</p>}
                   </div>
                   <div className="ann-field">
-                    <label>น้ำหนักปัจจุบัน</label>
+                    <label style={{color:'#7FB3D9'}}>น้ำหนักปัจจุบัน</label>
                     <select value={currentweight} onChange={e => { setCurrentweight(e.target.value); setErrors(p => ({...p, currentweight:''})); }}>
                       <option value="">-- เลือก --</option>
                       <option value="1-3 กก.">1-3 กก.</option>
@@ -371,20 +370,28 @@ function EditAnnouncement() {
                 {/* Preview สัตว์เลี้ยง */}
                 {selectedPet && (
                   <div className="ann-pet-preview">
-                    <div className="ann-pet-preview-img">
+                    <div className="ann-pet-preview-name">{selectedPet.petName}</div>
+                    <div className="ann-pet-preview-photo">
                       {selectedPet.petImage && selectedPet.petImage !== 'default.png'
-                        ? <img src={`${API}/api/auth/images/${selectedPet.petImage}`} alt={selectedPet.petName} />
-                        : <span>{getPetEmoji(selectedPet.petType?.petTypeName)}</span>
+                        ? <img src={`/images/pets/${selectedPet.petImage}`} alt={selectedPet.petName} className="ann-pet-preview-img-el" />
+                        : <div className="ann-pet-preview-placeholder">{getPetEmoji(selectedPet.petType?.petTypeName)}</div>
                       }
                     </div>
-                    <div className="ann-pet-preview-name">{selectedPet.petName}</div>
-                    <div className="ann-pet-preview-info">
-                      <span>ประเภทสัตว์ {selectedPet.petType?.petTypeName} {getPetEmoji(selectedPet.petType?.petTypeName)}</span>
-                      <span>สายพันธุ์ {selectedPet.breed || '-'}</span>
-                      <span>{selectedPet.gender === 'เพศผู้' ? '♂' : '♀'} {selectedPet.gender}</span>
-                      <span>วันเกิด {formatDate(selectedPet.birthDate)}&nbsp; อายุ {calcAge(selectedPet.birthDate)} (โดยประมาณ)</span>
+                    <div className="ann-pet-preview-body">
+                      <div className="ann-pet-preview-row">
+                        <b>ประเภทสัตว์</b> {selectedPet.petType?.petTypeName} {getPetEmoji(selectedPet.petType?.petTypeName)}
+                        {selectedPet.breed && <>&nbsp;&nbsp;<b>สายพันธุ์</b> {selectedPet.breed}</>}
+                      </div>
+                      <div className={`ann-pet-preview-gender ${selectedPet.gender === 'เพศผู้' ? 'male' : 'female'}`}>
+                        {selectedPet.gender === 'เพศผู้' ? '♂' : '♀'} {selectedPet.gender}
+                      </div>
+                      <div className="ann-pet-preview-age">
+                        วันเกิด <span>{formatDate(selectedPet.birthDate)}</span>
+                        {' · '}อายุ <span>{calcAge(selectedPet.birthDate)}</span>
+                        <span style={{ color: '#aaa', fontSize: 10 }}> (โดยประมาณ)</span>
+                      </div>
+                      <button className="ann-pet-detail-btn" onClick={() => navigate(`/pet-detail/${selectedPet.petID}`)}>รายละเอียด</button>
                     </div>
-                    <button className="ann-pet-detail-btn" onClick={() => navigate(`/pet-detail/${selectedPet.petID}`)}>รายละเอียด</button>
                   </div>
                 )}
 
@@ -415,7 +422,7 @@ function EditAnnouncement() {
 
                 {/* ช่วงเวลาดูแล */}
                 <div className="ann-field">
-                  <label>ช่วงเวลาการดูแล <span className="ann-sublabel">(เลือกได้มากกว่า 1 ช่วง)</span></label>
+                  <label style={{color:'#3023ED'}}>ช่วงเวลาการดูแล <span className="ann-sublabel">(เลือกได้มากกว่า 1 ช่วง)</span></label>
                   <div className="ann-cb-list">
                     <label className="ann-cb-item"><input type="checkbox" checked={careMorning} onChange={e => setCareMorning(e.target.checked)} />ช่วงเช้า : 06:00น. - 10:00น.</label>
                     <label className="ann-cb-item"><input type="checkbox" checked={careAfternoon} onChange={e => setCareAfternoon(e.target.checked)} />ช่วงกลางวัน : 11:00น. - 15:00น.</label>
@@ -427,7 +434,7 @@ function EditAnnouncement() {
 
                 {/* การให้อาหาร */}
                 <div className="ann-field">
-                  <label>การให้อาหาร</label>
+                  <label style={{color:'#3023ED'}}>การให้อาหาร</label>
                   <div className="ann-cb-list">
                     <label className="ann-cb-item"><input type="checkbox" checked={feedMorning} onChange={e => setFeedMorning(e.target.checked)} />ช่วงเช้า : 06:00น. - 10:00น.</label>
                     <label className="ann-cb-item"><input type="checkbox" checked={feedAfternoon} onChange={e => setFeedAfternoon(e.target.checked)} />ช่วงกลางวัน : 11:00น. - 15:00น.</label>
@@ -438,7 +445,7 @@ function EditAnnouncement() {
 
                 {/* ปริมาณอาหาร */}
                 <div className="ann-field">
-                  <label>ปริมาณอาหาร</label>
+                  <label style={{color:'#3023ED'}}>ปริมาณอาหาร</label>
                   <label className="ann-cb-item" style={{marginBottom:6}}>
                     <input type="checkbox" checked={isFoodPrepared} onChange={e => { setIsFoodPrepared(e.target.checked); if(e.target.checked) setFoodAmount(''); }} />
                     จัดเตรียมไว้ให้แล้ว
@@ -459,7 +466,7 @@ function EditAnnouncement() {
 
                 {/* การป้อนยา */}
                 <div className="ann-field">
-                  <label>การป้อนยา</label>
+                  <label style={{color:'#3023ED'}}>การป้อนยา</label>
                   <label className="ann-cb-item" style={{marginBottom:6}}>
                     <input type="checkbox" checked={noMedicine} onChange={e => { setNoMedicine(e.target.checked); if(e.target.checked) setMedicineDetail(''); }} />
                     ไม่มีการป้อนยา
@@ -480,7 +487,7 @@ function EditAnnouncement() {
                   </div>
                 </div>
 
-                <div className="ann-sec-title">ที่อยู่</div>
+                <div className="ann-sec-title" style={{color:'#3023ED'}}>ที่อยู่</div>
 
                 {/* เลือกที่อยู่ */}
                 <div className="ann-address-choice">
@@ -498,23 +505,23 @@ function EditAnnouncement() {
                   <>
                     <div className="ann-field-row">
                       <div className="ann-field">
-                        <label>บ้านเลขที่</label>
+                        <label style={{color:'#7FB3D9'}}>บ้านเลขที่</label>
                         <input type="text" value={addressNo} onChange={e => { setAddressNo(e.target.value); setErrors(p => ({...p, addressNo:''})); }} placeholder="เช่น 239/1" />
                         {errors.addressNo && <p className="error-msg">{errors.addressNo}</p>}
                       </div>
                       <div className="ann-field">
-                        <label>ถนน/เขต</label>
+                        <label style={{color:'#7FB3D9'}}>ถนน/เขต</label>
                         <input type="text" value={street} onChange={e => setStreet(e.target.value)} placeholder="-" />
                       </div>
                     </div>
 
                     <div className="ann-field-row">
                       <div className="ann-field">
-                        <label>จังหวัด</label>
+                        <label style={{color:'#7FB3D9'}}>จังหวัด</label>
                         <input type="text" value="เชียงใหม่" disabled style={{background:'#f5f5f5',color:'#999'}} />
                       </div>
                       <div className="ann-field">
-                        <label>อำเภอ</label>
+                        <label style={{color:'#7FB3D9'}}>อำเภอ</label>
                         <select value={district} onChange={e => { setDistrict(e.target.value); setErrors(p => ({...p, district:''})); }}>
                           <option value="">-- เลือก --</option>
                           {Object.keys(CHIANGMAI_DATA).map(d => <option key={d} value={d}>{d}</option>)}
@@ -525,7 +532,7 @@ function EditAnnouncement() {
 
                     <div className="ann-field-row">
                       <div className="ann-field">
-                        <label>ตำบล</label>
+                        <label style={{color:'#7FB3D9'}}>ตำบล</label>
                         <select value={subdistrict} onChange={e => { setSubdistrict(e.target.value); setErrors(p => ({...p, subdistrict:''})); }} disabled={!district}>
                           <option value="">-- เลือก --</option>
                           {subdistricts.map(s => <option key={s} value={s}>{s}</option>)}
@@ -533,7 +540,7 @@ function EditAnnouncement() {
                         {errors.subdistrict && <p className="error-msg">{errors.subdistrict}</p>}
                       </div>
                       <div className="ann-field">
-                        <label>รหัสไปรษณีย์</label>
+                        <label style={{color:'#7FB3D9'}}>รหัสไปรษณีย์</label>
                         <input type="text" value={zipcode} disabled style={{background:'#f5f5f5',color:'#999'}} />
                       </div>
                     </div>
@@ -571,23 +578,24 @@ function EditAnnouncement() {
                     {user.latitude && user.longitude && (
                       <div className="ann-owner-address-row">
                         <span>📍 </span>
-                        <span style={{color:'#8D6E63',fontSize:12}}>{parseFloat(user.latitude).toFixed(5)}, {parseFloat(user.longitude).toFixed(5)}</span>
+                        <span style={{color:'#1a1a1a',fontSize:12}}>{parseFloat(user.latitude).toFixed(5)}, {parseFloat(user.longitude).toFixed(5)}</span>
                       </div>
                     )}
                   </div>
                 )}
               </div>
             </div>
+            </div>
 
-            {/* ปุ่ม */}
-            <div className="btn-group" style={{marginTop:16}}>
+            {/* ปุ่ม — อยู่นอกกรอบการ์ด ปุ่มย้อนกลับชิดซ้าย */}
+            <div className="btn-group" style={{marginTop:16, justifyContent:'space-between'}}>
               <button className="btn btn-back" onClick={() => navigate(`/announcement-detail/${announceID}`)}>ย้อนกลับ</button>
               <button className="btn-save" onClick={handleSave}>บันทึก</button>
             </div>
           </div>
         </div>
       </div>
-    </div>
+   
   );
 }
 

@@ -1,11 +1,11 @@
 /* =================== Card หลัก =================== */
 .ad-card {
   background: #fff;
-  border: 0.5px solid #e0d6d0;
+  border: 0.5px solid #d6e7f2;
   border-radius: 16px;
   padding: 18px;
   margin-bottom: 12px;
-  box-shadow: 0 2px 10px rgba(141,110,99,0.07);
+  box-shadow: 0 2px 10px rgba(92,147,191,0.10);
 }
 
 .ad-card-top {
@@ -14,27 +14,283 @@
   align-items: flex-start;
   margin-bottom: 14px;
   padding-bottom: 12px;
-  border-bottom: 0.5px solid #f0e8e2;
+  border-bottom: 0.5px solid #EBF4FA;
 }
 
 .ad-card-title {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
-  color: #3d2b1f;
+  color: #1a1a1a;
 }
 
 .ad-postdate {
-  font-size: 11px;
+  font-size: 13px;
   color: #aaa;
-  margin-top: 3px;
+  margin-top: 4px;
 }
 
-/* =================== แถวบน: เจ้าของ + สัตว์เลี้ยง =================== */
-.ad-top-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 12px;
+/* =================== หัวข้อการ์ดแบบกึ่งกลาง (เวอร์ชันใหม่) =================== */
+.ad-card-title-wrap {
+  position: relative;
+  text-align: center;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #d6e7f2;
+  margin-bottom: 20px;
+}
+
+.ad-postdate-center {
+  font-size: 13px;
+  color: #aaa;
+  margin-top: 4px;
+  text-align: center;
+}
+
+.ad-status-float {
+  position: absolute;
+  top: 2px;
+  right: 0;
+}
+
+/* =================== รูป + ที่อยู่ (ซ้าย) + เนื้อหา (ขวา) =================== */
+.ad-detail-body {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.ad-detail-left {
+  width: 190px;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.ad-detail-photo {
+  width: 190px;
+  height: 190px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 2px solid #d6e7f2;
+  background: #EBF4FA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.ad-detail-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ad-address-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+}
+
+.ad-address-text {
+  font-size: 13px;
+  color: #1a1a1a;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.ad-address-link {
+  font-size: 13px;
+  color: #1a73e8;
+  line-height: 1.6;
+  text-decoration: underline;
+  display: block;
+}
+
+.ad-address-link:hover {
+  color: #1558b0;
+}
+
+.ad-detail-right {
+  flex: 1;
+  min-width: 0;
+}
+
+/* =================== หัวข้อหมวดใหญ่ (ข้อมูลสัตว์เลี้ยง/สุขภาพ/พฤติกรรม/การดูแล) =================== */
+.ad-section-title-lg {
+  font-size: 15px;
+  font-weight: 700;
+  color: #7FB3D9;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #EBF4FA;
+  margin-top: 22px;
+  margin-bottom: 14px;
+}
+
+.ad-section-title-lg.first {
+  margin-top: 0;
+}
+
+/* =================== แถวข้อมูลพื้นฐาน =================== */
+.ad-field-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 40px;
+  margin-bottom: 10px;
+}
+
+.ad-field-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.ad-field-value {
+  font-size: 14px;
+  font-weight: 400;
+  color: #1a1a1a;
+}
+
+.ad-note-sm {
+  font-size: 12px;
+  color: #aaa;
+}
+
+/* =================== แถวหมวดย่อย (label สีฟ้า + เนื้อหา) =================== */
+.ad-cat-row2 {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.ad-cat-row2-split {
+  gap: 24px;
+}
+
+.ad-cat-pair {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.ad-cat-row2-split .ad-cat-content2 {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.ad-cat-label2 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #3023ED;
+  min-width: 190px;
+  flex-shrink: 0;
+  line-height: 1.4;
+}
+
+.ad-cat-content2 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 200px;
+}
+
+.ad-bullet2 {
+  font-size: 13px;
+  color: #1a1a1a;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  line-height: 1.5;
+}
+
+.ad-dot2 {
+  color: #3023ED;
+  flex-shrink: 0;
+}
+
+.ad-vaccine-line2 {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  color: #1a1a1a;
+  line-height: 1.5;
+  flex-wrap: wrap;
+}
+
+.ad-vaccine-date2 {
+  color: #1a1a1a;
+  font-weight: 700;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.ad-vaccine-note2 {
+  color: #dc6803;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* =================== ส่วนข้อมูล (ไหลต่อกัน ไม่แบ่งกล่อง) =================== */
+.ad-flow-section {
+  padding-top: 20px;
+  margin-bottom: 22px;
+  border-top: 0.5px solid #EBF4FA;
+}
+
+.ad-flow-first {
+  padding-top: 0;
+  margin-bottom: 22px;
+  border-top: none;
+}
+
+.ad-pet-img-lg {
+  width: 84px;
+  height: 84px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #EBF4FA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  flex-shrink: 0;
+  border: 1.5px solid #d6e7f2;
+}
+
+.ad-pet-img-lg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ad-pet-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+}
+
+.ad-tag-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ad-tag {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-family: 'Sarabun', sans-serif;
+}
+
+.ad-tag-basic {
+  background: #EBF4FA;
+  border: 0.5px solid #d6e7f2;
+  color: #1a1a1a;
 }
 
 /* =================== แถวล่าง: การดูแล + บริการเสริม + ที่อยู่ =================== */
@@ -46,21 +302,19 @@
 
 /* =================== Section Box =================== */
 .ad-sec-box {
-  background: #faf7f6;
-  border: 0.5px solid #e8ddd6;
+  background: #EBF4FA;
+  border: 0.5px solid #d6e7f2;
   border-radius: 10px;
   padding: 12px;
 }
 
 .ad-sec-title {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
-  color: #8D6E63;
-  margin-bottom: 10px;
+  color: #7FB3D9;
+  margin-bottom: 12px;
   text-transform: uppercase;
   letter-spacing: 0.3px;
-  padding-bottom: 6px;
-  border-bottom: 0.5px solid #f0e8e2;
 }
 
 /* =================== Owner =================== */
@@ -76,13 +330,13 @@
   height: 46px;
   border-radius: 50%;
   overflow: hidden;
-  background: #f0e8e2;
+  background: #EBF4FA;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 20px;
   flex-shrink: 0;
-  border: 1.5px solid #e0d6d0;
+  border: 1.5px solid #d6e7f2;
 }
 
 .ad-avatar img {
@@ -104,13 +358,13 @@
   height: 70px;
   border-radius: 10px;
   overflow: hidden;
-  background: #f0e8e2;
+  background: #EBF4FA;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 28px;
   flex-shrink: 0;
-  border: 1.5px solid #e0d6d0;
+  border: 1.5px solid #d6e7f2;
 }
 
 .ad-pet-img img {
@@ -125,63 +379,63 @@
   gap: 6px;
   margin-top: 8px;
   padding-top: 8px;
-  border-top: 0.5px solid #f0e8e2;
+  border-top: 0.5px solid #EBF4FA;
 }
 
 /* =================== Info =================== */
 .ad-info-row {
-  font-size: 12px;
-  color: #3d2b1f;
-  margin-bottom: 4px;
+  font-size: 14px;
+  color: #1a1a1a;
+  margin-bottom: 8px;
   display: flex;
-  gap: 4px;
-  line-height: 1.5;
+  gap: 5px;
+  line-height: 1.6;
   flex-wrap: wrap;
 }
 
 .ad-lbl {
-  color: #8D6E63;
+  color: #7FB3D9;
   font-weight: 600;
   flex-shrink: 0;
 }
 
 .ad-sub-title {
-  font-size: 11px;
-  color: #5D3A2E;
+  font-size: 13px;
+  color: #1a1a1a;
   font-weight: 600;
   margin-bottom: 4px;
 }
 
 .ad-dot-row {
-  font-size: 12px;
-  color: #3d2b1f;
-  margin-bottom: 3px;
+  font-size: 14px;
+  color: #1a1a1a;
+  margin-bottom: 4px;
   display: flex;
-  gap: 5px;
+  gap: 6px;
   align-items: flex-start;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .ad-dot {
-  color: #8D6E63;
+  color: #7FB3D9;
   flex-shrink: 0;
   margin-top: 1px;
 }
 
 .ad-days-badge {
-  font-size: 11px;
-  background: rgba(141,110,99,0.12);
-  color: #8D6E63;
-  padding: 2px 8px;
+  font-size: 13px;
+  background: rgba(127,179,217,0.15);
+  color: #7FB3D9;
+  padding: 3px 10px;
   border-radius: 20px;
   font-weight: 600;
-  margin-left: 4px;
+  margin-left: 6px;
 }
 
 /* =================== Status =================== */
 .ad-status-badge {
-  font-size: 12px;
-  padding: 4px 12px;
+  font-size: 13px;
+  padding: 5px 14px;
   border-radius: 20px;
   font-weight: 600;
   font-family: 'Sarabun', sans-serif;
@@ -191,17 +445,17 @@
 .ad-status-รอพิจารณา { background: #EDF4FB; color: #1d4ed8; border: 0.5px solid #BFDBFE; }
 .ad-status-ได้รับผู้ดูแลแล้ว { background: #f0fdf4; color: #16a34a; border: 0.5px solid #bbf7d0; }
 .ad-status-กำลังดูแล { background: #fef9ee; color: #b45309; border: 0.5px solid #fde68a; }
-.ad-status-งานเสร็จสิ้น { background: #f5f0ed; color: #8D6E63; border: 0.5px solid #e0d6d0; }
+.ad-status-งานเสร็จสิ้น { background: #EBF4FA; color: #7FB3D9; border: 0.5px solid #d6e7f2; }
 
 /* =================== Google Maps Button =================== */
 .ad-map-btn {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  font-size: 12px;
+  gap: 6px;
+  font-size: 13px;
   color: #1a73e8;
   background: #EDF4FB;
-  padding: 6px 12px;
+  padding: 7px 14px;
   border-radius: 20px;
   text-decoration: none;
   border: 0.5px solid #BFDBFE;
@@ -213,6 +467,11 @@
 .ad-map-btn:hover { background: #dbeafe; }
 
 /* =================== ปุ่มแก้ไข + ลบ =================== */
+.ad-btn-group-split {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .ad-action-row {
   display: flex;
   justify-content: flex-end;
@@ -221,18 +480,32 @@
 }
 
 .ad-edit-btn {
-  padding: 8px 18px;
-  background: #fff;
-  color: #8D6E63;
-  border: 0.5px solid #8D6E63;
+  padding: 10px 22px;
+  background: #dc2626;
+  color: #fff;
+  border: none;
   border-radius: 8px;
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 700;
   cursor: pointer;
   font-family: 'Sarabun', sans-serif;
 }
 
-.ad-edit-btn:hover { background: #f5f0ed; }
+.ad-edit-btn:hover { background: #b91c1c; }
+
+.ad-delete-outline-btn {
+  padding: 10px 22px;
+  background: #fff;
+  color: #dc2626;
+  border: 1px solid #dc2626;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Sarabun', sans-serif;
+}
+
+.ad-delete-outline-btn:hover { background: #fef2f2; }
 
 .ad-delete-btn {
   padding: 8px 18px;
@@ -251,7 +524,7 @@
 /* =================== Section (เปิด/ปิด) =================== */
 .ad-section-wrap {
   background: #fff;
-  border: 0.5px solid #e0d6d0;
+  border: 0.5px solid #d6e7f2;
   border-radius: 12px;
   margin-bottom: 10px;
   overflow: hidden;
@@ -266,18 +539,18 @@
   transition: background 0.15s;
 }
 
-.ad-section-header:hover { background: #faf7f6; }
+.ad-section-header:hover { background: #EBF4FA; }
 
 .ad-section-title {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
-  color: #3d2b1f;
+  color: #1a1a1a;
 }
 
 .ad-count-badge {
-  font-size: 12px;
-  color: #8D6E63;
-  background: #f5f0ed;
+  font-size: 13px;
+  color: #7FB3D9;
+  background: #EBF4FA;
   padding: 2px 10px;
   border-radius: 20px;
   font-weight: 600;
@@ -285,21 +558,21 @@
 
 .ad-section-body {
   padding: 14px 16px;
-  border-top: 0.5px solid #f0e8e2;
+  border-top: 0.5px solid #EBF4FA;
 }
 
 .ad-empty-text {
   text-align: center;
   color: #aaa;
-  font-size: 13px;
+  font-size: 14px;
   font-style: italic;
   padding: 20px 0;
 }
 
 /* =================== Applicant Card =================== */
 .ad-applicant-card {
-  background: #faf7f6;
-  border: 0.5px solid #e8ddd6;
+  background: #EBF4FA;
+  border: 0.5px solid #d6e7f2;
   border-radius: 12px;
   padding: 12px;
   display: flex;
@@ -317,33 +590,33 @@
   height: 52px;
   border-radius: 50%;
   overflow: hidden;
-  background: #f0e8e2;
+  background: #EBF4FA;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 22px;
   flex-shrink: 0;
-  border: 1.5px solid #e0d6d0;
+  border: 1.5px solid #d6e7f2;
 }
 
 .ad-applicant-img img { width: 100%; height: 100%; object-fit: cover; }
 .ad-applicant-info { flex: 1; }
 
 .ad-applicant-name {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
-  color: #3d2b1f;
+  color: #1a1a1a;
   margin-bottom: 4px;
 }
 
 .ad-applicant-detail {
-  font-size: 12px;
+  font-size: 13px;
   color: #666;
   margin-bottom: 3px;
 }
 
 .ad-applicant-dist {
-  font-size: 12px;
+  font-size: 13px;
   color: #dc2626;
   font-weight: 600;
 }
@@ -354,16 +627,22 @@
   color: #fff;
   border: none;
   border-radius: 20px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   cursor: pointer;
   font-family: 'Sarabun', sans-serif;
+  box-shadow: 0 2px 6px rgba(22,163,74,0.35);
+  transition: all 0.15s;
 }
 
-.ad-approve-btn:hover { background: #15803d; }
+.ad-approve-btn:hover {
+  background: #15803d;
+  box-shadow: 0 4px 10px rgba(22,163,74,0.45);
+  transform: translateY(-1px);
+}
 
 .ad-selected-badge {
-  font-size: 12px;
+  font-size: 13px;
   padding: 5px 12px;
   background: #f0fdf4;
   color: #16a34a;
@@ -373,7 +652,7 @@
 }
 
 .ad-rejected-badge {
-  font-size: 12px;
+  font-size: 13px;
   padding: 5px 12px;
   background: #f5f5f5;
   color: #999;
@@ -382,17 +661,18 @@
 }
 
 .ad-sitter-detail-btn {
-  padding: 5px 12px;
-  background: #faf7f6;
-  color: #8D6E63;
-  border: 0.5px solid #e0d6d0;
+  padding: 6px 14px;
+  background: #7FB3D9;
+  color: #fff;
+  border: none;
   border-radius: 20px;
-  font-size: 12px;
+  font-size: 13px;
+  font-weight: 700;
   cursor: pointer;
   font-family: 'Sarabun', sans-serif;
 }
 
-.ad-sitter-detail-btn:hover { background: #f0e8e2; }
+.ad-sitter-detail-btn:hover { background: #5C93BF; }
 
 /* =================== Complete Button =================== */
 .ad-complete-btn {
@@ -432,7 +712,7 @@
 .ad-modal-title {
   font-size: 16px;
   font-weight: 700;
-  color: #3d2b1f;
+  color: #1a1a1a;
   margin-bottom: 14px;
   text-align: center;
 }
@@ -464,7 +744,7 @@
 
 .ad-modal-confirm {
   padding: 9px 22px;
-  background: #8D6E63;
+  background: #7FB3D9;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -474,7 +754,7 @@
   font-family: 'Sarabun', sans-serif;
 }
 
-.ad-modal-confirm:hover { background: #7a5e55; }
+.ad-modal-confirm:hover { background: #5C93BF; }
 
 .ad-modal-delete {
   padding: 9px 22px;
@@ -489,3 +769,41 @@
 }
 
 .ad-modal-delete:hover { background: #b91c1c; }
+
+/* =================== Modal อนุมัติ (เฉพาะจุด) =================== */
+.ad-modal-approve {
+  border: 3px solid #16a34a;
+}
+
+.ad-modal-approve-body {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.ad-modal-approve-cancel {
+  padding: 9px 22px;
+  background: #6b7280;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Sarabun', sans-serif;
+}
+
+.ad-modal-approve-cancel:hover { background: #4b5563; }
+
+.ad-modal-approve-confirm {
+  padding: 9px 22px;
+  background: #16a34a;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Sarabun', sans-serif;
+}
+
+.ad-modal-approve-confirm:hover { background: #15803d; }

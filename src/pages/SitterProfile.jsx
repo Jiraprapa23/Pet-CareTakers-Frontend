@@ -4,7 +4,7 @@ import './ProfileOwner.css';
 import './SitterProfile.css';
 import logo from '../assets/logo.png';
 
-const API = 'http://localhost:8096';
+import { API_BASE_URL as API } from '../config';
 
 function SitterProfile() {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ function SitterProfile() {
   const [loading, setLoading] = useState(true);
 
   const imageUrl = user.profileImage && user.profileImage !== 'default.png'
-    ? `${API}/api/auth/images/${user.profileImage}`
+    ? `/images/owners/${user.profileImage}`
     : null;
 
   useEffect(() => {
@@ -54,14 +54,18 @@ function SitterProfile() {
     navigate('/');
   };
 
+  const openMap = () => {
+    if (profile?.latitude && profile?.longitude) {
+      window.open(`https://www.google.com/maps?q=${profile.latitude},${profile.longitude}`, '_blank');
+    }
+  };
+
   const renderStars = (rating, size = 'normal') => {
     if (!rating) return null;
-    const full = Math.floor(rating);
-    const empty = 5 - Math.ceil(rating);
     return (
       <span className={`sp-stars ${size}`}>
-        {'⭐'.repeat(full)}{'☆'.repeat(empty)}
-        <span className="sp-rating-score"> {rating}</span>
+        <span style={{color:'#f59e0b'}}>{'★'.repeat(Math.round(rating))}{'☆'.repeat(5 - Math.round(rating))}</span>
+        <span className="sp-rating-score"> {rating.toFixed(1)}</span>
       </span>
     );
   };
@@ -97,7 +101,7 @@ function SitterProfile() {
       <div className="topbar">
         <div className="topbar-left">
           <img src={logo} alt="logo" className="topbar-logo" />
-          <div className="topbar-title">ระบบตามหาผู้ดูแลสัตว์เลี้ยง ภายในจังหวัดเชียงใหม่</div>
+          <div className="topbar-title">ระบบตามหาผู้ดูแลสัตว์เลี้ยง<br />ภายในจังหวัดเชียงใหม่</div>
         </div>
         <div className="topbar-user">
           <span>ยินดีต้อนรับ คุณ{user.firstname}</span>
@@ -133,13 +137,13 @@ function SitterProfile() {
         {/* Main */}
         <div className="main-content">
 
-          {/* ข้อมูลส่วนตัว */}
+          {/* ข้อมูลส่วนตัว + รายละเอียดการดูแล — การ์ดเดียวไหลต่อกัน */}
           <div className="sp-card">
             <div className="sp-card-title">ข้อมูลส่วนตัว</div>
             <div className="sp-profile-body">
               <div className="sp-avatar-wrap">
                 {profile?.sitterImage && profile.sitterImage !== 'default.png'
-                  ? <img src={`${API}/api/auth/images/${profile.sitterImage}`} alt="profile" className="sp-avatar" />
+                  ? <img src={`/images/sitters/${profile.sitterImage}`} alt="profile" className="sp-avatar" />
                   : <div className="sp-avatar-placeholder">👤</div>
                 }
               </div>
@@ -170,83 +174,107 @@ function SitterProfile() {
                 <div className="sp-info-row">
                   <span className="sp-label">ที่อยู่จากปักหมุด </span>
                   <span style={{ color: '#dc2626' }}>📍</span>
-                  &nbsp;{profile?.addressNo} {profile?.street}&nbsp;
-                  ตำบล {profile?.subdistrict} อำเภอ {profile?.district}&nbsp;
-                  จังหวัด {profile?.province}
+                  <span className="map-link" onClick={openMap}>
+                    &nbsp;{profile?.addressNo} {profile?.street}&nbsp;
+                    ตำบล {profile?.subdistrict} อำเภอ {profile?.district}&nbsp;
+                    จังหวัด {profile?.province}
+                    &nbsp;(กดเพื่อนำทาง)
+                  </span>
                 </div>
               </div>
+            </div>
+
+            {/* รายละเอียดการดูแล — ต่อเนื่องในการ์ดเดียวกัน */}
+            <hr className="sp-divider" />
+            <div className="sp-section-title-center">รายละเอียดการดูแล</div>
+
+            <div className="sp-indent">
+              <div className="sp-simple-row">
+                <span className="sp-simple-label">ประเภทสัตว์ที่รับดูแล</span>
+                <span>{profile?.petAlowPet} {profile?.petAlowPet?.includes('แมว') && '🐱'}{profile?.petAlowPet?.includes('สุนัข') && '🐶'}</span>
+              </div>
+              <div className="sp-simple-row">
+                <span className="sp-simple-label">ขนาดของสัตว์ที่รับดูแล</span>
+                <span>{profile?.acceptedPetSize}</span>
+              </div>
+
+              {getTimeSlots().length > 0 && (
+                <div className="sp-group-row">
+                  <div className="sp-group-label">ช่วงเวลาที่รับดูแล</div>
+                  <div className="sp-group-content">
+                    {getTimeSlots().map((slot, i) => (
+                      <div key={i} className="sp-group-bullet"><span className="sp-dot-inline">•</span>{slot}</div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div className="sp-simple-row">
+                <span className="sp-simple-label">ประสบการณ์</span>
+                <span>{profile?.experienceYear}</span>
+              </div>
+              <div className="sp-simple-row">
+                <span className="sp-simple-label">ค่าดูแลต่อวัน</span>
+                <span>{profile?.pricePerDay} บาท/วัน</span>
+              </div>
+
+              {getServices().length > 0 && (
+                <div className="sp-group-row">
+                  <div className="sp-group-label">บริการเสริม</div>
+                  <div className="sp-group-content">
+                    {getServices().map((service, i) => (
+                      <div key={i} className="sp-group-bullet"><span className="sp-dot-inline">•</span>{service}</div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
-          {/* รายละเอียดการดูแล + รีวิว */}
-          <div className="sp-bottom-grid">
-
-            {/* รายละเอียดการดูแล */}
-            <div className="sp-card">
-              <div className="sp-section-title">รายละเอียดการดูแล</div>
-              <div className="sp-detail-item">
-                <span className="sp-dot">•</span>
-                <span><span className="sp-label">ประเภทสัตว์ที่รับดูแล </span>{profile?.petAlowPet}</span>
-              </div>
-              <div className="sp-detail-item">
-                <span className="sp-dot">•</span>
-                <span><span className="sp-label">ขนาดของสัตว์ที่รับดูแล </span>{profile?.acceptedPetSize}</span>
-              </div>
-              <div className="sp-detail-item">
-                <span className="sp-dot">•</span>
-                <span><span className="sp-label">ช่วงเวลาที่รับดูแล </span>{getTimeSlots().join(', ')}</span>
-              </div>
-              <div className="sp-detail-item">
-                <span className="sp-dot">•</span>
-                <span><span className="sp-label">ประสบการณ์ </span>{profile?.experienceYear}</span>
-              </div>
-              <div className="sp-detail-item">
-                <span className="sp-dot">•</span>
-                <span><span className="sp-label">ค่าดูแลต่อวัน </span>{profile?.pricePerDay} บาท/วัน</span>
-              </div>
-              {getServices().length > 0 && (
-                <div className="sp-detail-item">
-                  <span className="sp-dot">•</span>
-                  <span><span className="sp-label">บริการเสริม </span>{getServices().join(', ')}</span>
-                </div>
-              )}
+          {/* รีวิว — แยกการ์ดต่างหาก */}
+          <div className="sp-card">
+            <div className="sp-section-title">
+              รีวิวจากผู้ใช้บริการ ({profile?.reviewCount || 0})
             </div>
 
-            {/* รีวิว */}
-            <div className="sp-card">
-              <div className="sp-review-header">
-                <div className="sp-section-title">
-                  รีวิว ({profile?.reviewCount || 0})
+            {profile?.avgRating && (
+              <div className="sp-rating-summary">
+                <div className="sp-rating-summary-score">
+                  <div className="sp-rating-summary-number">{profile.avgRating.toFixed(1)}</div>
+                  <div className="sp-rating-summary-count">จาก {profile.reviewCount || 0} รีวิว</div>
                 </div>
-                {profile?.avgRating && renderStars(profile.avgRating, 'large')}
+                <div className="sp-rating-summary-detail">
+                  <span style={{color:'#f59e0b', fontSize:16}}>{'★'.repeat(Math.round(profile.avgRating))}{'☆'.repeat(5 - Math.round(profile.avgRating))}</span>
+                  <div className="sp-rating-summary-text">ผู้ใช้บริการส่วนใหญ่พึงพอใจกับการดูแลของผู้ดูแลคนนี้</div>
+                </div>
               </div>
+            )}
 
-              {(!profile?.reviews || profile.reviews.length === 0) ? (
-                <div className="sp-no-review">ยังไม่มีรีวิวจากผู้ใช้บริการ</div>
-              ) : (
-                <div className="sp-review-list">
-                  {profile.reviews.map(review => (
-                    <div key={review.reviewID} className="sp-review-item">
-                      <div className="sp-review-header-row">
-                        <div className="sp-reviewer-img-wrap">
-                          {review.reviewerImage && review.reviewerImage !== 'default.png'
-                            ? <img src={`${API}/api/auth/images/${review.reviewerImage}`} alt="reviewer" className="sp-reviewer-img" />
-                            : <div className="sp-reviewer-img-placeholder">👤</div>
-                          }
-                        </div>
-                        <div className="sp-reviewer-info">
-                          <div className="sp-reviewer-name">{review.reviewerName || 'ผู้ใช้บริการ'}</div>
-                          {renderStars(review.rating)}
-                        </div>
+            {(!profile?.reviews || profile.reviews.length === 0) ? (
+              <div className="sp-no-review">ยังไม่มีรีวิวจากผู้ใช้บริการ</div>
+            ) : (
+              <div className="sp-review-list">
+                {profile.reviews.map(review => (
+                  <div key={review.reviewID} className="sp-review-item">
+                    <div className="sp-review-rating-corner">{renderStars(review.rating)}</div>
+                    <div className="sp-review-header-row">
+                      <div className="sp-reviewer-img-wrap">
+                        {review.reviewerImage && review.reviewerImage !== 'default.png'
+                          ? <img src={`/images/owners/${review.reviewerImage}`} alt="reviewer" className="sp-reviewer-img" />
+                          : <div className="sp-reviewer-img-placeholder">👤</div>
+                        }
                       </div>
-                      {review.comment && (
-                        <div className="sp-review-comment">"{review.comment}"</div>
-                      )}
+                      <div className="sp-reviewer-info">
+                        <div className="sp-reviewer-name">{review.reviewerName || 'ผู้ใช้บริการ'}</div>
+                      </div>
                     </div>
-                  ))}
-                </div>
-              )}
-            </div>
+                    {review.comment && (
+                      <div className="sp-review-comment">{review.comment}</div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <div style={{ marginTop: 16 }}>

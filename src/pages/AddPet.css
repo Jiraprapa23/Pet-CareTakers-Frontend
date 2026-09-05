@@ -1,8 +1,8 @@
 .addpet-title {
   text-align: center;
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 700;
-  color: #3d2b1f;
+  color: #1a1a1a;
   margin-bottom: 16px;
 }
 
@@ -15,26 +15,33 @@
 
 .addpet-card {
   background: #fff;
-  border: 1px solid #e0d6d0;
+  border: 1px solid #d6e7f2;
   border-radius: 12px;
   padding: 16px;
+  box-shadow: 0 1px 4px rgba(92,147,191,0.10);
 }
 
 .addpet-section-title {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
-  color: #8D6E63;
+  color: #7FB3D9;
   margin-bottom: 10px;
   padding-bottom: 6px;
-  border-bottom: 1px solid #f0e8e2;
+  border-bottom: 1px solid #EBF4FA;
+  text-align: center;
+}
+
+.addpet-section-title.addpet-health-title {
+  font-size: 16px;
+  text-align: center;
 }
 
 .pet-photo-upload {
   width: 110px;
   height: 110px;
   border-radius: 12px;
-  border: 2px dashed #d6c5b8;
-  background: #f5f0ed;
+  border: 2px dashed #d6e7f2;
+  background: #EBF4FA;
   margin: 0 auto 10px;
   display: flex;
   align-items: center;
@@ -52,7 +59,7 @@
 
 .pet-photo-placeholder {
   font-size: 36px;
-  color: #d6c5b8;
+  color: #d6e7f2;
 }
 
 .pet-photo-plus {
@@ -61,7 +68,7 @@
   right: 5px;
   width: 22px;
   height: 22px;
-  background: #8D6E63;
+  background: #7FB3D9;
   color: #fff;
   border-radius: 50%;
   display: flex;
@@ -75,20 +82,20 @@
   display: block;
   width: 100%;
   padding: 7px;
-  background: #8D6E63;
+  background: #7FB3D9;
   color: #fff;
   border: none;
   border-radius: 8px;
-  font-size: 13px;
+  font-size: 14px;
   cursor: pointer;
   font-family: 'Sarabun', sans-serif;
   margin-bottom: 5px;
 }
 
-.addpet-upload-btn:hover { background: #7a5e55; }
+.addpet-upload-btn:hover { background: #5C93BF; }
 
 .addpet-file-hint {
-  font-size: 11px;
+  font-size: 12px;
   color: #aaa;
   text-align: center;
   margin-bottom: 8px;
@@ -98,11 +105,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #f5f0ed;
+  background: #EBF4FA;
   border-radius: 6px;
   padding: 4px 8px;
-  font-size: 11px;
-  color: #5D3A2E;
+  font-size: 12px;
+  color: #1a1a1a;
   margin-bottom: 6px;
   gap: 6px;
 }
@@ -118,7 +125,7 @@
   border: none;
   color: #dc2626;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 13px;
   flex-shrink: 0;
 }
 
@@ -135,8 +142,8 @@
 
 .addpet-field label {
   display: block;
-  font-size: 12px;
-  color: #8D6E63;
+  font-size: 13px;
+  color: #7FB3D9;
   font-weight: 600;
   margin-bottom: 3px;
   font-family: 'Sarabun', sans-serif;
@@ -146,10 +153,10 @@
 .addpet-field select {
   width: 100%;
   padding: 6px 8px;
-  border: 0.5px solid #d6c5b8;
+  border: 0.5px solid #d6e7f2;
   border-radius: 7px;
-  font-size: 13px;
-  color: #3d2b1f;
+  font-size: 14px;
+  color: #1a1a1a;
   background: #fff;
   font-family: 'Sarabun', sans-serif;
 }
@@ -159,13 +166,19 @@
   color: #aaa;
 }
 
+.addpet-field label.addpet-cat-heading {
+  color: #2563EB;
+  font-size: 15px;
+  text-align: center;
+}
+
 .addpet-textarea {
   width: 100%;
   padding: 7px 8px;
-  border: 0.5px solid #d6c5b8;
+  border: 0.5px solid #d6e7f2;
   border-radius: 7px;
-  font-size: 13px;
-  color: #3d2b1f;
+  font-size: 14px;
+  color: #1a1a1a;
   background: #fff;
   font-family: 'Sarabun', sans-serif;
   height: 56px;
@@ -173,8 +186,8 @@
 }
 
 .addpet-age {
-  font-size: 13px;
-  color: #8D6E63;
+  font-size: 14px;
+  color: #7FB3D9;
   text-align: center;
   font-weight: 600;
   margin-top: 4px;
@@ -191,8 +204,8 @@
   display: flex;
   align-items: flex-start;
   gap: 7px;
-  font-size: 13px;
-  color: #3d2b1f;
+  font-size: 14px;
+  color: #1a1a1a;
   cursor: pointer;
   line-height: 1.4;
   font-family: 'Sarabun', sans-serif;
@@ -201,7 +214,7 @@
 .addpet-checkbox-item input[type="checkbox"] {
   width: 15px;
   height: 15px;
-  accent-color: #8D6E63;
+  accent-color: #7FB3D9;
   flex-shrink: 0;
   margin-top: 2px;
 }
@@ -213,15 +226,15 @@
 .addpet-vaccine-date {
   margin-top: 5px;
   padding: 8px 10px;
-  background: #faf7f6;
-  border: 0.5px solid #e0d6d0;
+  background: #FFFFFF;
+  border: 0.5px solid #d6e7f2;
   border-radius: 8px;
 }
 
 .addpet-vaccine-date label {
   display: block;
-  font-size: 11px;
-  color: #8D6E63;
+  font-size: 12px;
+  color: #1a1a1a;
   font-weight: 600;
   margin-bottom: 3px;
   font-family: 'Sarabun', sans-serif;
@@ -230,10 +243,10 @@
 .addpet-vaccine-date input {
   width: 100%;
   padding: 5px 8px;
-  border: 0.5px solid #d6c5b8;
+  border: 0.5px solid #d6e7f2;
   border-radius: 6px;
-  font-size: 12px;
-  color: #3d2b1f;
+  font-size: 13px;
+  color: #1a1a1a;
   background: #fff;
   font-family: 'Sarabun', sans-serif;
 }
@@ -241,8 +254,8 @@
 .addpet-disease-box {
   margin-top: 8px;
   padding: 10px 12px;
-  background: #faf7f6;
-  border: 0.5px solid #e0d6d0;
+  background: #FFFFFF;
+  border: 0.5px solid #d6e7f2;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -251,8 +264,8 @@
 
 .addpet-disease-box label {
   display: block;
-  font-size: 12px;
-  color: #8D6E63;
+  font-size: 13px;
+  color: #1a1a1a;
   font-weight: 600;
   margin-bottom: 3px;
   font-family: 'Sarabun', sans-serif;
@@ -262,10 +275,10 @@
 .addpet-disease-box textarea {
   width: 100%;
   padding: 6px 8px;
-  border: 0.5px solid #d6c5b8;
+  border: 0.5px solid #d6e7f2;
   border-radius: 6px;
-  font-size: 12px;
-  color: #3d2b1f;
+  font-size: 13px;
+  color: #1a1a1a;
   background: #fff;
   font-family: 'Sarabun', sans-serif;
   resize: vertical;
@@ -276,22 +289,22 @@
 }
 
 .addpet-behavior-label {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
-  color: #5D3A2E;
+  color: #3023ED;
   margin-bottom: 6px;
 }
 
 .btn-save {
   padding: 10px 28px;
-  background: #8D6E63;
+  background: #5C93BF;
   color: #fff;
   border: none;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   cursor: pointer;
   font-family: 'Sarabun', sans-serif;
 }
 
-.btn-save:hover { background: #7a5e55; }
+.btn-save:hover { background: #4A7FA8; }

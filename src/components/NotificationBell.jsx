@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import './NotificationBell.css';
 
-const API = 'http://localhost:8096';
+import { API_BASE_URL as API } from '../config';
 
 function NotificationBell({ userID, userRole }) {
   const navigate = useNavigate();
@@ -18,8 +18,9 @@ function NotificationBell({ userID, userRole }) {
     try {
       const res = await fetch(`${API}/api/notification/${userID}/${userRole}`);
       const data = await res.json();
-      setNotifications(Array.isArray(data) ? data : []);
-      const unread = data.filter(n => !n.isRead).length;
+      const list = Array.isArray(data) ? data : [];
+      setNotifications(list);
+      const unread = list.filter(n => !n.isRead).length;
       setUnreadCount(unread);
     } catch (err) { console.error(err); }
   };
