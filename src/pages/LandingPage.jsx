@@ -68,7 +68,6 @@ function LandingPage() {
   const [activeTab, setActiveTab] = useState('ann');
   const [announcements, setAnnouncements] = useState([]);
   const [sitters, setSitters] = useState([]);
-  const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(true);
 
   // Search state
@@ -376,7 +375,7 @@ function LandingPage() {
                             </>
                           )}
                         </div>
-                        <button className="lp-detail-btn" onClick={() => setShowModal(true)}>รายละเอียด</button>
+                        <button className="lp-detail-btn" onClick={() => navigate(`/announcement-public/${ann.announceID}`)}>รายละเอียด</button>
                       </div>
                     </div>
                   );
@@ -438,7 +437,7 @@ function LandingPage() {
                         </div>
                       </>
                     )}
-                    <button className="lp-detail-btn" onClick={() => setShowModal(true)}>ดูโปรไฟล์</button>
+                    <button className="lp-detail-btn" onClick={() => navigate(`/sitter-public/${sitter.sitterID}`)}>ดูโปรไฟล์</button>
                   </div>
                   );
                 })}
@@ -480,23 +479,6 @@ function LandingPage() {
         </div>
       )}
 
-      {/* Login Modal */}
-      {showModal && (
-        <div className="lp-modal-overlay">
-          <div className="lp-modal">
-            <div className="lp-modal-icon">🔐</div>
-            <div className="lp-modal-title">กรุณาเข้าสู่ระบบก่อน</div>
-            <div className="lp-modal-body">
-              คุณต้องเข้าสู่ระบบหรือลงทะเบียนก่อน<br/>เพื่อดูรายละเอียดเพิ่มเติมครับ
-            </div>
-            <div className="lp-modal-btns">
-              <button className="lp-modal-btn-primary" onClick={() => navigate('/login')}>เข้าสู่ระบบ</button>
-              <button className="lp-modal-btn-outline" onClick={() => navigate('/register')}>ลงทะเบียน</button>
-            </div>
-            <div className="lp-modal-cancel" onClick={() => setShowModal(false)}>ยกเลิก</div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

@@ -21,10 +21,12 @@ import EditPet from './pages/EditPet';
 
 import ExploreSitters from './pages/ExploreSitters';
 import SitterProfile from './pages/SitterProfile';
+import SitterProfilePublic from './pages/SitterProfilePublic';
 
 import AddAnnouncement from './pages/AddAnnouncement';
 import MyAnnouncements from './pages/MyAnnouncements';
 import AnnouncementDetail from './pages/AnnouncementDetail';
+import AnnouncementDetailPublic from './pages/AnnouncementDetailPublic';
 import EditAnnouncement from './pages/EditAnnouncement';
 
 import ExploreAnnouncements from './pages/ExploreAnnouncements';
@@ -54,9 +56,11 @@ function App() {
         <Route path="/edit-pet/:petID" element={<EditPet />} />
         <Route path="/explore-sitters" element={<ExploreSitters />} />
         <Route path="/sitter-profile/:sitterID" element={<SitterProfile />} />
+        <Route path="/sitter-public/:sitterID" element={<SitterProfilePublic />} />
         <Route path="/add-announcement" element={<AddAnnouncement />} />
         <Route path="/my-announcements" element={<MyAnnouncements />} />
         <Route path="/announcement-detail/:announceID" element={<AnnouncementDetail />} />
+        <Route path="/announcement-public/:announceID" element={<AnnouncementDetailPublic />} />
         <Route path="/edit-announcement/:announceID" element={<EditAnnouncement />} />
         <Route path="/explore-announcements" element={<ExploreAnnouncements />} />
         <Route path="/announcement-detail-sitter/:announceID" element={<AnnouncementDetailSitter />} />
